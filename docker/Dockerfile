@@ -1,0 +1,1 @@
+FROM opnfv/functest-core
