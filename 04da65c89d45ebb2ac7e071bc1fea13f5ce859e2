@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_23604400",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-01-12T08:05:59Z",
+      "side": 1,
+      "message": "Could we use v1.7.3 which conforms with Compass, as v1.9 is still a Beta version.",
+      "range": {
+        "startLine": 3,
+        "startChar": 12,
+        "endLine": 3,
+        "endChar": 18
+      },
+      "revId": "04da65c89d45ebb2ac7e071bc1fea13f5ce859e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
