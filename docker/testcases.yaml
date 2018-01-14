@@ -1,0 +1,23 @@
+---
+tiers:
+    -
+        name: k8s_e2e
+        order: 2
+        ci_loop: '(daily)|(weekly)'
+        description: >-
+            Test suites from feature projects
+            integrated in functest
+        testcases:
+            -
+                case_name: k8s_e2e_testing
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    Test suite from k8s e2e testing project.
+                dependencies:
+                    installer: ''
+                    scenario: ''
+                run:
+                    module: 'k8stest.k8stest'
+                    class: 'K8sSmokeTest'
