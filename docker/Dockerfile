@@ -1,5 +1,6 @@
 FROM opnfv/functest-core
 
+ARG BRANCH=master
 ARG K8S_TAG=v1.7.3
 
 RUN apk --no-cache add --update make bash go \
@@ -9,4 +10,8 @@ RUN apk --no-cache add --update make bash go \
     (cd /src/k8s.io/kubernetes && \
         make kubectl ginkgo && \
         make WHAT=test/e2e/e2e.test) && \
-    rm -rf /src/k8s.io/kubernetes/.git
+    git clone https://gerrit.opnfv.org/gerrit/functest-kubernetes /src/functest-kubernetes && \
+    (cd /src/functest-kubernetes && git fetch origin $BRANCH && git checkout FETCH_HEAD) && \
+    pip install /src/functest-kubernetes && \
+    rm -rf /src/k8s.io/kubernetes/.git /src/functest-kubernetes
+CMD ["run_tests", "-t", "all"]
