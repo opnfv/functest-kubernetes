@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_b27138aa",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-01-15T03:27:58Z",
+      "side": 1,
+      "message": "2018",
+      "revId": "07706241425f89fe07cccea1dd8e776a8576d157",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d2a31cfe",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-01-15T03:27:58Z",
+      "side": 1,
+      "message": "logging.getLogger(__name__)",
+      "revId": "07706241425f89fe07cccea1dd8e776a8576d157",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_325d2816",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-01-15T03:27:58Z",
+      "side": 1,
+      "message": "kwargs.get(\"case_name\", \u0027k8s_e2e_testing\u0027)",
+      "revId": "07706241425f89fe07cccea1dd8e776a8576d157",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
