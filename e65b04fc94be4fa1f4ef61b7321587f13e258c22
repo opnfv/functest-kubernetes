@@ -22,6 +22,29 @@
       "revId": "e65b04fc94be4fa1f4ef61b7321587f13e258c22",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3ae5fa37",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-01-17T08:23:36Z",
+      "side": 1,
+      "message": "Yes, agree with Juha. Then cmd_line shall be changed to a list rather than a string. Please refer to: https://github.com/opnfv/functest/blob/master/functest/opnfv_tests/openstack/refstack_client/refstack_client.py#L81-L82",
+      "range": {
+        "startLine": 35,
+        "startChar": 22,
+        "endLine": 35,
+        "endChar": 32
+      },
+      "revId": "e65b04fc94be4fa1f4ef61b7321587f13e258c22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
