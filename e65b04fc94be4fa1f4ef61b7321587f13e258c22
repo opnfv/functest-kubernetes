@@ -68,6 +68,29 @@
       "revId": "e65b04fc94be4fa1f4ef61b7321587f13e258c22",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9547b976",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-01-18T09:01:16Z",
+      "side": 1,
+      "message": "I would suggest leveraging super(K8sSmokeTest, self).__init__(kwargs)",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 43
+      },
+      "revId": "e65b04fc94be4fa1f4ef61b7321587f13e258c22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
