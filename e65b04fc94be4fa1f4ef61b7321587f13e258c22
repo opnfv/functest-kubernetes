@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_157c49b4",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-01-18T09:03:51Z",
+      "side": 1,
+      "message": "1",
+      "range": {
+        "startLine": 5,
+        "startChar": 15,
+        "endLine": 5,
+        "endChar": 16
+      },
+      "revId": "e65b04fc94be4fa1f4ef61b7321587f13e258c22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5551b134",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-01-18T09:03:51Z",
+      "side": 1,
+      "message": "A set of e2e tests integrated from kubernetes project.",
+      "range": {
+        "startLine": 8,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 34
+      },
+      "revId": "e65b04fc94be4fa1f4ef61b7321587f13e258c22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_7565d51c",
         "filename": "docker/testcases.yaml",
         "patchSetId": 6
@@ -18,6 +64,75 @@
         "startChar": 27,
         "endLine": 12,
         "endChar": 42
+      },
+      "revId": "e65b04fc94be4fa1f4ef61b7321587f13e258c22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b542bd65",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-01-18T09:03:51Z",
+      "side": 1,
+      "message": "Smoke Tests a running Kubernetes cluster, which validates the deployed cluster is accessible, and at least satisfies minimal functional requirements.",
+      "range": {
+        "startLine": 17,
+        "startChar": 20,
+        "endLine": 17,
+        "endChar": 60
+      },
+      "revId": "e65b04fc94be4fa1f4ef61b7321587f13e258c22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3556ad2a",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-01-18T09:03:51Z",
+      "side": 1,
+      "message": "\u0027(compass)|(joid)\u0027",
+      "range": {
+        "startLine": 19,
+        "startChar": 30,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "e65b04fc94be4fa1f4ef61b7321587f13e258c22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1553a939",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-01-18T09:03:51Z",
+      "side": 1,
+      "message": "\u0027k8-*\u0027",
+      "range": {
+        "startLine": 20,
+        "startChar": 30,
+        "endLine": 20,
+        "endChar": 32
       },
       "revId": "e65b04fc94be4fa1f4ef61b7321587f13e258c22",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
