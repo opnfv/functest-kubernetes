@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_6b2df6fd",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-01-19T10:11:04Z",
+      "side": 1,
+      "message": "\u003e Smoke Tests a running Kubernetes cluster, which validates the\n \u003e deployed cluster is accessible, and at least satisfies minimal\n \u003e functional requirements.",
+      "parentUuid": "9a3d3df0_b542bd65",
+      "range": {
+        "startLine": 17,
+        "startChar": 20,
+        "endLine": 17,
+        "endChar": 60
+      },
+      "revId": "e65b04fc94be4fa1f4ef61b7321587f13e258c22",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3556ad2a",
         "filename": "docker/testcases.yaml",
         "patchSetId": 6
