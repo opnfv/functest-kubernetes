@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_677fea15",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-01-19T10:11:04Z",
+      "side": 1,
+      "message": "1. What is the value of $KUBE_MASTER_URL? We have to read this file from env via os.getenv\n2. self.CMD shall be updated to a list.\n3. I am working on updating def source_rc_file from run_test.py in functest to testcase.py",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 89
+      },
+      "revId": "0d8d5c4ac235c011c79cbb70d83eefa8efbf6d0a",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
