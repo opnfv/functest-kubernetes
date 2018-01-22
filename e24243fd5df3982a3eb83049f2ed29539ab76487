@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ed98f91d",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 13
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-01-22T01:44:54Z",
+      "side": 1,
+      "message": "by leveraging COPY, a local testcases.yaml should be prepared before docker build, what content in it?\nI guess it is the newly added docker/testcases.yaml in this patch, and I wouldn\u0027t suggest using COPY because of the preparation work, how about employing data_files feature in setup.cfg?\n\n[files]\ndata_files \u003d \n    /usr/lib/python2.7/site-packages/functest/ci/testcases.yaml \u003d docker/testcases.yaml",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 4
+      },
+      "revId": "e24243fd5df3982a3eb83049f2ed29539ab76487",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
