@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_7644b649",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-01-22T20:57:16Z",
+      "side": 1,
+      "message": "I don\u0027t see the purpose of saving them as attributes.\nassert(\u0027DEPLOY_SCENARIO\u0027 in os.environ) is enough, no?",
+      "revId": "f87f487c04f6762add138032d1754ea8ca04bfd8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b64abe52",
+        "filename": "tox.ini",
+        "patchSetId": 18
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-01-22T20:57:16Z",
+      "side": 1,
+      "message": "please prepare py35 too. I can help if required .",
+      "revId": "f87f487c04f6762add138032d1754ea8ca04bfd8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_563ff2b3",
+        "filename": "tox.ini",
+        "patchSetId": 18
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-01-22T20:57:16Z",
+      "side": 1,
+      "message": "please remove the bash instruction which simply lists the warnings/errors.\nHere as it\u0027s a new project I would propose to force 10/10.\n\npylint --disable\u003dlocally-disabled --reports\u003dn functest_kubernetes",
+      "revId": "f87f487c04f6762add138032d1754ea8ca04bfd8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
