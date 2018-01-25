@@ -1,0 +1,9 @@
+Code-Review+2: Cedric Ollivier <cedric.ollivier@orange.com>
+Verified+1: Cedric Ollivier <cedric.ollivier@orange.com>
+Code-Review+2: valentin boucher <valentin.boucher@kontron.com>
+Code-Review+2: Serena Feng <feng.xiaowei@zte.com.cn>
+Submitted-by: Linda Wang <wangwulin@huawei.com>
+Submitted-at: Thu, 25 Jan 2018 02:11:32 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/50591
+Project: functest-kubernetes
+Branch: refs/heads/master
