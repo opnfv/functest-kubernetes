@@ -16,6 +16,7 @@ from __future__ import division
 
 import logging
 import os
+import pkg_resources
 import subprocess
 import time
 
