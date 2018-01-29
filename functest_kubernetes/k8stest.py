@@ -76,7 +76,6 @@ class K8sTesting(testcase.TestCase):
         try:
             assert 'DEPLOY_SCENARIO' in os.environ
             assert 'KUBECONFIG' in os.environ
-            assert 'KUBE_MASTER' in os.environ
             assert 'KUBE_MASTER_IP' in os.environ
             assert 'KUBERNETES_PROVIDER' in os.environ
             assert 'KUBE_MASTER_URL' in os.environ
