@@ -16,6 +16,7 @@ from __future__ import division
 
 import logging
 import os
+import pkg_resources
 import subprocess
 import time
 
@@ -34,6 +35,9 @@ class K8sTesting(testcase.TestCase):
         self.result = 0
         self.start_time = 0
         self.stop_time = 0
+
+        logging.config.fileConfig(pkg_resources.resource_filename(
+            'functest_kubernetes', 'logging.ini'))
 
     def run_kubetest(self):
         """Run the test suites"""
