@@ -15,4 +15,5 @@ RUN apk --no-cache add --update make bash go \
     pip install /src/functest-kubernetes && \
     rm -rf /src/k8s.io/kubernetes/.git /src/functest-kubernetes
 COPY testcases.yaml /usr/lib/python2.7/site-packages/functest/ci/testcases.yaml
+COPY logging.ini /usr/lib/python2.7/site-packages/functest/ci/logging.ini
 CMD ["run_tests", "-t", "all"]
