@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e58bdb1c",
+        "filename": "docker/logging.ini",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-02-01T12:02:50Z",
+      "side": 1,
+      "message": "[logger_functest]?",
+      "revId": "a99e685050fd7021ef4e3061feba5d0a2ca092ce",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
