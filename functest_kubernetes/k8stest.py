@@ -93,3 +93,14 @@ class K8sSmokeTest(K8sTesting):
         self.check_envs()
         self.cmd = ['/src/k8s.io/kubernetes/cluster/test-smoke.sh', '--host',
                     os.getenv('KUBE_MASTER_URL')]
+
+
+class K8sConformanceTest(K8sTesting):
+    """Kubernetes conformance test suite"""
+    def __init__(self, **kwargs):
+        if "case_name" not in kwargs:
+            kwargs.get("case_name", 'k8s_conformance')
+        super(K8sConformanceTest, self).__init__(**kwargs)
+        self.check_envs()
+        self.cmd = ['/src/k8s.io/kubernetes/_output/bin/e2e.test',
+                    '--ginkgo.focus', 'Conformance']
