@@ -16,6 +16,7 @@ from __future__ import division
 
 import logging
 import os
+import re
 import subprocess
 import time
 
@@ -42,14 +43,34 @@ class K8sTesting(testcase.TestCase):
 
         process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
-        remark = []
-        lines = process.stdout.readlines()
-        for i in range(len(lines) - 1, -1, -1):
-            new_line = str(lines[i])
+        output = process.stdout.read()
+        # Remove color code escape sequences
+        output = re.sub(r'\x1B\[[0-?]*[ -/]*[@-~]', '', str(output))
 
-            if 'SUCCESS!' in new_line or 'FAIL!' in new_line:
-                remark = new_line.replace('--', '|').split('|')
+        file_logger = logging.getLogger(self.case_name)
+        handler = logging.FileHandler(
+            '/home/opnfv/functest/results/{0}.log'.format(self.case_name))
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        handler.setFormatter(formatter)
+        handler.setLevel(logging.DEBUG)
+        file_logger.addHandler(handler)
+        remark = []
+        lines = output.split('\n')
+        i = 0
+        while i < len(lines):
+            if '[k8s.io]' in lines[i]:
+                if i != 0 and 'seconds' in lines[i-1]:
+                     file_logger.debug(lines[i-1])
+                while lines[i] != '-'*len(lines[i]):
+                    if lines[i].startswith('STEP:') or ('INFO:' in lines[i]):
+                        break
+                    file_logger.debug(lines[i])
+                    i = i+1
+            if 'SUCCESS!' in lines[i] or 'FAIL!' in lines[i]:
+                remark = lines[i].replace('--', '|').split('|')
                 break
+            i = i+1
 
         if remark and 'SUCCESS!' in remark[0]:
             self.result = 100
@@ -93,3 +114,14 @@ class K8sSmokeTest(K8sTesting):
         self.check_envs()
         self.cmd = ['/src/k8s.io/kubernetes/cluster/test-smoke.sh', '--host',
                     os.getenv('KUBE_MASTER_URL')]
+
+
+class K8sConformanceTest(K8sTesting):
+    """Kubernetes conformance test suite"""
+    def __init__(self, **kwargs):
+        if "case_name" not in kwargs:
+            kwargs.get("case_name", 'k8s_conformance')
+        super(K8sConformanceTest, self).__init__(**kwargs)
+        self.check_envs()
+        self.cmd = ['/src/k8s.io/kubernetes/_output/bin/e2e.test',
+                    '--ginkgo.focus', 'Conformance']
