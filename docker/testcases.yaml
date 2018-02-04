@@ -22,3 +22,19 @@ tiers:
                 run:
                     module: 'functest_kubernetes.k8stest'
                     class: 'K8sSmokeTest'
+
+            -
+                case_name: k8s_conformance
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    Conformance Tests are expect to pass on any Kubernetes
+                    cluster, this tests are necessary demonstrate conformance
+                    of the Kubernetes deployment.
+                dependencies:
+                    installer: '(compass)|(joid)'
+                    scenario: 'k8-*'
+                run:
+                    module: 'functest_kubernetes.k8stest'
+                    class: 'K8sConformanceTest'
