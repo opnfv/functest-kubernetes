@@ -16,6 +16,7 @@ from __future__ import division
 
 import logging
 import os
+import re
 import subprocess
 import time
 
@@ -44,9 +45,10 @@ class K8sTesting(testcase.TestCase):
                                    stderr=subprocess.STDOUT)
         remark = []
         lines = process.stdout.readlines()
-        for i in range(len(lines) - 1, -1, -1):
-            new_line = str(lines[i])
-
+        for line in lines:
+            # Remove color code escape sequences
+            new_line = re.sub(r'\x1B\[[0-?]*[ -/]*[@-~]', '', str(line))
+            LOGGER.debug(new_line)
             if 'SUCCESS!' in new_line or 'FAIL!' in new_line:
                 remark = new_line.replace('--', '|').split('|')
                 break
@@ -93,3 +95,14 @@ class K8sSmokeTest(K8sTesting):
         self.check_envs()
         self.cmd = ['/src/k8s.io/kubernetes/cluster/test-smoke.sh', '--host',
                     os.getenv('KUBE_MASTER_URL')]
+
+
+class K8sConformanceTest(K8sTesting):
+    """Kubernetes conformance test suite"""
+    def __init__(self, **kwargs):
+        if "case_name" not in kwargs:
+            kwargs.get("case_name", 'k8s_conformance')
+        super(K8sConformanceTest, self).__init__(**kwargs)
+        self.check_envs()
+        self.cmd = ['/src/k8s.io/kubernetes/_output/bin/e2e.test',
+                    '--ginkgo.focus', 'Conformance']
