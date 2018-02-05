@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_4ccd8c65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-02-05T04:20:21Z",
+      "side": 1,
+      "message": "Could we add the jira ticket line here?\nJIRA: FUNCTEST-905",
+      "revId": "8f5e7ccd4b601b51ed887cb81a813c12b20e11c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8cc31437",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-02-05T04:20:21Z",
+      "side": 1,
+      "message": "For conformance tests, we have to parse the results from the orgininal log file. So:\n1) a much cleaner log file containing all the sub tests passed/failed/skipped and a short result report is expected, see refstack for reference: http://artifacts.opnfv.org/logs/functest/lf-pod1/2018-01-26_11-02-53/refstack/refstack.log\n2) I also suggest all the sub tests running result copied to functest.log too.",
+      "revId": "8f5e7ccd4b601b51ed887cb81a813c12b20e11c8",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
