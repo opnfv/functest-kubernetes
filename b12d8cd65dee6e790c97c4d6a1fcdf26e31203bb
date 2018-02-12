@@ -33,6 +33,24 @@
       "revId": "b12d8cd65dee6e790c97c4d6a1fcdf26e31203bb",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_a3ab5ed5",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 7049
+      },
+      "writtenOn": "2018-02-12T23:03:03Z",
+      "side": 1,
+      "message": "Hello Cedric, \n\nI may need some help with this, since I am not very experienced with using python logging. I used https://github.com/opnfv/functest/blob/master/functest/core/feature.py#L46 as the reference point for my previous implementation. I have updated the patch but I am not sure if it is entirely what you suggested.",
+      "parentUuid": "5a3f45e8_8083b8cb",
+      "revId": "b12d8cd65dee6e790c97c4d6a1fcdf26e31203bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
