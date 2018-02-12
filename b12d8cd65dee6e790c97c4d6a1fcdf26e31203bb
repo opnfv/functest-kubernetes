@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_e3b56632",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 7049
+      },
+      "writtenOn": "2018-02-12T23:20:53Z",
+      "side": 1,
+      "message": "Please, I would need some clarification, as I do not understand what you are referring to.",
+      "parentUuid": "5a3f45e8_4079b0fb",
+      "revId": "b12d8cd65dee6e790c97c4d6a1fcdf26e31203bb",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8083b8cb",
         "filename": "functest_kubernetes/k8stest.py",
         "patchSetId": 9
