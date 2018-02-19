@@ -1,0 +1,8 @@
+git+https://gerrit.opnfv.org/gerrit/releng#egg=opnfv&subdirectory=modules
+git+https://gerrit.opnfv.org/gerrit/snaps#egg=snaps
+openbaton-cli===2.2.1b7
+robotframework===3.0.2
+IPy===0.83
+ansible===2.3.2.0
+flasgger===0.6.6
+yamllint===1.10.0
