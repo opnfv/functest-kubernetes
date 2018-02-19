@@ -15,5 +15,6 @@ nosetests.xml
 functest-kubernetes.egg-info
 *venv
 .tox
+*.egg-info
 *.out
 *.pdf
