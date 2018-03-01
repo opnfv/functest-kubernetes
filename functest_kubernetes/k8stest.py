@@ -20,7 +20,7 @@ import re
 import subprocess
 import time
 
-from functest.core import testcase
+from xtesting.core import testcase
 
 
 LOGGER = logging.getLogger(__name__)
