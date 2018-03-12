@@ -17,7 +17,7 @@ tiers:
                     validates the deployed cluster is accessible, and
                     at least satisfies minimal functional requirements.
                 dependencies:
-                    installer: '(compass)|(joid)'
+                    installer: '(compass)|(joid)|(kubespray)'
                     scenario: 'k8-*'
                 run:
                     module: 'functest_kubernetes.k8stest'
@@ -33,7 +33,7 @@ tiers:
                     cluster, this tests are necessary demonstrate conformance
                     of the Kubernetes deployment.
                 dependencies:
-                    installer: '(compass)|(joid)'
+                    installer: '(compass)|(joid)|(kubespray)'
                     scenario: 'k8-*'
                 run:
                     module: 'functest_kubernetes.k8stest'
