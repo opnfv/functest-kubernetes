@@ -23,11 +23,10 @@ import time
 from xtesting.core import testcase
 
 
-LOGGER = logging.getLogger(__name__)
-
-
 class K8sTesting(testcase.TestCase):
     """Kubernetes test runner"""
+
+    __logger = logging.getLogger(__name__)
 
     def __init__(self, **kwargs):
         super(K8sTesting, self).__init__(**kwargs)
@@ -39,7 +38,7 @@ class K8sTesting(testcase.TestCase):
     def run_kubetest(self):  # pylint: disable=too-many-branches
         """Run the test suites"""
         cmd_line = self.cmd
-        LOGGER.info("Starting k8s test: '%s'.", cmd_line)
+        self.__logger.info("Starting k8s test: '%s'.", cmd_line)
 
         process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
@@ -47,18 +46,17 @@ class K8sTesting(testcase.TestCase):
         # Remove color code escape sequences
         output = re.sub(r'\x1B\[[0-?]*[ -/]*[@-~]', '', str(output))
 
-        file_logger = logging.getLogger(self.case_name)
         remarks = []
         lines = output.split('\n')
         i = 0
         while i < len(lines):
             if '[k8s.io]' in lines[i]:
                 if i != 0 and 'seconds' in lines[i-1]:
-                    file_logger.debug(lines[i-1])
+                    self.__logger.debug(lines[i-1])
                 while lines[i] != '-'*len(lines[i]):
                     if lines[i].startswith('STEP:') or ('INFO:' in lines[i]):
                         break
-                    file_logger.debug(lines[i])
+                    self.__logger.debug(lines[i])
                     i = i+1
 
             success = 'SUCCESS!' in lines[i]
@@ -70,17 +68,17 @@ class K8sTesting(testcase.TestCase):
                 break
             i = i+1
 
-        file_logger.debug('-'*10)
-        file_logger.debug("Remarks:")
+        self.__logger.debug('-'*10)
+        self.__logger.info("Remarks:")
         for remark in remarks:
             if 'seconds' in remark:
-                file_logger.debug(remark)
+                self.__logger.debug(remark)
             elif 'Passed' in remark:
-                file_logger.debug("Passed: %s", remark.split()[0])
+                self.__logger.info("Passed: %s", remark.split()[0])
             elif 'Skipped' in remark:
-                file_logger.debug("Skipped: %s", remark.split()[0])
+                self.__logger.info("Skipped: %s", remark.split()[0])
             elif 'Failed' in remark:
-                file_logger.debug("Failed: %s", remark.split()[0])
+                self.__logger.info("Failed: %s", remark.split()[0])
 
         if success:
             self.result = 100
@@ -90,15 +88,16 @@ class K8sTesting(testcase.TestCase):
     def run(self, **kwargs):
 
         if not os.path.isfile(os.getenv('KUBECONFIG')):
-            LOGGER.error("Cannot run k8s testcases. Config file not found ")
+            self.__logger.error(
+                "Cannot run k8s testcases. Config file not found ")
             return self.EX_RUN_ERROR
 
         self.start_time = time.time()
         try:
             self.run_kubetest()
             res = self.EX_OK
-        except Exception as ex:  # pylint: disable=broad-except
-            LOGGER.error("Error with running %s", str(ex))
+        except Exception:  # pylint: disable=broad-except
+            self.__logger.exception("Error with running kubetest:")
             res = self.EX_RUN_ERROR
 
         self.stop_time = time.time()
