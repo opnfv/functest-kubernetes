@@ -1,7 +1,7 @@
 ---
 tiers:
     -
-        name: k8s_e2e
+        name: healthcheck
         order: 1
         ci_loop: '(daily)|(weekly)'
         description: >-
@@ -23,6 +23,13 @@ tiers:
                     module: 'functest_kubernetes.k8stest'
                     class: 'K8sSmokeTest'
 
+    -
+        name: smoke
+        order: 2
+        ci_loop: '(daily)|(weekly)'
+        description: >-
+            A set of conformance tests integrated from kubernetes project.
+        testcases:
             -
                 case_name: k8s_conformance
                 project_name: functest
