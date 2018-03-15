@@ -87,11 +87,6 @@ class K8sTesting(testcase.TestCase):
 
     def run(self, **kwargs):
 
-        if not os.path.isfile(os.getenv('KUBECONFIG')):
-            self.__logger.error(
-                "Cannot run k8s testcases. Config file not found ")
-            return self.EX_RUN_ERROR
-
         self.start_time = time.time()
         try:
             self.run_kubetest()
@@ -107,7 +102,6 @@ class K8sTesting(testcase.TestCase):
         """Check if required environment variables are set"""
         try:
             assert 'DEPLOY_SCENARIO' in os.environ
-            assert 'KUBECONFIG' in os.environ
             assert 'KUBE_MASTER_IP' in os.environ
             assert 'KUBERNETES_PROVIDER' in os.environ
             assert 'KUBE_MASTER_URL' in os.environ
