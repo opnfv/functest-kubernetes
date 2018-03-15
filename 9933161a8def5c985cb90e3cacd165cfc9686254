@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_01d765c0",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-03-15T09:26:44Z",
+      "side": 1,
+      "message": "We could simply modify the call\nKUBECONFIG\u003d\"/...\" /src/k8s.io/kubernetes/_output/bin/e2e.test",
+      "revId": "9933161a8def5c985cb90e3cacd165cfc9686254",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
