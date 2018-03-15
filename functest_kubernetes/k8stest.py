@@ -51,24 +51,24 @@ class K8sTesting(testcase.TestCase):
         i = 0
         while i < len(lines):
             if '[k8s.io]' in lines[i]:
-                if i != 0 and 'seconds' in lines[i-1]:
-                    self.__logger.debug(lines[i-1])
-                while lines[i] != '-'*len(lines[i]):
+                if i != 0 and 'seconds' in lines[i - 1]:
+                    self.__logger.debug(lines[i - 1])
+                while lines[i] != '-' * len(lines[i]):
                     if lines[i].startswith('STEP:') or ('INFO:' in lines[i]):
                         break
                     self.__logger.debug(lines[i])
-                    i = i+1
+                    i = i + 1
 
             success = 'SUCCESS!' in lines[i]
             failure = 'FAIL!' in lines[i]
             if success or failure:
-                if i != 0 and 'seconds' in lines[i-1]:
-                    remarks.append(lines[i-1])
+                if i != 0 and 'seconds' in lines[i - 1]:
+                    remarks.append(lines[i - 1])
                 remarks = remarks + lines[i].replace('--', '|').split('|')
                 break
-            i = i+1
+            i = i + 1
 
-        self.__logger.debug('-'*10)
+        self.__logger.debug('-' * 10)
         self.__logger.info("Remarks:")
         for remark in remarks:
             if 'seconds' in remark:
@@ -87,11 +87,6 @@ class K8sTesting(testcase.TestCase):
 
     def run(self, **kwargs):
 
-        if not os.path.isfile(os.getenv('KUBECONFIG')):
-            self.__logger.error(
-                "Cannot run k8s testcases. Config file not found ")
-            return self.EX_RUN_ERROR
-
         self.start_time = time.time()
         try:
             self.run_kubetest()
@@ -107,7 +102,6 @@ class K8sTesting(testcase.TestCase):
         """Check if required environment variables are set"""
         try:
             assert 'DEPLOY_SCENARIO' in os.environ
-            assert 'KUBECONFIG' in os.environ
             assert 'KUBE_MASTER_IP' in os.environ
             assert 'KUBERNETES_PROVIDER' in os.environ
             assert 'KUBE_MASTER_URL' in os.environ
@@ -135,4 +129,5 @@ class K8sConformanceTest(K8sTesting):
         super(K8sConformanceTest, self).__init__(**kwargs)
         self.check_envs()
         self.cmd = ['/src/k8s.io/kubernetes/_output/bin/e2e.test',
-                    '--ginkgo.focus', 'Conformance']
+                    '-ginkgo.focus', 'Conformance',
+                    '-kubeconfig', '/root/.kube/config']
