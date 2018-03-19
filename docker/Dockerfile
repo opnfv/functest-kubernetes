@@ -1,7 +1,7 @@
 FROM alpine:3.7
 
 ARG BRANCH=master
-ARG K8S_TAG=v1.7.3
+ARG K8S_TAG=v1.9.4
 ARG OPENSTACK_TAG=stable/pike
 
 RUN apk --no-cache add --update make py-pip bash git go \
