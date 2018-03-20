@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_7710a201",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-03-20T07:34:49Z",
+      "side": 1,
+      "message": "I will update this part for you.\nHere we could rely on pip for this operations (+external file)",
+      "revId": "37a672b3318d5967a0ee14dcd8367ba67bf16ae1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
