@@ -12,6 +12,7 @@ RUN apk --no-cache add --update make py-pip bash git go \
         make kubectl ginkgo && \
         make WHAT=test/e2e/e2e.test && \
         mv _output/bin/kubectl /usr/local/bin) && \
+    git clone https://gerrit.opnfv.org/gerrit/stor4nfv /src/stor4nfv && \
     git clone https://gerrit.opnfv.org/gerrit/functest-kubernetes /src/functest-kubernetes && \
     (cd /src/functest-kubernetes && git fetch origin $BRANCH && git checkout FETCH_HEAD) && \
     pip install /src/functest-kubernetes \
