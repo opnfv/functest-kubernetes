@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5d5ca5ed",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-03-20T15:15:34Z",
+      "side": 0,
+      "message": "we could check the class attribute anyway instead of the env var.",
+      "revId": "2ea75eb18b47d27811aa74e871387236c7d4ed0f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
