@@ -22,6 +22,30 @@
       "revId": "9447a0f6fb4a7cedcfb168cf196890a452ce6a7c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_c2844db3",
+        "filename": "functest_kubernetes/k8stest.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-03-22T02:39:48Z",
+      "side": 1,
+      "message": "I think it\u0027s fine to select only one path inside our container. Then all installers should set the right volume.",
+      "parentUuid": "5a3f45e8_0273d515",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 42
+      },
+      "revId": "9447a0f6fb4a7cedcfb168cf196890a452ce6a7c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
