@@ -23,7 +23,6 @@ class K8sTests(unittest.TestCase):
 
     def setUp(self):
         os.environ["DEPLOY_SCENARIO"] = "k8-test"
-        os.environ["KUBECONFIG"] = "/home/config"
         os.environ["KUBE_MASTER_IP"] = "127.0.0.1"
         os.environ["KUBE_MASTER_URL"] = "https://127.0.0.1:6443"
         os.environ["KUBERNETES_PROVIDER"] = "local"
@@ -35,9 +34,6 @@ class K8sTests(unittest.TestCase):
 
     def test_no_deploy_scenario(self):
         self._test_no_env_var("DEPLOY_SCENARIO")
-
-    def test_no_kubeconfig(self):
-        self._test_no_env_var("KUBECONFIG")
 
     def test_no_kube_master_ip(self):
         self._test_no_env_var("KUBE_MASTER_IP")
