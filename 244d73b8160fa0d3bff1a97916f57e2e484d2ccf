@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_0852cb12",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-03-28T16:21:07Z",
+      "side": 1,
+      "message": "ok. it\u0027s a new python package",
+      "parentUuid": "5a3f45e8_a83bd7cf",
+      "revId": "244d73b8160fa0d3bff1a97916f57e2e484d2ccf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_8836dbe5",
         "filename": "docker/testcases.yaml",
         "patchSetId": 2
