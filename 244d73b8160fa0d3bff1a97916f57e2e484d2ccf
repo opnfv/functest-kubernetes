@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_a83bd7cf",
+        "filename": "docker/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-03-28T16:17:04Z",
+      "side": 1,
+      "message": "clover is required by stor4nfv-test, isn\u0027t it?\nThen it should be declared in your packages.",
+      "revId": "244d73b8160fa0d3bff1a97916f57e2e484d2ccf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8836dbe5",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-03-28T16:17:04Z",
+      "side": 1,
+      "message": "features",
+      "revId": "244d73b8160fa0d3bff1a97916f57e2e484d2ccf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
