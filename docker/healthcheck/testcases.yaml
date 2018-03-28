@@ -17,7 +17,7 @@ tiers:
                     validates the deployed cluster is accessible, and
                     at least satisfies minimal functional requirements.
                 dependencies:
-                    installer: '(compass)|(joid)|(kubespray)'
+                    installer: '(compass)|(joid)|(kubespray)|(container4nfv)'
                     scenario: 'k8-*'
                 run:
                     module: 'functest_kubernetes.k8stest'
