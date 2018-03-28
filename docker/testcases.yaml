@@ -67,3 +67,25 @@ tiers:
                 run:
                     module: 'stor4nfv_tests.stor4nfv_k8s'
                     class: 'K8sStor4nfvTest'
+
+    -
+        name: clover
+        order: 4
+        ci_loop: '(daily)|(weekly)'
+        description: >-
+            Test suite from Clover project.
+        testcases:
+            -
+                case_name: clover_k8s
+                project_name: clover
+                criteria: 100
+                blocking: false
+                description: >-
+                    This tests are necessary demonstrate features
+                    of K8s+Istio+Clover deployment.
+                dependencies:
+                    installer: 'container4nfv'
+                    scenario: 'clover'
+                run:
+                    module: 'clover.functest.clover_k8s'
+                    class: 'K8sCloverTest'
