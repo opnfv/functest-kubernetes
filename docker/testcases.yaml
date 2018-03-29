@@ -3,7 +3,7 @@ tiers:
     -
         name: healthcheck
         order: 1
-        ci_loop: '(daily)|(weekly)'
+        ci_loop: '(merge)|(verify)|(daily)|(weekly)'
         description: >-
             A set of e2e tests integrated from kubernetes project.
         testcases:
@@ -26,7 +26,7 @@ tiers:
     -
         name: smoke
         order: 2
-        ci_loop: '(daily)|(weekly)'
+        ci_loop: '(merge)|(verify)|(daily)|(weekly)'
         description: >-
             A set of conformance tests integrated from kubernetes project.
         testcases:
