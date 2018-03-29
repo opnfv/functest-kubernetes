@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_089acb13",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 4469
+      },
+      "writtenOn": "2018-03-29T02:14:52Z",
+      "side": 1,
+      "message": "Not sure how this configuration works. But do we consider container4nfv as an installer?",
+      "range": {
+        "startLine": 87,
+        "startChar": 32,
+        "endLine": 87,
+        "endChar": 45
+      },
+      "revId": "c2ad1970f54c2f8b88d1b9ec5ce1835cba03c61c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
