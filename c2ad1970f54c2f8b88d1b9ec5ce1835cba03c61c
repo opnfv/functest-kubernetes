@@ -22,6 +22,30 @@
       "revId": "c2ad1970f54c2f8b88d1b9ec5ce1835cba03c61c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_084f6b93",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2018-03-29T04:02:35Z",
+      "side": 1,
+      "message": "We need set installer and scenario name in this file, functest-xtesting needs use this info to match INSTALLER_TYPE, DEPLOY_SCENARIO env.\n\ncontainer4nfv is not standard installer in opnfv, but actually it use vagrant + kubeadm + wrapper sctipts they did mini k8s installer work. Use conatiner4nfv is the easiest way for us to demostrate clover team\u0027s work in F release. In the following release, we could use standard installer like compass4nfv, joid, etc.\n\nBTW, here is compass4nfv\u0027s functest sample: https://build.opnfv.org/ci/job/functest-compass-virtual-daily-master/127/console",
+      "parentUuid": "5a3f45e8_089acb13",
+      "range": {
+        "startLine": 87,
+        "startChar": 32,
+        "endLine": 87,
+        "endChar": 45
+      },
+      "revId": "c2ad1970f54c2f8b88d1b9ec5ce1835cba03c61c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
