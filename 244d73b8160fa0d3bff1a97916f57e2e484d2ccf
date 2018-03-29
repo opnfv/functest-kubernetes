@@ -51,6 +51,24 @@
       "revId": "244d73b8160fa0d3bff1a97916f57e2e484d2ccf",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_685c2f7f",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2018-03-29T01:40:17Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "5a3f45e8_8836dbe5",
+      "revId": "244d73b8160fa0d3bff1a97916f57e2e484d2ccf",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
