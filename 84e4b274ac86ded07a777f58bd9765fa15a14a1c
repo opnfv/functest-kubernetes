@@ -16,6 +16,24 @@
       "revId": "84e4b274ac86ded07a777f58bd9765fa15a14a1c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0260e7a3",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 423
+      },
+      "writtenOn": "2018-03-30T22:23:44Z",
+      "side": 1,
+      "message": "Sorry I don\u0027t want to add container4nfv here, the following are the reasons.\n(If you still think container4nfv needs run k8s_conformance, I could add :).)\n\nI do not think it is necessary to run k8s_conformance for container4nfv:\n    - run k8s_conformance takes too lang time(about 1 hour)\n    - container4nfv just use kubeadm to install k8s(kubeadm is k8s community official k8s installing tool), it should pass k8s_conformance. Here is the kube-master setup script:\n    https://git.opnfv.org/container4nfv/tree/src/vagrant/kubeadm_istio/master_setup.sh\n    - k8s_smoke for simply verifing k8s works well, clover_k8s covers clover specific testcases is enough for now.\n\nI\u0027ve run k8s_conformance on my local env it took about one hour and passed. And I also checked one on-line [compass4nfv\u0027 functest log](https://build.opnfv.org/ci/job/functest-compass-virtual-daily-master/127/console). It also took about one hour to run. \n\n|     k8s_conformance     |     functest     |      57:54       |      PASS      |",
+      "parentUuid": "5a3f45e8_a2bad307",
+      "revId": "84e4b274ac86ded07a777f58bd9765fa15a14a1c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
