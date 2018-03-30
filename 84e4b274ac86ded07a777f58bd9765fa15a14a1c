@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_a2bad307",
+        "filename": "docker/testcases.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-03-30T20:36:08Z",
+      "side": 1,
+      "message": "container4nfv here as well?",
+      "revId": "84e4b274ac86ded07a777f58bd9765fa15a14a1c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
