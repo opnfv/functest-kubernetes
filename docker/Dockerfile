@@ -21,7 +21,7 @@ RUN apk --no-cache add --update make py-pip bash git go \
     pip install \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -chttps://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=$OPENSTACK_TAG \
-	/src/functest-kubernetes stor4nfv-tests && \
+        /src/functest-kubernetes stor4nfv-tests clover && \
     rm -rf /src/k8s.io/kubernetes/.git /src/functest-kubernetes && \
     bash -c "mkdir -p /var/lib/xtesting /home/opnfv" && \
     ln -s /var/lib/xtesting /home/opnfv/functest && \
