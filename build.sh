@@ -17,7 +17,7 @@ for dir in ${amd64_dirs}; do
     docker push "${repo}/functest-kubernetes-${dir##**/}"
     [ "${dir}" != "docker/core" ] && (docker rmi "${repo}/functest-kubernetes-${dir##**/}" || true)
 done
-[ ! -z "${amd64_dirs}" ] && (docker rmi "${repo}/functest-kubernetes-core:latest" alpine:3.7 || true)
+[ ! -z "${amd64_dirs}" ] && (docker rmi "${repo}/functest-kubernetes-healthcheck" "${repo}/functest-kubernetes-core" alpine:3.7 || true)
 find . -name Dockerfile -exec git checkout {} +
 
 exit $?
