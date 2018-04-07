@@ -1,0 +1,24 @@
+---
+tiers:
+    -
+        name: smoke
+        order: 2
+        ci_loop: '(merge)|(verify)|(daily)|(weekly)'
+        description: >-
+            A set of conformance tests integrated from kubernetes project.
+        testcases:
+            -
+                case_name: k8s_conformance
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    Conformance Tests are expect to pass on any Kubernetes
+                    cluster, this tests are necessary demonstrate conformance
+                    of the Kubernetes deployment.
+                dependencies:
+                    installer: '(compass)|(joid)|(kubespray)'
+                    scenario: 'k8-*'
+                run:
+                    module: 'functest_kubernetes.k8stest'
+                    class: 'K8sConformanceTest'

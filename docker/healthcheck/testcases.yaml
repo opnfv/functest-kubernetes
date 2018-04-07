@@ -1,0 +1,24 @@
+---
+tiers:
+    -
+        name: healthcheck
+        order: 1
+        ci_loop: '(merge)|(verify)|(daily)|(weekly)'
+        description: >-
+            A set of e2e tests integrated from kubernetes project.
+        testcases:
+            -
+                case_name: k8s_smoke
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    Smoke Tests a running Kubernetes cluster, which
+                    validates the deployed cluster is accessible, and
+                    at least satisfies minimal functional requirements.
+                dependencies:
+                    installer: '(compass)|(joid)|(kubespray)'
+                    scenario: 'k8-*'
+                run:
+                    module: 'functest_kubernetes.k8stest'
+                    class: 'K8sSmokeTest'
