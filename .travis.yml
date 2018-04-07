@@ -1,0 +1,29 @@
+---
+sudo: required
+language: generic
+services: docker
+
+before_script:
+  - sudo -E docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+
+jobs:
+  include:
+    - stage: build functest-kubernetes-core image
+      script: sudo -E bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs="docker/core"
+    - stage: build functest-kubernetes-[healthcheck,features] image
+      script: sudo -E bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs="docker/healthcheck"
+    - script: sudo -E bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs="docker/features"
+    - stage: build functest-kubernetes-smoke
+      script: sudo -E bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs="docker/smoke"
