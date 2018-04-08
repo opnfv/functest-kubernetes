@@ -90,7 +90,7 @@ class K8sTesting(testcase.TestCase):
 
         if not os.path.isfile(self.config):
             self.__logger.error(
-                "Cannot run k8s testcases. Config file not found ")
+                "Cannot run k8s testcases. Config file not found")
             return self.EX_RUN_ERROR
 
         self.start_time = time.time()
