@@ -1,0 +1,8 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Linda Wang <wangwulin@huawei.com>
+Code-Review+2: Cedric Ollivier <cedric.ollivier@orange.com>
+Submitted-by: Cedric Ollivier <cedric.ollivier@orange.com>
+Submitted-at: Mon, 09 Apr 2018 08:17:51 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/55131
+Project: functest-kubernetes
+Branch: refs/heads/stable/fraser
