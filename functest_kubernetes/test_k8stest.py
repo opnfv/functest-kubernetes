@@ -44,6 +44,19 @@ class K8sTests(unittest.TestCase):
     def test_no_kubernetes_provider(self):
         self._test_no_env_var("KUBERNETES_PROVIDER")
 
+    def test_run_kubetest_cmd_none(self):
+        self.k8stesting.cmd = None
+        with self.assertRaises(TypeError):
+            self.k8stesting.run_kubetest()
+
+    @mock.patch('functest_kubernetes.k8stest.os.path.isfile')
+    @mock.patch('functest_kubernetes.k8stest.subprocess.Popen')
+    def test_run(self, mock_open, mock_isfile):
+        self.assertEquals(self.k8stesting.run(),
+                          testcase.TestCase.EX_OK)
+        mock_isfile.assert_called()
+        mock_open.assert_called()
+
 
 if __name__ == "__main__":
     logging.disable(logging.CRITICAL)
