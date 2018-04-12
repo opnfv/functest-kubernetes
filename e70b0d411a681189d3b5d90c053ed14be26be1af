@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_f3fc9874",
+        "filename": "doc/pres/ons2018/ons2018-functest-kubernetes.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5441
+      },
+      "writtenOn": "2018-04-12T07:48:49Z",
+      "side": 1,
+      "message": "Space to be removed",
+      "revId": "e70b0d411a681189d3b5d90c053ed14be26be1af",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
