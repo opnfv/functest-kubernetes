@@ -13,7 +13,7 @@ tiers:
                 criteria: 100
                 blocking: false
                 description: >-
-                    This tests are necessary demonstrate conformance
+                    This tests are necessary to demonstrate conformance
                     of the K8s+Stor4NFV deployment.
                 dependencies:
                     installer: 'compass'
@@ -35,7 +35,7 @@ tiers:
                 criteria: 100
                 blocking: false
                 description: >-
-                    This tests are necessary demonstrate features
+                    This tests are necessary to demonstrate features
                     of K8s+Istio+Clover deployment.
                 dependencies:
                     installer: 'container4nfv'
