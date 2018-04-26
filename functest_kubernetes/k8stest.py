@@ -21,6 +21,7 @@ import subprocess
 import time
 
 from xtesting.core import testcase
+from xtesting.utils import env
 
 
 class K8sTesting(testcase.TestCase):
@@ -35,6 +36,10 @@ class K8sTesting(testcase.TestCase):
         self.result = 0
         self.start_time = 0
         self.stop_time = 0
+        env.INPUTS['DEPLOY_SCENARIO'] = os.getenv('DEPLOY_SCENARIO')
+        env.INPUTS['INSTALLER_TYPE'] = os.getenv('INSTALLER_TYPE',
+                                                 'k8-nosdn-nofeature-ha')
+        env.INPUTS['KUBE_MASTER_URL'] = os.getenv('KUBE_MASTER_URL')
 
     def run_kubetest(self):  # pylint: disable=too-many-branches
         """Run the test suites"""
@@ -108,6 +113,7 @@ class K8sTesting(testcase.TestCase):
         """Check if required environment variables are set"""
         try:
             assert 'DEPLOY_SCENARIO' in os.environ
+            assert 'INSTALLER_TYPE' in os.environ
             assert 'KUBE_MASTER_IP' in os.environ
             assert 'KUBERNETES_PROVIDER' in os.environ
             assert 'KUBE_MASTER_URL' in os.environ
@@ -124,7 +130,7 @@ class K8sSmokeTest(K8sTesting):
         super(K8sSmokeTest, self).__init__(**kwargs)
         self.check_envs()
         self.cmd = ['/src/k8s.io/kubernetes/cluster/test-smoke.sh', '--host',
-                    os.getenv('KUBE_MASTER_URL')]
+                    env.get('KUBE_MASTER_URL')]
 
 
 class K8sConformanceTest(K8sTesting):
