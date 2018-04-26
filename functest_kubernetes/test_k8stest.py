@@ -25,7 +25,6 @@ class K8sTests(unittest.TestCase):
     # pylint: disable=missing-docstring
 
     def setUp(self):
-        os.environ["DEPLOY_SCENARIO"] = "k8-test"
         os.environ["KUBE_MASTER_IP"] = "127.0.0.1"
         os.environ["KUBE_MASTER_URL"] = "https://127.0.0.1:6443"
         os.environ["KUBERNETES_PROVIDER"] = "local"
@@ -36,9 +35,6 @@ class K8sTests(unittest.TestCase):
         del os.environ[var]
         with self.assertRaises(Exception):
             k8stest.K8sTesting().check_envs()
-
-    def test_no_deploy_scenario(self):
-        self._test_no_env_var("DEPLOY_SCENARIO")
 
     def test_no_kube_master_ip(self):
         self._test_no_env_var("KUBE_MASTER_IP")
