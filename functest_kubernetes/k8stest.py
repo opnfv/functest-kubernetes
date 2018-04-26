@@ -107,7 +107,6 @@ class K8sTesting(testcase.TestCase):
     def check_envs(self):  # pylint: disable=no-self-use
         """Check if required environment variables are set"""
         try:
-            assert 'DEPLOY_SCENARIO' in os.environ
             assert 'KUBE_MASTER_IP' in os.environ
             assert 'KUBERNETES_PROVIDER' in os.environ
             assert 'KUBE_MASTER_URL' in os.environ
