@@ -51,6 +51,8 @@ class K8sTesting(testcase.TestCase):
         lines = output.split('\n')
         i = 0
         while i < len(lines):
+            if 'Error' in lines[i]:
+                self.__logger.error(lines[i])
             if '[k8s.io]' in lines[i]:
                 if i != 0 and 'seconds' in lines[i - 1]:
                     self.__logger.debug(lines[i - 1])

@@ -67,6 +67,20 @@ class K8sTests(unittest.TestCase):
             self.k8stesting.run_kubetest()
 
     @mock.patch('functest_kubernetes.k8stest.os.path.isfile')
+    def test_error_logging(self, mock_isfile):
+        # pylint: disable=unused-argument
+        with mock.patch('functest_kubernetes.k8stest.'
+                        'subprocess.Popen') as mock_popen, \
+             mock.patch.object(self.k8stesting,
+                               '_K8sTesting__logger') as mock_logger:
+            mock_stdout = mock.Mock()
+            attrs = {'stdout.read.return_value': 'Error loading client'}
+            mock_stdout.configure_mock(**attrs)
+            mock_popen.return_value = mock_stdout
+            self.k8stesting.run_kubetest()
+            mock_logger.error.assert_called_with("Error loading client")
+
+    @mock.patch('functest_kubernetes.k8stest.os.path.isfile')
     @mock.patch('functest_kubernetes.k8stest.subprocess.Popen')
     def test_run(self, mock_open, mock_isfile):
         self.assertEquals(self.k8stesting.run(),
