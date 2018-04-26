@@ -35,6 +35,7 @@ class K8sTesting(testcase.TestCase):
         self.result = 0
         self.start_time = 0
         self.stop_time = 0
+        os.environ['INSTALLER_TYPE'] = 'k8-nosdn-nofeature-ha'
 
     def run_kubetest(self):  # pylint: disable=too-many-branches
         """Run the test suites"""
@@ -107,7 +108,6 @@ class K8sTesting(testcase.TestCase):
     def check_envs(self):  # pylint: disable=no-self-use
         """Check if required environment variables are set"""
         try:
-            assert 'DEPLOY_SCENARIO' in os.environ
             assert 'KUBE_MASTER_IP' in os.environ
             assert 'KUBERNETES_PROVIDER' in os.environ
             assert 'KUBE_MASTER_URL' in os.environ
