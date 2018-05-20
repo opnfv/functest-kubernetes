@@ -47,21 +47,28 @@ class K8sTesting(testcase.TestCase):
         # Remove color code escape sequences
         output = re.sub(r'\x1B\[[0-?]*[ -/]*[@-~]', '', str(output))
 
+        if ('Error loading client' in output or
+                'Unexpected error' in output):
+            raise Exception(output)
+
         remarks = []
         lines = output.split('\n')
+        success = False
+        failure = False
         i = 0
         while i < len(lines):
-            if 'Error' in lines[i]:
+            if '[Fail]' in lines[i] or 'Failures:' in lines[i]:
                 self.__logger.error(lines[i])
-            if '[k8s.io]' in lines[i]:
-                if i != 0 and 'seconds' in lines[i - 1]:
-                    self.__logger.debug(lines[i - 1])
-                while lines[i] != '-' * len(lines[i]):
+            if re.search(r'\[(.)*[0-9]+ seconds\]', lines[i]):
+                self.__logger.debug(lines[i])
+                i = i + 1
+                while i < len(lines) and lines[i] != '-' * len(lines[i]):
                     if lines[i].startswith('STEP:') or ('INFO:' in lines[i]):
                         break
                     self.__logger.debug(lines[i])
                     i = i + 1
-
+            if i >= len(lines):
+                break
             success = 'SUCCESS!' in lines[i]
             failure = 'FAIL!' in lines[i]
             if success or failure:
@@ -99,8 +106,9 @@ class K8sTesting(testcase.TestCase):
         try:
             self.run_kubetest()
             res = self.EX_OK
-        except Exception:  # pylint: disable=broad-except
-            self.__logger.exception("Error with running kubetest:")
+        except Exception as err:  # pylint: disable=broad-except
+            err = "Error with running kubetest: {0}".format(err)
+            self.__logger.exception(err)
             res = self.EX_RUN_ERROR
 
         self.stop_time = time.time()

@@ -77,8 +77,9 @@ class K8sTests(unittest.TestCase):
             attrs = {'stdout.read.return_value': 'Error loading client'}
             mock_stdout.configure_mock(**attrs)
             mock_popen.return_value = mock_stdout
-            self.k8stesting.run_kubetest()
-            mock_logger.error.assert_called_with("Error loading client")
+            self.k8stesting.run()
+            mock_logger.exception.assert_called_with(
+                "Error with running kubetest: Error loading client")
 
     @mock.patch('functest_kubernetes.k8stest.os.path.isfile')
     @mock.patch('functest_kubernetes.k8stest.subprocess.Popen')
