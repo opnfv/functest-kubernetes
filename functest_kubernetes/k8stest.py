@@ -51,11 +51,11 @@ class K8sTesting(testcase.TestCase):
         lines = output.split('\n')
         i = 0
         while i < len(lines):
-            if 'Error' in lines[i]:
+            if ('Error' in lines[i] or '[Fail]' in lines[i] or
+                    'Failures:' in lines[i]):
                 self.__logger.error(lines[i])
-            if '[k8s.io]' in lines[i]:
-                if i != 0 and 'seconds' in lines[i - 1]:
-                    self.__logger.debug(lines[i - 1])
+            if re.search(r'\[(.)*[0-9]+ seconds\]', lines[i]):
+                self.__logger.debug(lines[i])
                 while lines[i] != '-' * len(lines[i]):
                     if lines[i].startswith('STEP:') or ('INFO:' in lines[i]):
                         break
