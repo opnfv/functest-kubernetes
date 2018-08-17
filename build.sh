@@ -12,10 +12,10 @@ arm64_dirs=${arm64_dirs-${amd64_dirs}}
 build_opts=(--pull=true --no-cache --force-rm=true)
 
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-core|\
+    -e "s|opnfv/functest-kubernetes-core:fraser|\
 ${repo}/functest-kubernetes-core:amd64-fraser|g" {} +
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-healthcheck|\
+    -e "s|opnfv/functest-kubernetes-healthcheck:fraser|\
 ${repo}/functest-kubernetes-healthcheck:amd64-fraser|g" {} +
 for dir in ${amd64_dirs}; do
     (cd "${dir}" &&
@@ -34,10 +34,10 @@ find . -name Dockerfile -exec git checkout {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|alpine:3.7|multiarch/alpine:arm64-v3.7|g" {} +
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-core|\
+    -e "s|opnfv/functest-kubernetes-core:fraser|\
 ${repo}/functest-kubernetes-core:arm64-fraser|g" {} +
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-healthcheck|\
+    -e "s|opnfv/functest-kubernetes-healthcheck:fraser|\
 ${repo}/functest-kubernetes-healthcheck:arm64-fraser|g" {} +
 for dir in ${arm64_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
