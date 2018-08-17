@@ -1,6 +1,6 @@
 FROM opnfv/functest-kubernetes-core
 
-ARG OPENSTACK_TAG=stable/pike
+ARG OPENSTACK_TAG=stable/queens
 ARG OPNFV_TAG=master
 
 RUN apk --no-cache add --update make py-pip bash git go \

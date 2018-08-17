@@ -1,7 +1,7 @@
 FROM alpine:3.7
 
 ARG BRANCH=master
-ARG OPENSTACK_TAG=stable/pike
+ARG OPENSTACK_TAG=stable/queens
 ARG OPNFV_TAG=master
 
 RUN apk --no-cache add --update python py-pip bash git grep && \
