@@ -17,8 +17,7 @@ tiers:
                     validates the deployed cluster is accessible, and
                     at least satisfies minimal functional requirements.
                 dependencies:
-                    installer: ''
-                    scenario: 'k8-*'
+                    - DEPLOY_SCENARIO: 'k8-*'
                 run:
                     module: 'functest_kubernetes.k8stest'
                     class: 'K8sSmokeTest'
