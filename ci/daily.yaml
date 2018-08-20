@@ -1,0 +1,53 @@
+---
+- job-template:
+    name: '{repo}-functest-kubernetes-{container}-{tag}-pull'
+    builders:
+      - shell: docker pull {repo}/functest-kubernetes-{container}:{tag}
+
+- project:
+    name: '{repo}-functest-kubernetes-{container}-{tag}-pull'
+    container:
+      - healthcheck
+      - smoke
+      - features
+    jobs:
+      - '{repo}-functest-kubernetes-{container}-{tag}-pull'
+
+- job-template:
+    name: '{repo}-functest-kubernetes-{tag}-pull'
+    project-type: multijob
+    builders:
+      - multijob:
+          name: pull all containers
+          projects:
+            - name: '{repo}-functest-kubernetes-healthcheck-{tag}-pull'
+            - name: '{repo}-functest-kubernetes-smoke-{tag}-pull'
+            - name: '{repo}-functest-kubernetes-features-{tag}-pull'
+
+- project:
+    name: '{repo}-functest-kubernetes-{tag}-pull'
+    jobs:
+      - '{repo}-functest-kubernetes-{tag}-pull'
+
+- job-template:
+    name: '{repo}-functest-kubernetes-{tag}-daily'
+    project-type: multijob
+    builders:
+      - multijob:
+          name: pull containers
+          projects:
+            - name: '{repo}-functest-kubernetes-{tag}-pull'
+      - multijob:
+          name: basics tests
+          projects:
+            - name: '{repo}-functest-kubernetes-healthcheck-{tag}-run'
+      - multijob:
+          name: advanced tests
+          projects:
+            - name: '{repo}-functest-kubernetes-smoke-{tag}-run'
+            - name: '{repo}-functest-kubernetes-features-{tag}-run'
+
+- project:
+    name: '{repo}-functest-kubernetes-{tag}-daily'
+    jobs:
+      - '{repo}-functest-kubernetes-{tag}-daily'
