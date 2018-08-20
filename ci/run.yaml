@@ -1,0 +1,80 @@
+---
+- job-template:
+    name: '{repo}-functest-kubernetes-{container}-{test}-{tag}-run'
+    defaults: 'functest-kubernetes-defaults'
+    builders:
+      - shell: |
+          docker run \
+            -e DEPLOY_SCENARIO=k8s \
+            -v \
+            {prefix}/results/$JOB_NAME-$BUILD_ID:/home/opnfv/functest/results \
+            -v {prefix}/config:/root/.kube/config \
+            {repo}/functest-kubernetes-{container}:{tag} run_tests -t {test}
+
+- project:
+    name: '{repo}-functest-kubernetes-healthcheck-{test}-{tag}-run'
+    container: healthcheck
+    test:
+      - k8s_smoke
+    jobs:
+      - '{repo}-functest-kubernetes-{container}-{test}-{tag}-run'
+
+- job-template:
+    name: '{repo}-functest-kubernetes-healthcheck-{tag}-run'
+    project-type: multijob
+    builders:
+      - multijob:
+          name: healthcheck
+          projects:
+            - name: '{repo}-functest-kubernetes-healthcheck-k8s_smoke-{tag}-run'
+
+- project:
+    name: '{repo}-functest-kubernetes-healthcheck-{tag}-run'
+    jobs:
+      - '{repo}-functest-kubernetes-healthcheck-{tag}-run'
+
+- project:
+    name: '{repo}-functest-kubernetes-smoke-{test}-{tag}-run'
+    container: smoke
+    test:
+      - k8s_conformance
+    jobs:
+      - '{repo}-functest-kubernetes-{container}-{test}-{tag}-run'
+
+- job-template:
+    name: '{repo}-functest-kubernetes-smoke-{tag}-run'
+    project-type: multijob
+    builders:
+      - multijob:
+          name: smoke
+          projects:
+            - name: '{repo}-functest-kubernetes-smoke-k8s_conformance-{tag}-run'
+
+- project:
+    name: '{repo}-functest-kubernetes-smoke-{tag}-run'
+    jobs:
+      - '{repo}-functest-kubernetes-smoke-{tag}-run'
+
+- project:
+    name: '{repo}-functest-kubernetes-features-{test}-{tag}-run'
+    container: features
+    test:
+      - stor4nfv_k8s
+      - clover_k8s
+    jobs:
+      - '{repo}-functest-kubernetes-{container}-{test}-{tag}-run'
+
+- job-template:
+    name: '{repo}-functest-kubernetes-features-{tag}-run'
+    project-type: multijob
+    builders:
+      - multijob:
+          name: features
+          projects:
+            - name: '{repo}-functest-kubernetes-features-stor4nfv_k8s-{tag}-run'
+            - name: '{repo}-functest-kubernetes-features-clover_k8s-{tag}-run'
+
+- project:
+    name: '{repo}-functest-kubernetes-features-{tag}-run'
+    jobs:
+      - '{repo}-functest-kubernetes-features-{tag}-run'
