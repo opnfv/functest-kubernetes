@@ -1,0 +1,10 @@
+---
+- defaults:
+    name: global
+    repo: 'opnfv'
+    branch: 'master'
+    tag: 'latest'
+
+- defaults:
+    name: functest-kubernetes-defaults
+    prefix: '/home/opnfv/functest'
