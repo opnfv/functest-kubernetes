@@ -1,0 +1,13 @@
+---
+- defaults:
+    name: global
+    repo: 'opnfv'
+    branch: 'master'
+    tag: 'latest'
+
+- defaults:
+    name: functest-kubernetes-defaults
+    prefix: '/home/opnfv/functest'
+    kubernetes_provider: 'local'
+    kube_master_url: ''
+    kube_master_ip: '127.0.0.1'
