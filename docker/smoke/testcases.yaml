@@ -17,8 +17,7 @@ tiers:
                     cluster, this tests are necessary demonstrate conformance
                     of the Kubernetes deployment.
                 dependencies:
-                    installer: ''
-                    scenario: 'k8-*'
+                    - DEPLOY_SCENARIO: 'k8-*'
                 run:
                     module: 'functest_kubernetes.k8stest'
                     class: 'K8sConformanceTest'
