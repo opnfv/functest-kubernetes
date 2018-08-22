@@ -9,6 +9,7 @@ RUN apk --no-cache add --update make py-pip bash git go \
         python-dev libffi-dev openssl-dev libjpeg-turbo-dev && \
     git clone https://github.com/kubernetes/kubernetes /src/k8s.io/kubernetes && \
     (cd /src/k8s.io/kubernetes && git checkout $K8S_TAG && \
+        if [ "`uname -m`" = "aarch64" ]; then sed -i "s/amd64/arm64/g" ./test/images/clusterapi-tester/pod.yaml ; fi &&\
         make kubectl ginkgo && \
         make WHAT=test/e2e/e2e.test && \
         mv _output/bin/kubectl /usr/local/bin) && \
