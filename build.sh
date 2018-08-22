@@ -39,6 +39,11 @@ ${repo}/functest-kubernetes-core:arm64-fraser|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-healthcheck:fraser|\
 ${repo}/functest-kubernetes-healthcheck:arm64-fraser|g" {} +
+
+# When building healthcheck image on arm platform, the "amd64" image version of tester shuold be replaced by "arm64"
+[ ! -z "${arm64_dirs}" ] &&
+    sed -i '/make kubectl ginkgo/i\sed -i "s/amd64/arm64/g" ./test/images/clusterapi-tester/pod.yaml && \\' docker/healthcheck/Dockerfile
+
 for dir in ${arm64_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
         -t "${repo}/functest-kubernetes-${dir##**/}:arm64-fraser" .)
