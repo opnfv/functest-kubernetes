@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_e5c41c42",
+        "filename": "docker/healthcheck/Dockerfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 3405
+      },
+      "writtenOn": "2018-08-23T14:37:09Z",
+      "side": 1,
+      "message": "could add one space \u0026\u0026 \\\nI would prefer $(cmd)",
+      "revId": "befdda7463052aaba0ed29b3c3e80bb66824db85",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
