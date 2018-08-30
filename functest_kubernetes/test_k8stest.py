@@ -32,23 +32,6 @@ class K8sTests(unittest.TestCase):
 
         self.k8stesting = k8stest.K8sTesting()
 
-    def _test_no_env_var(self, var):
-        del os.environ[var]
-        with self.assertRaises(Exception):
-            k8stest.K8sTesting().check_envs()
-
-    def test_no_deploy_scenario(self):
-        self._test_no_env_var("DEPLOY_SCENARIO")
-
-    def test_no_kube_master_ip(self):
-        self._test_no_env_var("KUBE_MASTER_IP")
-
-    def test_no_kube_master_url(self):
-        self._test_no_env_var("KUBE_MASTER_URL")
-
-    def test_no_kubernetes_provider(self):
-        self._test_no_env_var("KUBERNETES_PROVIDER")
-
     @mock.patch('functest_kubernetes.k8stest.os.path.isfile',
                 return_value=False)
     def test_run_missing_config_file(self, mock_func):
