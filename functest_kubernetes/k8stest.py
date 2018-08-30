@@ -28,9 +28,10 @@ class K8sTesting(testcase.TestCase):
 
     __logger = logging.getLogger(__name__)
 
+    config = '/root/.kube/config'
+
     def __init__(self, **kwargs):
         super(K8sTesting, self).__init__(**kwargs)
-        self.config = '/root/.kube/config'
         self.cmd = []
         self.result = 0
         self.start_time = 0
@@ -113,17 +114,6 @@ class K8sTesting(testcase.TestCase):
         self.stop_time = time.time()
         return res
 
-    def check_envs(self):  # pylint: disable=no-self-use
-        """Check if required environment variables are set"""
-        try:
-            assert 'DEPLOY_SCENARIO' in os.environ
-            assert 'KUBE_MASTER_IP' in os.environ
-            assert 'KUBERNETES_PROVIDER' in os.environ
-            assert 'KUBE_MASTER_URL' in os.environ
-        except Exception as ex:
-            raise Exception("Cannot run k8s testcases. "
-                            "Please check env var: %s" % str(ex))
-
 
 class K8sSmokeTest(K8sTesting):
     """Kubernetes smoke test suite"""
@@ -131,9 +121,9 @@ class K8sSmokeTest(K8sTesting):
         if "case_name" not in kwargs:
             kwargs.get("case_name", 'k8s_smoke')
         super(K8sSmokeTest, self).__init__(**kwargs)
-        self.check_envs()
-        self.cmd = ['/src/k8s.io/kubernetes/cluster/test-smoke.sh', '--host',
-                    os.getenv('KUBE_MASTER_URL')]
+        self.cmd = ["/src/k8s.io/kubernetes/_output/bin/e2e.test",
+                    "-ginkgo.focus", "Guestbook.application",
+                    "-kubeconfig", self.config, "--provider", "local"]
 
 
 class K8sConformanceTest(K8sTesting):
@@ -142,7 +132,6 @@ class K8sConformanceTest(K8sTesting):
         if "case_name" not in kwargs:
             kwargs.get("case_name", 'k8s_conformance')
         super(K8sConformanceTest, self).__init__(**kwargs)
-        self.check_envs()
         self.cmd = ['/src/k8s.io/kubernetes/_output/bin/e2e.test',
                     '-ginkgo.focus', 'Conformance',
-                    '-kubeconfig', self.config]
+                    '-kubeconfig', self.config, "--provider", "local"]
