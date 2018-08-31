@@ -121,8 +121,7 @@ class K8sSmokeTest(K8sTesting):
         if "case_name" not in kwargs:
             kwargs.get("case_name", 'k8s_smoke')
         super(K8sSmokeTest, self).__init__(**kwargs)
-        self.cmd = ["/src/k8s.io/kubernetes/_output/bin/e2e.test",
-                    "-ginkgo.focus", "Guestbook.application",
+        self.cmd = ["e2e.test", "-ginkgo.focus", "Guestbook.application",
                     "-kubeconfig", self.config, "--provider", "local"]
 
 
@@ -132,6 +131,5 @@ class K8sConformanceTest(K8sTesting):
         if "case_name" not in kwargs:
             kwargs.get("case_name", 'k8s_conformance')
         super(K8sConformanceTest, self).__init__(**kwargs)
-        self.cmd = ['/src/k8s.io/kubernetes/_output/bin/e2e.test',
-                    '-ginkgo.focus', 'Conformance',
+        self.cmd = ['e2e.test', '-ginkgo.focus', 'Conformance',
                     '-kubeconfig', self.config, "--provider", "local"]
