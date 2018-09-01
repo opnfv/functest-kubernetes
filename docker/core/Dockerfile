@@ -6,7 +6,7 @@ ARG OPNFV_TAG=master
 
 RUN apk --no-cache add --update python py-pip bash git grep && \
     git clone --depth 1 https://gerrit.opnfv.org/gerrit/functest-kubernetes /src/functest-kubernetes && \
-    (cd /src/functest-kubernetes && git fetch --tags origin $BRANCH && git checkout FETCH_HEAD) && \
+    (cd /src/functest-kubernetes && git fetch --depth 1 --tags origin $BRANCH && git checkout FETCH_HEAD) && \
     pip install \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -chttps://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=$OPENSTACK_TAG \

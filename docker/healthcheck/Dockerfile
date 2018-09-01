@@ -1,14 +1,15 @@
 FROM opnfv/functest-kubernetes-core
 
-ARG K8S_TAG=v1.9.4
+ARG K8S_TAG=v1.11.2
 
-RUN apk --no-cache add --update make py-pip bash git go \
+RUN apk --no-cache add --update make py-pip bash git \
         grep rsync linux-headers musl-dev findutils \
         libffi libssl1.0 libjpeg-turbo && \
+    apk --no-cache add 'go>1.10.2' --repository http://dl-cdn.alpinelinux.org/alpine/edge/community && \
     apk --no-cache add --virtual .build-deps --update \
         python-dev libffi-dev openssl-dev libjpeg-turbo-dev && \
     git clone --depth 1 https://github.com/kubernetes/kubernetes /src/k8s.io/kubernetes && \
-    (cd /src/k8s.io/kubernetes && git fetch --tags origin $K8S_TAG && git checkout FETCH_HEAD && \
+    (cd /src/k8s.io/kubernetes && git fetch --depth 1 --tags origin $K8S_TAG && git checkout FETCH_HEAD && \
         # Replace the amd64 with arm64 when building e2e.test on arm platform.
         if [ "$(uname -m)" = "aarch64" ]; then sed -i "s/amd64/arm64/g" ./test/images/clusterapi-tester/pod.yaml ; fi && \
         make kubectl ginkgo && \
