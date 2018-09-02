@@ -19,5 +19,4 @@ tiers:
                 dependencies:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
-                    module: 'functest_kubernetes.k8stest'
-                    class: 'K8sConformanceTest'
+                    name: k8s_conformance

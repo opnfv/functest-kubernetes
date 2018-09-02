@@ -2,7 +2,7 @@
 tiers:
     -
         name: healthcheck
-        order: 1
+        order: 0
         ci_loop: '(merge)|(verify)|(daily)|(weekly)'
         description: >-
             A set of e2e tests integrated from kubernetes project.
@@ -19,5 +19,4 @@ tiers:
                 dependencies:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
-                    module: 'functest_kubernetes.k8stest'
-                    class: 'K8sSmokeTest'
+                    name: k8s_smoke

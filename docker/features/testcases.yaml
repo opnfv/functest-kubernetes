@@ -2,7 +2,7 @@
 tiers:
     -
         name: stor4nfv
-        order: 1
+        order: 2
         ci_loop: '(daily)|(weekly)'
         description: >-
             Test suite from Stor4NFV project.
@@ -18,12 +18,11 @@ tiers:
                 dependencies:
                     - DEPLOY_SCENARIO: 'stor4nfv'
                 run:
-                    module: 'stor4nfv_tests.stor4nfv_k8s'
-                    class: 'K8sStor4nfvTest'
+                    name: stor4nfv_k8s
 
     -
         name: clover
-        order: 2
+        order: 3
         ci_loop: '(daily)|(weekly)'
         description: >-
             Test suite from Clover project.
@@ -39,5 +38,4 @@ tiers:
                 dependencies:
                     - DEPLOY_SCENARIO: 'clover'
                 run:
-                    module: 'clover.functest.clover_k8s'
-                    class: 'K8sCloverTest'
+                    name: clover_k8s
