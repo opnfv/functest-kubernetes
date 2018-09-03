@@ -8,8 +8,10 @@ RUN apk --no-cache add --update make py-pip bash git \
     apk --no-cache add 'go>1.10.2' --repository http://dl-cdn.alpinelinux.org/alpine/edge/community && \
     apk --no-cache add --virtual .build-deps --update \
         python-dev libffi-dev openssl-dev libjpeg-turbo-dev && \
-    git clone --depth 1 https://github.com/kubernetes/kubernetes /src/k8s.io/kubernetes && \
-    (cd /src/k8s.io/kubernetes && git fetch --depth 1 --tags origin $K8S_TAG && git checkout FETCH_HEAD && \
+    git init /src/k8s.io/kubernetes && \
+    (cd /src/k8s.io/kubernetes && \
+        git fetch --tags https://github.com/kubernetes/kubernetes $K8S_TAG && \
+        git checkout FETCH_HEAD && \
         # Replace the amd64 with arm64 when building e2e.test on arm platform.
         if [ "$(uname -m)" = "aarch64" ]; then sed -i "s/amd64/arm64/g" ./test/images/clusterapi-tester/pod.yaml ; fi && \
         make kubectl ginkgo && \
