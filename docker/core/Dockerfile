@@ -1,6 +1,6 @@
 FROM alpine:3.8
 
-ARG BRANCH=master
+ARG BRANCH=stable/gambia
 ARG OPENSTACK_TAG=stable/queens
 ARG OPNFV_TAG=master
 
