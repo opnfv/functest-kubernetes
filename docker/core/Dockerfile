@@ -1,6 +1,6 @@
 FROM alpine:3.8
 
-ARG BRANCH=master
+ARG BRANCH=stable/hunter
 ARG OPENSTACK_TAG=stable/rocky
 ARG OPNFV_TAG=master
 

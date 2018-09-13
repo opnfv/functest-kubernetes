@@ -1,7 +1,7 @@
 FROM opnfv/functest-kubernetes-core:hunter
 
 ARG OPENSTACK_TAG=stable/rocky
-ARG OPNFV_TAG=master
+ARG OPNFV_TAG=stable/hunter
 
 RUN apk --no-cache add --update make py-pip bash git go \
         grep rsync linux-headers musl-dev findutils \
