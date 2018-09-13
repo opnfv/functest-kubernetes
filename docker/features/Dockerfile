@@ -1,7 +1,7 @@
 FROM opnfv/functest-kubernetes-core:gambia
 
 ARG OPENSTACK_TAG=stable/queens
-ARG OPNFV_TAG=master
+ARG OPNFV_TAG=stable/gambia
 
 RUN apk --no-cache add --update make py-pip bash git go \
         grep rsync linux-headers musl-dev findutils \
