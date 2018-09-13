@@ -1,4 +1,4 @@
-FROM opnfv/functest-kubernetes-core
+FROM opnfv/functest-kubernetes-core:hunter
 
 ARG OPENSTACK_TAG=stable/queens
 ARG OPNFV_TAG=master
