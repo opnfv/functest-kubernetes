@@ -1,6 +1,6 @@
-FROM opnfv/functest-kubernetes-core
+FROM opnfv/functest-kubernetes-core:hunter
 
-ARG OPENSTACK_TAG=stable/queens
+ARG OPENSTACK_TAG=stable/rocky
 ARG OPNFV_TAG=master
 
 RUN apk --no-cache add --update make py-pip bash git go \
