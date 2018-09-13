@@ -12,43 +12,43 @@ arm64_dirs=${arm64_dirs-${amd64_dirs}}
 build_opts=(--pull=true --no-cache --force-rm=true)
 
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-core|\
-${repo}/functest-kubernetes-core:amd64-latest|g" {} +
+    -e "s|opnfv/functest-kubernetes-core:hunter|\
+${repo}/functest-kubernetes-core:amd64-hunter|g" {} +
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-healthcheck|\
-${repo}/functest-kubernetes-healthcheck:amd64-latest|g" {} +
+    -e "s|opnfv/functest-kubernetes-healthcheck:hunter|\
+${repo}/functest-kubernetes-healthcheck:amd64-hunter|g" {} +
 for dir in ${amd64_dirs}; do
     (cd "${dir}" &&
         docker build "${build_opts[@]}" \
-            -t "${repo}/functest-kubernetes-${dir##**/}:amd64-latest" .)
-        docker push "${repo}/functest-kubernetes-${dir##**/}:amd64-latest"
+            -t "${repo}/functest-kubernetes-${dir##**/}:amd64-hunter" .)
+        docker push "${repo}/functest-kubernetes-${dir##**/}:amd64-hunter"
     [ "${dir}" != "docker/core" ] &&
         (docker rmi \
-            "${repo}/functest-kubernetes-${dir##**/}:amd64-latest" || true)
+            "${repo}/functest-kubernetes-${dir##**/}:amd64-hunter" || true)
 done
 [ ! -z "${amd64_dirs}" ] &&
     (docker rmi \
-        "${repo}/functest-kubernetes-core:amd64-latest" alpine:3.8 || true)
+        "${repo}/functest-kubernetes-core:amd64-hunter" alpine:3.8 || true)
 find . -name Dockerfile -exec git checkout {} +
 
 find . -name Dockerfile -exec sed -i \
     -e "s|alpine:3.8|multiarch/alpine:arm64-v3.8|g" {} +
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-core|\
-${repo}/functest-kubernetes-core:arm64-latest|g" {} +
+    -e "s|opnfv/functest-kubernetes-core:hunter|\
+${repo}/functest-kubernetes-core:arm64-hunter|g" {} +
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-healthcheck|\
-${repo}/functest-kubernetes-healthcheck:arm64-latest|g" {} +
+    -e "s|opnfv/functest-kubernetes-healthcheck:hunter|\
+${repo}/functest-kubernetes-healthcheck:arm64-hunter|g" {} +
 for dir in ${arm64_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
-        -t "${repo}/functest-kubernetes-${dir##**/}:arm64-latest" .)
-    docker push "${repo}/functest-kubernetes-${dir##**/}:arm64-latest"
+        -t "${repo}/functest-kubernetes-${dir##**/}:arm64-hunter" .)
+    docker push "${repo}/functest-kubernetes-${dir##**/}:arm64-hunter"
     [ "${dir}" != "docker/core" ] &&
         (docker rmi \
-            "${repo}/functest-kubernetes-${dir##**/}:arm64-latest" || true)
+            "${repo}/functest-kubernetes-${dir##**/}:arm64-hunter" || true)
 done
 [ ! -z "${arm64_dirs}" ] &&
-    (docker rmi "${repo}/functest-kubernetes-core:arm64-latest" \
+    (docker rmi "${repo}/functest-kubernetes-core:arm64-hunter" \
         multiarch/alpine:arm64-v3.8 || true)
 find . -name Dockerfile -exec git checkout {} +
 
