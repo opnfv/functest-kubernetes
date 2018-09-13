@@ -3,6 +3,7 @@ FROM opnfv/functest-kubernetes-core:hunter
 ARG OPENSTACK_TAG=stable/rocky
 ARG OPNFV_TAG=stable/hunter
 
+COPY thirdparty-requirements.txt thirdparty-requirements.txt
 RUN apk --no-cache add --update make py-pip bash git go \
         grep rsync linux-headers musl-dev findutils \
         libffi libssl1.0 libjpeg-turbo && \
@@ -11,7 +12,8 @@ RUN apk --no-cache add --update make py-pip bash git go \
     pip install \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -chttps://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=$OPENSTACK_TAG \
-        stor4nfv-tests clover && \
+        -rthirdparty-requirements.txt && \
+    rm -f thirdparty-requirements.txt && \
     apk del .build-deps
 COPY testcases.yaml /usr/lib/python2.7/site-packages/xtesting/ci/testcases.yaml
 CMD ["run_tests", "-t", "all"]
