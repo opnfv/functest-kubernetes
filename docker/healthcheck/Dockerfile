@@ -11,8 +11,6 @@ RUN apk --no-cache add --update make py-pip bash git \
     (cd /src/k8s.io/kubernetes && \
         git fetch --tags https://github.com/kubernetes/kubernetes $K8S_TAG && \
         git checkout FETCH_HEAD && \
-        # Replace the amd64 with arm64 when building e2e.test on arm platform.
-        if [ "$(uname -m)" = "aarch64" ]; then sed -i "s/amd64/arm64/g" ./test/images/clusterapi-tester/pod.yaml ; fi && \
         make kubectl ginkgo && \
         make WHAT=test/e2e/e2e.test && \
         mv _output/bin/* /usr/local/bin) && \
