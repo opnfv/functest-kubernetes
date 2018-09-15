@@ -5,6 +5,8 @@ services: docker
 
 before_script:
   - sudo -E docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+  - (cd .. && git clone https://github.com/estesp/manifest-tool)
+  - (cd ../manifest-tool && sudo -E make && sudo -E make install)
 
 jobs:
   include:
@@ -13,17 +15,46 @@ jobs:
       env:
         - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/core"
+        - arm64_dirs=""
+    - stage: publish functest-kubernetes-core manifests
+      script: >
+        sudo manifest-tool push from-args \
+          --platforms linux/amd64 \
+          --template ${DOCKER_USERNAME}/functest-kubernetes-core:ARCH-gambia \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-core:gambia
     - stage: build functest-kubernetes-[healthcheck,features] image
       script: sudo -E bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/healthcheck"
+        - arm64_dirs=""
     - script: sudo -E bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/features"
+        - arm64_dirs=""
+    - stage: publish functest-kubernetes-[healthcheck,features] manifests
+      script: >
+        sudo manifest-tool push from-args \
+          --platforms linux/amd64 \
+          --template \
+          ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:ARCH-gambia \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:gambia
+    - script: >
+        sudo manifest-tool push from-args \
+          --platforms linux/amd64 \
+          --template \
+          ${DOCKER_USERNAME}/functest-kubernetes-features:ARCH-gambia \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-features:gambia
     - stage: build functest-kubernetes-smoke image
       script: sudo -E bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/smoke"
+        - arm64_dirs=""
+    - stage: publish functest-kubernetes-smoke manifests
+      script: >
+        sudo manifest-tool push from-args \
+          --platforms linux/amd64 \
+          --template ${DOCKER_USERNAME}/functest-kubernetes-smoke:ARCH-gambia \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-smoke:gambia
