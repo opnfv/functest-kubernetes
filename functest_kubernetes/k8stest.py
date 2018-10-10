@@ -45,9 +45,6 @@ class K8sTesting(testcase.TestCase):
         process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
         output = process.stdout.read()
-        # Remove color code escape sequences
-        output = re.sub(r'\x1B\[[0-?]*[ -/]*[@-~]', '', str(output))
-
         if ('Error loading client' in output or
                 'Unexpected error' in output):
             raise Exception(output)
@@ -121,8 +118,9 @@ class K8sSmokeTest(K8sTesting):
         if "case_name" not in kwargs:
             kwargs.get("case_name", 'k8s_smoke')
         super(K8sSmokeTest, self).__init__(**kwargs)
-        self.cmd = ["e2e.test", "-ginkgo.focus", "Guestbook.application",
-                    "-kubeconfig", self.config, "--provider", "local"]
+        self.cmd = ['e2e.test', '-ginkgo.focus', 'Guestbook.application',
+                    '-ginkgo.noColor', '-kubeconfig', self.config,
+                    '--provider', 'local']
 
 
 class K8sConformanceTest(K8sTesting):
@@ -132,4 +130,5 @@ class K8sConformanceTest(K8sTesting):
             kwargs.get("case_name", 'k8s_conformance')
         super(K8sConformanceTest, self).__init__(**kwargs)
         self.cmd = ['e2e.test', '-ginkgo.focus', 'Conformance',
-                    '-kubeconfig', self.config, "--provider", "local"]
+                    '-ginkgo.noColor', '-kubeconfig', self.config,
+                    '--provider', 'local']
