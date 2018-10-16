@@ -1,2 +1,2 @@
-# stor4nfv-tests
-# clover
+stor4nfv-tests
+clover
