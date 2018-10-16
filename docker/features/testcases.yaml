@@ -10,7 +10,6 @@ tiers:
             -
                 case_name: stor4nfv_k8s
                 project_name: stor4nfv
-                enabled: false
                 criteria: 100
                 blocking: false
                 description: >-
@@ -31,7 +30,6 @@ tiers:
             -
                 case_name: clover_k8s
                 project_name: clover
-                enabled: false
                 criteria: 100
                 blocking: false
                 description: >-
