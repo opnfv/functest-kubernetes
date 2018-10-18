@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM golang:alpine3.8
 
 ARG BRANCH=stable/gambia
 ARG OPENSTACK_TAG=stable/queens
