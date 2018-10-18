@@ -5,9 +5,8 @@ ARG K8S_TAG=v1.11.3
 RUN apk --no-cache add --update make py-pip bash git \
         grep rsync linux-headers musl-dev findutils \
         libffi libssl1.0 libjpeg-turbo && \
-    apk --no-cache add 'go>1.10.2' --repository http://dl-cdn.alpinelinux.org/alpine/edge/community && \
     apk --no-cache add --virtual .build-deps --update \
-        python-dev libffi-dev openssl-dev libjpeg-turbo-dev && \
+        gcc python-dev libffi-dev openssl-dev libjpeg-turbo-dev && \
     git init /src/k8s.io/kubernetes && \
     (cd /src/k8s.io/kubernetes && \
         git fetch --tags https://github.com/kubernetes/kubernetes $K8S_TAG && \
