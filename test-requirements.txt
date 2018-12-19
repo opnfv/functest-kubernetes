@@ -7,4 +7,5 @@ nose>=1.3.7 # LGPL
 flake8<2.6.0,>=2.5.4 # MIT
 pylint==1.4.5 # GPLv2
 yamllint
+ansible-lint
 bashate>=0.5.1 # Apache-2.0
