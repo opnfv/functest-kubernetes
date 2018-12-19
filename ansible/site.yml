@@ -1,0 +1,27 @@
+---
+- hosts: 127.0.0.1
+  roles:
+    - role: collivier.xtesting
+      project: functest-kubernetes
+      docker_args:
+        env:
+          DEPLOY_SCENARIO: k8-nosdn-nofeature-noha
+        volumes:
+          - /home/opnfv/functest-kubernetes/config:/root/.kube/config
+      suites:
+        - repo: opnfv
+          container: functest-kubernetes-healthcheck
+          tag: gambia
+          tests:
+            - k8s_smoke
+        - repo: opnfv
+          container: functest-kubernetes-smoke
+          tag: gambia
+          tests:
+            - k8s_conformance
+        - repo: opnfv
+          container: functest-kubernetes-features
+          tag: gambia
+          tests:
+            - stor4nfv_k8s
+            - clover_k8s
