@@ -5,6 +5,8 @@ ARG OPENSTACK_TAG=stable/rocky
 ARG OPNFV_TAG=master
 
 RUN apk --no-cache add --update python py-pip bash git grep && \
+    apk --no-cache add --virtual .build-deps --update \
+        python-dev build-base && \
     git init /src/functest-kubernetes && \
     (cd /src/functest-kubernetes && \
         git fetch --tags https://gerrit.opnfv.org/gerrit/functest-kubernetes $BRANCH && \
@@ -15,6 +17,7 @@ RUN apk --no-cache add --update python py-pip bash git grep && \
         /src/functest-kubernetes && \
     rm -rf /src/functest-kubernetes && \
     bash -c "mkdir -p /var/lib/xtesting /home/opnfv" && \
-    ln -s /var/lib/xtesting /home/opnfv/functest
+    ln -s /var/lib/xtesting /home/opnfv/functest && \
+    apk del .build-deps
 COPY logging.ini /usr/lib/python2.7/site-packages/xtesting/ci/logging.ini
 CMD ["run_tests", "-t", "all"]
