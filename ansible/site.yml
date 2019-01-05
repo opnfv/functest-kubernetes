@@ -3,25 +3,46 @@
   roles:
     - role: collivier.xtesting
       project: functest-kubernetes
-      docker_args:
-        env:
-          DEPLOY_SCENARIO: k8-nosdn-nofeature-noha
-        volumes:
-          - /home/opnfv/functest-kubernetes/config:/root/.kube/config
+      gerrit_project: functest-kubernetes
+      docker_tags:
+        - gambia:
+            branch: stable/gambia
+      builds:
+        dependencies:
+          - repo: _
+            port:
+            container: golang
+            tag: alpine3.8
+        steps:
+          - name: build opnfv/functest-kubernetes-core
+            containers:
+              - name: functest-kubernetes-core
+                ref_arg: BRANCH
+                path: docker/core
+          - name: build opnfv/functest-kubernetes-healthcheck
+            containers:
+              - name: functest-functest-kubernetes-healthcheck
+                ref_arg: BRANCH
+                path: docker/healthcheck
+          - name: build containers
+            containers:
+              - name: functest-functest-kubernetes-smoke
+                ref_arg: BRANCH
+                path: docker/smoke
+              - name: functest-functest-kubernetes-features
+                ref_arg: BRANCH
+                path: docker/features
       suites:
         - repo: opnfv
           container: functest-kubernetes-healthcheck
-          tag: gambia
           tests:
             - k8s_smoke
         - repo: opnfv
           container: functest-kubernetes-smoke
-          tag: gambia
           tests:
             - k8s_conformance
         - repo: opnfv
           container: functest-kubernetes-features
-          tag: gambia
           tests:
             - stor4nfv_k8s
             - clover_k8s
