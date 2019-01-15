@@ -10,7 +10,7 @@
       builds:
         dependencies:
           - repo: _
-            port:
+            dport:
             container: golang
             tag: alpine3.8
         steps:
