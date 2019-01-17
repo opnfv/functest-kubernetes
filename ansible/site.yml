@@ -19,12 +19,12 @@
           - name: build opnfv/functest-kubernetes-healthcheck
             containers:
               - name: functest-functest-kubernetes-healthcheck
-                ref_arg: BRANCH
+                ref_arg:
                 path: docker/healthcheck
           - name: build containers
             containers:
               - name: functest-functest-kubernetes-smoke
-                ref_arg: BRANCH
+                ref_arg:
                 path: docker/smoke
               - name: functest-functest-kubernetes-features
                 ref_arg: BRANCH
