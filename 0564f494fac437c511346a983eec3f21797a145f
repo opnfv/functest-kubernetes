@@ -1,0 +1,7 @@
+Code-Review+2: Cedric Ollivier <cedric.ollivier@orange.com>
+Verified+1: Functest Bot <cedric.ollivier@orange.com>
+Submitted-by: Cedric Ollivier <cedric.ollivier@orange.com>
+Submitted-at: Fri, 18 Jan 2019 07:06:15 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/66465
+Project: functest-kubernetes
+Branch: refs/heads/master
