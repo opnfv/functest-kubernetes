@@ -21,15 +21,15 @@
                 path: docker/core
           - name: build opnfv/functest-kubernetes-healthcheck
             containers:
-              - name: functest-functest-kubernetes-healthcheck
+              - name: functest-kubernetes-healthcheck
                 ref_arg:
                 path: docker/healthcheck
           - name: build containers
             containers:
-              - name: functest-functest-kubernetes-smoke
+              - name: functest-kubernetes-smoke
                 ref_arg:
                 path: docker/smoke
-              - name: functest-functest-kubernetes-features
+              - name: functest-kubernetes-features
                 ref_arg:
                 path: docker/features
       suites:
