@@ -1,6 +1,6 @@
 FROM opnfv/functest-kubernetes-core:gambia
 
-ARG K8S_TAG=v1.11.6
+ARG K8S_TAG=v1.11.8
 
 RUN apk --no-cache add --update make py-pip bash git \
         grep rsync linux-headers musl-dev findutils \
