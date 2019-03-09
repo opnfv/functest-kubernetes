@@ -1,6 +1,6 @@
 FROM opnfv/functest-kubernetes-core:hunter
 
-ARG K8S_TAG=v1.13.2
+ARG K8S_TAG=v1.13.4
 
 RUN apk --no-cache add --update make py-pip bash git \
         grep rsync linux-headers musl-dev findutils \
