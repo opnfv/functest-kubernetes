@@ -33,6 +33,8 @@ class K8sTesting(testcase.TestCase):
     def __init__(self, **kwargs):
         super(K8sTesting, self).__init__(**kwargs)
         self.cmd = []
+        self.res_dir = "/home/opnfv/functest/results/{}".format(
+            self.case_name)
         self.result = 0
         self.start_time = 0
         self.stop_time = 0
@@ -120,7 +122,7 @@ class K8sSmokeTest(K8sTesting):
         super(K8sSmokeTest, self).__init__(**kwargs)
         self.cmd = ['e2e.test', '-ginkgo.focus', 'Guestbook.application',
                     '-ginkgo.noColor', '-kubeconfig', self.config,
-                    '--provider', 'local']
+                    '-provider', 'local', '-report-dir', self.res_dir]
 
 
 class K8sConformanceTest(K8sTesting):
@@ -129,6 +131,8 @@ class K8sConformanceTest(K8sTesting):
         if "case_name" not in kwargs:
             kwargs.get("case_name", 'k8s_conformance')
         super(K8sConformanceTest, self).__init__(**kwargs)
-        self.cmd = ['e2e.test', '-ginkgo.focus', 'Conformance',
-                    '-ginkgo.noColor', '-kubeconfig', self.config,
-                    '--provider', 'local']
+        self.cmd = [
+            'e2e.test', '-ginkgo.focus', r'\[Conformance\]', '-ginkgo.noColor',
+            '-ginkgo.skip', r'Alpha|\[(Disruptive|Feature:[^\]]+|Flaky)\]',
+            '-kubeconfig', self.config, '-provider', 'local',
+            '-report-dir', self.res_dir]
