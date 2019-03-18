@@ -6,7 +6,7 @@ ARG OPNFV_TAG=stable/hunter
 COPY thirdparty-requirements.txt thirdparty-requirements.txt
 RUN apk --no-cache add --update make py-pip bash git go \
         grep rsync linux-headers musl-dev findutils \
-        libffi libssl1.0 libjpeg-turbo && \
+        libffi openssl libjpeg-turbo && \
     apk --no-cache add --virtual .build-deps --update \
         python-dev libffi-dev openssl-dev libjpeg-turbo-dev && \
     pip install \
