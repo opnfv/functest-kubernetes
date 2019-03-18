@@ -6,9 +6,9 @@ ARG OPNFV_TAG=master
 COPY thirdparty-requirements.txt thirdparty-requirements.txt
 RUN apk --no-cache add --update make py-pip bash git go \
         grep rsync linux-headers musl-dev findutils \
-        libffi libssl1.0 libjpeg-turbo && \
+        libffi libressl libjpeg-turbo && \
     apk --no-cache add --virtual .build-deps --update \
-        python-dev libffi-dev openssl-dev libjpeg-turbo-dev && \
+        python-dev libffi-dev libressl-dev libjpeg-turbo-dev && \
     pip install \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -chttps://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=$OPENSTACK_TAG \
