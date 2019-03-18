@@ -1,4 +1,4 @@
-FROM golang:alpine3.8
+FROM golang:alpine3.9
 
 ARG BRANCH=master
 ARG OPENSTACK_TAG=master
