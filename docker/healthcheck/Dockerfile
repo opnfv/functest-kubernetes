@@ -4,9 +4,9 @@ ARG K8S_TAG=master
 
 RUN apk --no-cache add --update make py-pip bash git \
         grep rsync linux-headers musl-dev findutils \
-        libffi libssl1.0 libjpeg-turbo && \
+        libffi libressl libjpeg-turbo && \
     apk --no-cache add --virtual .build-deps --update \
-        gcc python-dev libffi-dev openssl-dev libjpeg-turbo-dev && \
+        gcc python-dev libffi-dev libressl-dev libjpeg-turbo-dev && \
     git init /src/k8s.io/kubernetes && \
     (cd /src/k8s.io/kubernetes && \
         git fetch --tags https://github.com/kubernetes/kubernetes $K8S_TAG && \
