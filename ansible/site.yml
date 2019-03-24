@@ -3,6 +3,7 @@
   roles:
     - role: collivier.xtesting
       project: functest-kubernetes
+      db_project: functest
       gerrit_project: functest-kubernetes
       docker_tags:
         - gambia:
