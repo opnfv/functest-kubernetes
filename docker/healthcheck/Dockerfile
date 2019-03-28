@@ -1,6 +1,6 @@
-FROM opnfv/functest-kubernetes-core
+FROM opnfv/functest-kubernetes-core:iruya
 
-ARG K8S_TAG=master
+ARG K8S_TAG=v1.13.5
 
 RUN apk --no-cache add --update make py-pip bash git \
         grep rsync linux-headers musl-dev findutils \
