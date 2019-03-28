@@ -1,8 +1,8 @@
-FROM golang:alpine3.9
+FROM golang:1.12.1-alpine3.9
 
-ARG BRANCH=master
-ARG OPENSTACK_TAG=master
-ARG OPNFV_TAG=master
+ARG BRANCH=stable/iruya
+ARG OPENSTACK_TAG=stable/iruya
+ARG OPNFV_TAG=stable/iruya
 
 RUN apk --no-cache add --update python py-pip bash git grep && \
     apk --no-cache add --virtual .build-deps --update \
