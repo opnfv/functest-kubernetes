@@ -13,7 +13,7 @@ build_opts=(--pull=true --no-cache --force-rm=true)
 
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-core:iruya|\
-${repo}/functest-kubernetes-core:amd64-iruya:iruya|g" {} +
+${repo}/functest-kubernetes-core:amd64-iruya|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-healthcheck:iruya|\
 ${repo}/functest-kubernetes-healthcheck:amd64-iruya|g" {} +
