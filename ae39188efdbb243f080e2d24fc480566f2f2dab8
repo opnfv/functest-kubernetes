@@ -1,0 +1,7 @@
+Code-Review+2: Juha Kosonen <juha.kosonen@nokia.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Cedric Ollivier <cedric.ollivier@orange.com>
+Submitted-at: Thu, 28 Mar 2019 17:19:51 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/67428
+Project: functest-kubernetes
+Branch: refs/heads/stable/hunter
