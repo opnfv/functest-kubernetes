@@ -1,7 +1,7 @@
-FROM opnfv/functest-kubernetes-core
+FROM opnfv/functest-kubernetes-core:iruya
 
-ARG OPENSTACK_TAG=master
-ARG OPNFV_TAG=master
+ARG OPENSTACK_TAG=stable/stein
+ARG OPNFV_TAG=stable/iruya
 
 COPY thirdparty-requirements.txt thirdparty-requirements.txt
 RUN apk --no-cache add --update make py-pip bash git go \

@@ -5,12 +5,15 @@
       project: functest-kubernetes
       db_project: functest
       gerrit_project: functest-kubernetes
+      docker_tags:
+        - hunter:
+            branch: stable/hunter
       builds:
         dependencies:
           - repo: _
             dport:
             container: golang
-            tag: alpine3.9
+            tag: 1.12.1-alpine3.9
         steps:
           - name: build opnfv/functest-kubernetes-core
             containers:
