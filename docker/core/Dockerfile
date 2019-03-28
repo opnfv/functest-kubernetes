@@ -2,7 +2,7 @@ FROM golang:1.11.6-alpine3.9
 
 ARG BRANCH=stable/hunter
 ARG OPENSTACK_TAG=stable/rocky
-ARG OPNFV_TAG=master
+ARG OPNFV_TAG=stable/hunter
 
 RUN apk --no-cache add --update python py-pip bash git grep && \
     apk --no-cache add --virtual .build-deps --update \
