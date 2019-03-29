@@ -13,7 +13,7 @@
           - repo: _
             dport:
             container: golang
-            tag: 1.12.1-alpine3.9
+            tag: 1.12-alpine3.9
         steps:
           - name: build opnfv/functest-kubernetes-core
             containers:

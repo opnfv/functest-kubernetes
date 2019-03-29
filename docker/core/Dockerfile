@@ -1,4 +1,4 @@
-FROM golang:1.12.1-alpine3.9
+FROM golang:1.12-alpine3.9
 
 ARG BRANCH=stable/iruya
 ARG OPENSTACK_TAG=stable/stein
