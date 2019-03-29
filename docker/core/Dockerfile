@@ -1,4 +1,4 @@
-FROM golang:1.11.6-alpine3.9
+FROM golang:1.11-alpine3.9
 
 ARG BRANCH=stable/hunter
 ARG OPENSTACK_TAG=stable/rocky
