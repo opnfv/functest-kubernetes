@@ -13,7 +13,7 @@ RUN apk --no-cache add --update python py-pip bash git grep && \
         git checkout FETCH_HEAD) && \
     pip install \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
-        -chttps://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=$OPENSTACK_TAG \
+        -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
         /src/functest-kubernetes && \
     rm -rf /src/functest-kubernetes && \
     bash -c "mkdir -p /var/lib/xtesting /home/opnfv" && \
