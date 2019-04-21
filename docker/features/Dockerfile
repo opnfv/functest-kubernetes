@@ -11,7 +11,7 @@ RUN apk --no-cache add --update make py-pip bash git go \
         python-dev libffi-dev openssl-dev libjpeg-turbo-dev && \
     pip install \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
-        -chttps://git.openstack.org/cgit/openstack/requirements/plain/upper-constraints.txt?h=$OPENSTACK_TAG \
+        -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
         -rthirdparty-requirements.txt && \
     rm -f thirdparty-requirements.txt && \
     apk del .build-deps
