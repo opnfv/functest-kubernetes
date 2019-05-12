@@ -46,7 +46,7 @@ class K8sTesting(testcase.TestCase):
 
         process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
-        output = process.stdout.read()
+        output = process.stdout.read().decode()
         if ('Error loading client' in output or
                 'Unexpected error' in output):
             raise Exception(output)

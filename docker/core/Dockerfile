@@ -4,14 +4,14 @@ ARG BRANCH=master
 ARG OPENSTACK_TAG=master
 ARG OPNFV_TAG=master
 
-RUN apk --no-cache add --update python py-pip bash git grep && \
+RUN apk --no-cache add --update python3 bash git grep && \
     apk --no-cache add --virtual .build-deps --update \
-        python-dev build-base && \
+        python3-dev build-base && \
     git init /src/functest-kubernetes && \
     (cd /src/functest-kubernetes && \
         git fetch --tags https://gerrit.opnfv.org/gerrit/functest-kubernetes $BRANCH && \
         git checkout FETCH_HEAD) && \
-    pip install \
+    pip3 install \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
         /src/functest-kubernetes && \
@@ -19,5 +19,5 @@ RUN apk --no-cache add --update python py-pip bash git grep && \
     bash -c "mkdir -p /var/lib/xtesting /home/opnfv" && \
     ln -s /var/lib/xtesting /home/opnfv/functest && \
     apk del .build-deps
-COPY logging.ini /usr/lib/python2.7/site-packages/xtesting/ci/logging.ini
+COPY logging.ini /usr/lib/python3.6/site-packages/xtesting/ci/logging.ini
 CMD ["run_tests", "-t", "all"]
