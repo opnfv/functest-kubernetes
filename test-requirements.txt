@@ -9,3 +9,4 @@ pylint==1.4.5 # GPLv2
 yamllint
 ansible-lint
 bashate # Apache-2.0
+bandit
