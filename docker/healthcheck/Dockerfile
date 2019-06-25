@@ -14,7 +14,7 @@ RUN apk --no-cache add --update make py-pip bash git \
         make kubectl ginkgo && \
         make WHAT=test/e2e/e2e.test && \
         mv _output/bin/* /usr/local/bin) && \
-    rm -r /src/k8s.io && \
+    rm -r /src/k8s.io/kubernetes/.git /src/k8s.io/kubernetes/_output && \
     apk del .build-deps
 COPY testcases.yaml /usr/lib/python2.7/site-packages/xtesting/ci/testcases.yaml
 CMD ["run_tests", "-t", "all"]
