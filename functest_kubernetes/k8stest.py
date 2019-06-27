@@ -49,62 +49,32 @@ class K8sTesting(testcase.TestCase):
         boutput = process.stdout.read()
         with open(os.path.join(self.res_dir, 'e2e.log'), 'wb') as foutput:
             foutput.write(boutput)
-        output = boutput.decode("utf-8")
-        if ('Error loading client' in output or
-                'Unexpected error' in output):
-            raise Exception(output)
-
-        remarks = []
-        lines = output.split('\n')
-        success = False
-        failure = False
-        i = 0
-        while i < len(lines):
-            if '[Fail]' in lines[i] or 'Failures:' in lines[i]:
-                self.__logger.error(lines[i])
-            if re.search(r'\[(.)*[0-9]+ seconds\]', lines[i]):
-                self.__logger.debug(lines[i])
-                i = i + 1
-                while i < len(lines) and lines[i] != '-' * len(lines[i]):
-                    if lines[i].startswith('STEP:') or ('INFO:' in lines[i]):
-                        break
-                    self.__logger.debug(lines[i])
-                    i = i + 1
-            if i >= len(lines):
-                break
-            success = 'SUCCESS!' in lines[i]
-            failure = 'FAIL!' in lines[i]
-            if success or failure:
-                if i != 0 and 'seconds' in lines[i - 1]:
-                    remarks.append(lines[i - 1])
-                remarks = remarks + lines[i].replace('--', '|').split('|')
-                break
-            i = i + 1
-
-        self.__logger.debug('-' * 10)
-        self.__logger.info("Remarks:")
-        for remark in remarks:
-            if 'seconds' in remark:
-                self.__logger.debug(remark)
-            elif 'Passed' in remark:
-                self.__logger.info("Passed: %s", remark.split()[0])
-            elif 'Skipped' in remark:
-                self.__logger.info("Skipped: %s", remark.split()[0])
-            elif 'Failed' in remark:
-                self.__logger.info("Failed: %s", remark.split()[0])
-
-        if success:
-            self.result = 100
-        elif failure:
-            self.result = 0
+        grp = re.search(
+            r'^(FAIL|SUCCESS)!.* ([0-9]+) Passed \| ([0-9]+) Failed \|'
+            r' ([0-9]+) Pending \| ([0-9]+) Skipped', boutput.decode("utf-8"),
+            re.MULTILINE | re.DOTALL)
+        assert grp
+        self.details['passed'] = int(grp.group(2))
+        self.details['failed'] = int(grp.group(3))
+        self.details['pending'] = int(grp.group(4))
+        self.details['skipped'] = int(grp.group(5))
+        self.__logger.debug("details: %s", self.details)
+        self.result = self.details['passed'] * 100 / (
+            self.details['passed'] + self.details['failed'] +
+            self.details['pending'])
+        self.__logger.debug("result: %s", self.result)
+        if grp.group(1) == 'FAIL':
+            grp2 = re.search(
+                r'^(Summarizing [0-9]+ Failure.*)Ran', boutput.decode("utf-8"),
+                re.MULTILINE | re.DOTALL)
+            if grp2:
+                self.__logger.error(grp2.group(1))
 
     def run(self, **kwargs):
-
         if not os.path.isfile(self.config):
             self.__logger.error(
                 "Cannot run k8s testcases. Config file not found")
             return self.EX_RUN_ERROR
-
         self.start_time = time.time()
         try:
             self.run_kubetest()
@@ -112,7 +82,6 @@ class K8sTesting(testcase.TestCase):
         except Exception:  # pylint: disable=broad-except
             self.__logger.exception("Error with running kubetest:")
             res = self.EX_RUN_ERROR
-
         self.stop_time = time.time()
         return res
 
