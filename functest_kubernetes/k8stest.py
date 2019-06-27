@@ -46,7 +46,10 @@ class K8sTesting(testcase.TestCase):
 
         process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
-        output = process.stdout.read().decode("utf-8")
+        boutput = process.stdout.read()
+        with open(os.path.join(self.res_dir, 'e2e.log'), 'wb') as foutput:
+            foutput.write(boutput)
+        output = boutput.decode("utf-8")
         if ('Error loading client' in output or
                 'Unexpected error' in output):
             raise Exception(output)
@@ -122,7 +125,8 @@ class K8sSmokeTest(K8sTesting):
         super(K8sSmokeTest, self).__init__(**kwargs)
         self.cmd = ['e2e.test', '-ginkgo.focus', 'Guestbook.application',
                     '-ginkgo.noColor', '-kubeconfig', self.config,
-                    '-provider', 'local', '-report-dir', self.res_dir]
+                    '-provider', 'local', '-report-dir', self.res_dir,
+                    '-disable-log-dump', 'true']
 
 
 class K8sConformanceTest(K8sTesting):
@@ -135,4 +139,4 @@ class K8sConformanceTest(K8sTesting):
             'e2e.test', '-ginkgo.focus', r'\[Conformance\]', '-ginkgo.noColor',
             '-ginkgo.skip', r'Alpha|\[(Disruptive|Feature:[^\]]+|Flaky)\]',
             '-kubeconfig', self.config, '-provider', 'local',
-            '-report-dir', self.res_dir]
+            '-report-dir', self.res_dir, '-disable-log-dump', 'true']
