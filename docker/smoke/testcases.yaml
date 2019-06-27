@@ -3,7 +3,6 @@ tiers:
     -
         name: smoke
         order: 1
-        ci_loop: '(merge)|(verify)|(daily)|(weekly)'
         description: >-
             A set of conformance tests integrated from kubernetes project.
         testcases:
