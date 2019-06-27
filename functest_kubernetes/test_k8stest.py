@@ -64,6 +64,7 @@ class K8sTests(unittest.TestCase):
             mock_logger.exception.assert_called_with(
                 "Error with running kubetest:")
 
+    @mock.patch('six.moves.builtins.open', mock.mock_open())
     @mock.patch('functest_kubernetes.k8stest.os.path.isfile')
     @mock.patch('functest_kubernetes.k8stest.subprocess.Popen')
     def test_run(self, mock_open, mock_isfile):
