@@ -3,7 +3,6 @@ tiers:
     -
         name: healthcheck
         order: 0
-        ci_loop: '(merge)|(verify)|(daily)|(weekly)'
         description: >-
             A set of e2e tests integrated from kubernetes project.
         testcases:
