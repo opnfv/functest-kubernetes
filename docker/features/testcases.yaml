@@ -3,7 +3,6 @@ tiers:
     -
         name: stor4nfv
         order: 2
-        ci_loop: '(daily)|(weekly)'
         description: >-
             Test suite from Stor4NFV project.
         testcases:
@@ -23,7 +22,6 @@ tiers:
     -
         name: clover
         order: 3
-        ci_loop: '(daily)|(weekly)'
         description: >-
             Test suite from Clover project.
         testcases:
