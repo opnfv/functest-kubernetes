@@ -4,9 +4,9 @@ ARG BRANCH=master
 ARG OPENSTACK_TAG=master
 ARG OPNFV_TAG=master
 
-RUN apk --no-cache add --update python3 bash git grep && \
+RUN apk --no-cache add --update python3 bash git grep libffi && \
     apk --no-cache add --virtual .build-deps --update \
-        python3-dev build-base && \
+        python3-dev build-base libffi-dev && \
     git init /src/functest-kubernetes && \
     (cd /src/functest-kubernetes && \
         git fetch --tags https://gerrit.opnfv.org/gerrit/functest-kubernetes $BRANCH && \
@@ -18,6 +18,9 @@ RUN apk --no-cache add --update python3 bash git grep && \
     rm -rf /src/functest-kubernetes && \
     bash -c "mkdir -p /var/lib/xtesting /home/opnfv" && \
     ln -s /var/lib/xtesting /home/opnfv/functest && \
+    mkdir -p /etc/rally && \
+    printf "[database]\nconnection = 'sqlite:////var/lib/rally/database/rally.sqlite'" > /etc/rally/rally.conf && \
+    mkdir -p /var/lib/rally/database && rally db create && \
     apk del .build-deps
 COPY logging.ini /usr/lib/python3.6/site-packages/xtesting/ci/logging.ini
 CMD ["run_tests", "-t", "all"]
