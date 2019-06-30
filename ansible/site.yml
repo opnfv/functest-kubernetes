@@ -38,4 +38,5 @@
         - repo: opnfv
           container: functest-kubernetes-smoke
           tests:
+            - xrally_kubernetes
             - k8s_conformance

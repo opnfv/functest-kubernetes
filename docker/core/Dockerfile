@@ -1,7 +1,7 @@
 FROM golang:1.12-alpine3.9
 
 ARG BRANCH=stable/iruya
-ARG OPENSTACK_TAG=stable/stein
+ARG OPENSTACK_TAG=stable/iruya
 ARG OPNFV_TAG=stable/iruya
 
 RUN apk --no-cache add --update python3 py3-pip bash git grep libffi openssl mailcap && \
@@ -18,6 +18,9 @@ RUN apk --no-cache add --update python3 py3-pip bash git grep libffi openssl mai
     rm -rf /src/functest-kubernetes && \
     bash -c "mkdir -p /var/lib/xtesting /home/opnfv" && \
     ln -s /var/lib/xtesting /home/opnfv/functest && \
+    mkdir -p /etc/rally && \
+    printf "[database]\nconnection = 'sqlite:////var/lib/rally/database/rally.sqlite'" > /etc/rally/rally.conf && \
+    mkdir -p /var/lib/rally/database && rally db create && \
     apk del .build-deps
 COPY logging.ini /usr/lib/python3.6/site-packages/xtesting/ci/logging.ini
 CMD ["run_tests", "-t", "all"]
