@@ -39,6 +39,7 @@
           container: functest-kubernetes-smoke
           tests:
             - k8s_conformance
+            - xrally_kubernetes
         - repo: opnfv
           container: functest-kubernetes-features
           tests:

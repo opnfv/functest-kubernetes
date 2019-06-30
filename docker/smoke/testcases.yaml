@@ -19,3 +19,15 @@ tiers:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
                     name: k8s_conformance
+            -
+                case_name: xrally_kubernetes
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    All in one tasks for checking basic functionality of
+                    Kubernetes cluster.
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: xrally_kubernetes
