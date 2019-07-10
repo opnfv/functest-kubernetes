@@ -28,7 +28,8 @@ for dir in ${amd64_dirs}; do
 done
 [ ! -z "${amd64_dirs}" ] &&
     (docker rmi \
-        "${repo}/functest-kubernetes-core:amd64-iruya" golang:1.12-alpine3.9 || true)
+        "${repo}/functest-kubernetes-core:amd64-iruya" \
+        golang:1.12-alpine3.9 || true)
 find . -name Dockerfile -exec git checkout {} +
 
 find . -name Dockerfile -exec sed -i \
