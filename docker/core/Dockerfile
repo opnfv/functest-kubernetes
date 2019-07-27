@@ -1,4 +1,4 @@
-FROM golang:alpine3.9
+FROM golang:alpine3.10
 
 ARG BRANCH=master
 ARG OPENSTACK_TAG=master
@@ -22,5 +22,5 @@ RUN apk --no-cache add --update python3 bash git grep libffi openssl && \
     printf "[database]\nconnection = 'sqlite:////var/lib/rally/database/rally.sqlite'" > /etc/rally/rally.conf && \
     mkdir -p /var/lib/rally/database && rally db create && \
     apk del .build-deps
-COPY logging.ini /usr/lib/python3.6/site-packages/xtesting/ci/logging.ini
+COPY logging.ini /usr/lib/python3.7/site-packages/xtesting/ci/logging.ini
 CMD ["run_tests", "-t", "all"]
