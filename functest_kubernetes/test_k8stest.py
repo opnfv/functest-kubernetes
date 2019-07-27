@@ -38,8 +38,8 @@ class K8sTests(unittest.TestCase):
         self.k8stesting.config = 'not_file'
         with mock.patch.object(self.k8stesting,
                                '_K8sTesting__logger') as mock_logger:
-            self.assertEquals(self.k8stesting.run(),
-                              testcase.TestCase.EX_RUN_ERROR)
+            self.assertEqual(self.k8stesting.run(),
+                             testcase.TestCase.EX_RUN_ERROR)
             mock_logger.error.assert_called_with(
                 "Cannot run k8s testcases. Config file not found")
         mock_func.assert_called_with('not_file')
@@ -54,8 +54,8 @@ class K8sTests(unittest.TestCase):
     @mock.patch('functest_kubernetes.k8stest.os.path.isfile')
     @mock.patch('functest_kubernetes.k8stest.subprocess.Popen')
     def test_run(self, *args):
-        self.assertEquals(self.k8stesting.run(),
-                          testcase.TestCase.EX_OK)
+        self.assertEqual(self.k8stesting.run(),
+                         testcase.TestCase.EX_OK)
         for loop in range(3):
             args[loop].assert_called()
 
