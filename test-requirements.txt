@@ -5,7 +5,7 @@ coverage!=4.4 # Apache-2.0
 mock # BSD
 nose # LGPL
 flake8<2.6.0,>=2.5.4 # MIT
-pylint==1.4.5 # GPLv2
+pylint # GPLv2
 yamllint
 ansible-lint
 bashate # Apache-2.0
