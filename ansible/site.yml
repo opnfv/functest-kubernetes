@@ -40,6 +40,8 @@
           tests:
             - xrally_kubernetes
             - k8s_conformance
+          properties:
+            execution-type: SEQUENTIALLY
         - repo: opnfv
           container: functest-kubernetes-features
           tests:
