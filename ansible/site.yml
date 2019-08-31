@@ -30,9 +30,6 @@
               - name: functest-kubernetes-smoke
                 ref_arg:
                 path: docker/smoke
-              - name: functest-kubernetes-features
-                ref_arg:
-                path: docker/features
       suites:
         - repo: opnfv
           container: functest-kubernetes-healthcheck
@@ -42,8 +39,3 @@
           container: functest-kubernetes-smoke
           tests:
             - k8s_conformance
-        - repo: opnfv
-          container: functest-kubernetes-features
-          tests:
-            - stor4nfv_k8s
-            - clover_k8s
