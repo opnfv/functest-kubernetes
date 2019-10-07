@@ -1,6 +1,6 @@
-FROM opnfv/functest-kubernetes-core
+FROM opnfv/functest-kubernetes-core:jerma
 
-ARG K8S_TAG=master
+ARG K8S_TAG=v1.16.1
 
 RUN apk --no-cache add --update make bash git \
         grep rsync linux-headers musl-dev findutils \

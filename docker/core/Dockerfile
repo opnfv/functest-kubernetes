@@ -1,8 +1,8 @@
 FROM golang:1.12-alpine3.10
 
-ARG BRANCH=master
-ARG OPENSTACK_TAG=master
-ARG OPNFV_TAG=master
+ARG BRANCH=stable/jerma
+ARG OPENSTACK_TAG=stable/train
+ARG OPNFV_TAG=stable/jerma
 
 RUN apk --no-cache add --update python3 bash git grep libffi openssl && \
     apk --no-cache add --virtual .build-deps --update \
