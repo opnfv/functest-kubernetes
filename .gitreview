@@ -2,3 +2,4 @@
 host=gerrit.opnfv.org
 port=29418
 project=functest-kubernetes.git
+defaultbranch=stable/jerma
