@@ -32,8 +32,8 @@ jobs:
       script: >
         sudo manifest-tool push from-args \
           --platforms linux/amd64 \
-          --template ${DOCKER_USERNAME}/functest-kubernetes-core:ARCH-latest \
-          --target ${DOCKER_USERNAME}/functest-kubernetes-core:latest
+          --template ${DOCKER_USERNAME}/functest-kubernetes-core:ARCH-jerma \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-core:jerma
     - stage: build functest-kubernetes-healthcheck image
       script: sudo -E bash build.sh
       env:
@@ -45,8 +45,8 @@ jobs:
         sudo manifest-tool push from-args \
           --platforms linux/amd64 \
           --template \
-          ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:ARCH-latest \
-          --target ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:latest
+          ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:ARCH-jerma \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:jerma
     - stage: build functest-kubernetes-smoke image
       script: sudo -E bash build.sh
       env:
@@ -57,5 +57,5 @@ jobs:
       script: >
         sudo manifest-tool push from-args \
           --platforms linux/amd64 \
-          --template ${DOCKER_USERNAME}/functest-kubernetes-smoke:ARCH-latest \
-          --target ${DOCKER_USERNAME}/functest-kubernetes-smoke:latest
+          --template ${DOCKER_USERNAME}/functest-kubernetes-smoke:ARCH-jerma \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-smoke:jerma
