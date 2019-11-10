@@ -25,6 +25,7 @@ from xtesting.core import testcase
 
 class K8sTesting(testcase.TestCase):
     """Kubernetes test runner"""
+    # pylint: disable=too-many-instance-attributes
 
     __logger = logging.getLogger(__name__)
 
@@ -38,6 +39,8 @@ class K8sTesting(testcase.TestCase):
         self.result = 0
         self.start_time = 0
         self.stop_time = 0
+        self.output_log_name = 'functest-kubernetes.log'
+        self.output_debug_log_name = 'functest-kubernetes.debug.log'
 
     def run_kubetest(self):  # pylint: disable=too-many-branches
         """Run the test suites"""
