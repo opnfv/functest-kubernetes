@@ -4,7 +4,7 @@ ARG BRANCH=master
 ARG OPENSTACK_TAG=master
 ARG OPNFV_TAG=master
 
-RUN apk --no-cache add --update python3 bash git grep libffi openssl && \
+RUN apk --no-cache add --update python3 bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
         python3-dev build-base libffi-dev openssl-dev && \
     git init /src/functest-kubernetes && \
