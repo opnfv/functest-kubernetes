@@ -4,7 +4,7 @@ ARG BRANCH=stable/iruya
 ARG OPENSTACK_TAG=stable/stein
 ARG OPNFV_TAG=stable/iruya
 
-RUN apk --no-cache add --update python3 py3-pip bash git grep && \
+RUN apk --no-cache add --update python3 py3-pip bash git grep mailcap && \
     apk --no-cache add --virtual .build-deps --update \
         python3-dev build-base && \
     git init /src/functest-kubernetes && \
