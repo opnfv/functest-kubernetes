@@ -4,7 +4,7 @@ ARG BRANCH=stable/hunter
 ARG OPENSTACK_TAG=stable/rocky
 ARG OPNFV_TAG=stable/hunter
 
-RUN apk --no-cache add --update python py-pip bash git grep && \
+RUN apk --no-cache add --update python py-pip bash git grep mailcap && \
     apk --no-cache add --virtual .build-deps --update \
         python-dev build-base && \
     git init /src/functest-kubernetes && \
