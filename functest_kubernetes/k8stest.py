@@ -34,8 +34,8 @@ class K8sTesting(testcase.TestCase):
     def __init__(self, **kwargs):
         super(K8sTesting, self).__init__(**kwargs)
         self.cmd = []
-        self.res_dir = "/home/opnfv/functest/results/{}".format(
-            self.case_name)
+        self.dir_results = "/home/opnfv/functest/results"
+        self.res_dir = os.path.join(self.dir_results, self.case_name)
         self.result = 0
         self.start_time = 0
         self.stop_time = 0
