@@ -28,8 +28,8 @@ class RallyKubernetes(testcase.TestCase):
 
     def __init__(self, **kwargs):
         super(RallyKubernetes, self).__init__(**kwargs)
-        self.res_dir = "/home/opnfv/functest/results/{}".format(
-            self.case_name)
+        self.dir_results = "/home/opnfv/functest/results"
+        self.res_dir = os.path.join(self.dir_results, self.case_name)
 
     def run(self, **kwargs):
         self.start_time = time.time()
