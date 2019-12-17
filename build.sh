@@ -28,11 +28,11 @@ done
 [ ! -z "${amd64_dirs}" ] &&
     (docker rmi \
         "${repo}/functest-kubernetes-core:amd64-jerma" \
-        golang:1.12-alpine3.10 || true)
+        golang:1.13-alpine3.10 || true)
 find . -name Dockerfile -exec git checkout {} +
 
 find . -name Dockerfile -exec sed -i \
-    -e "s|golang:1.12-alpine3.10|arm64v8/golang:1.12-alpine3.10|g" {} +
+    -e "s|golang:1.13-alpine3.10|arm64v8/golang:1.13-alpine3.10|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-core:jerma|\
 ${repo}/functest-kubernetes-core:arm64-jerma|g" {} +
@@ -49,7 +49,7 @@ for dir in ${arm64_dirs}; do
 done
 [ ! -z "${arm64_dirs}" ] &&
     (docker rmi "${repo}/functest-kubernetes-core:arm64-jerma" \
-        arm64v8/golang:1.12-alpine3.10 || true)
+        arm64v8/golang:1.13-alpine3.10 || true)
 find . -name Dockerfile -exec git checkout {} +
 
 exit $?
