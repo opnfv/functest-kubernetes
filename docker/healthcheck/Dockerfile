@@ -16,5 +16,5 @@ RUN apk --no-cache add --update make bash git \
         mv _output/bin/* /usr/local/bin) && \
     rm -r /src/k8s.io && \
     apk del .build-deps
-COPY testcases.yaml /usr/lib/python3.7/site-packages/xtesting/ci/testcases.yaml
+COPY testcases.yaml /usr/lib/python3.8/site-packages/xtesting/ci/testcases.yaml
 CMD ["run_tests", "-t", "all"]

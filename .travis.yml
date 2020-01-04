@@ -11,7 +11,7 @@ addons:
 before_script:
   - sudo add-apt-repository -y ppa:deadsnakes/ppa
   - sudo apt-get update
-  - sudo apt-get install python3.7 python3.7-dev
+  - sudo apt-get install python3.8 python3.8-dev python3.8-distutils
   - sudo pip install tox
   - sudo -E docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
   - (cd .. && git clone https://github.com/estesp/manifest-tool)
@@ -21,7 +21,7 @@ before_script:
 jobs:
   include:
     - stage: run unit tests
-      script: tox -e pep8,pylint,yamllint,ansiblelint,bashate,py27,py37
+      script: tox -e pep8,pylint,yamllint,ansiblelint,bashate,py27,py38
     - stage: build functest-kubernetes-core image
       script: sudo -E bash build.sh
       env:
