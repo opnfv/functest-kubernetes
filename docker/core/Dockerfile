@@ -4,9 +4,9 @@ ARG BRANCH=stable/hunter
 ARG OPENSTACK_TAG=stable/rocky
 ARG OPNFV_TAG=stable/hunter
 
-RUN apk --no-cache add --update python py-pip bash git grep mailcap && \
+RUN apk --no-cache add --update python py-pip bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
-        python-dev build-base && \
+        python-dev build-base libffi-dev openssl-dev && \
     git init /src/functest-kubernetes && \
     (cd /src/functest-kubernetes && \
         git fetch --tags https://gerrit.opnfv.org/gerrit/functest-kubernetes $BRANCH && \
