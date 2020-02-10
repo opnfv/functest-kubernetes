@@ -1,0 +1,28 @@
+---
+tiers:
+    -
+        name: security
+        order: 1
+        ci_loop: '(daily)|(weekly)'
+        description: >-
+            Set of basic Functional security tests.
+        testcases:
+            -
+                case_name: kube_bench
+                project_name: security
+                criteria: 100
+                blocking: false
+                description: >-
+                    test if kubernetes install is CIS compliant.
+                run:
+                    name: 'kube_bench'
+            -
+                case_name: kube_hunter
+                project_name: security
+                criteria: 100
+                blocking: false
+                description: >-
+                    Check that the kubernetes cluster has no known
+                    vulnerabilities
+                run:
+                    name: 'kube_hunter'
