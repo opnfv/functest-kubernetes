@@ -4,9 +4,9 @@ ARG BRANCH=stable/iruya
 ARG OPENSTACK_TAG=stable/stein
 ARG OPNFV_TAG=stable/iruya
 
-RUN apk --no-cache add --update python3 py3-pip bash git grep mailcap && \
+RUN apk --no-cache add --update python3 py3-pip bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
-        python3-dev build-base && \
+        python3-dev build-base libffi-dev openssl-dev && \
     git init /src/functest-kubernetes && \
     (cd /src/functest-kubernetes && \
         git fetch --tags https://gerrit.opnfv.org/gerrit/functest-kubernetes $BRANCH && \
