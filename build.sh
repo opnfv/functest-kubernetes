@@ -7,7 +7,8 @@ amd64_dirs=${amd64_dirs-"\
 docker/core \
 docker/healthcheck \
 docker/smoke \
-docker/cnf"}
+docker/cnf \
+docker/security"}
 arm64_dirs=${arm64_dirs-${amd64_dirs}}
 build_opts=(--pull=true --no-cache --force-rm=true)
 
