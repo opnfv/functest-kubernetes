@@ -34,7 +34,7 @@ jobs:
           --platforms linux/amd64 \
           --template ${DOCKER_USERNAME}/functest-kubernetes-core:ARCH-latest \
           --target ${DOCKER_USERNAME}/functest-kubernetes-core:latest
-    - stage: build functest-kubernetes-[healthcheck,cnf] images
+    - stage: build functest-kubernetes-[healthcheck,cnf,security] images
       script: sudo -E bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
@@ -46,7 +46,13 @@ jobs:
         - amd64_dirs="docker/cnf"
         - arm64_dirs=""
         - arm_dirs=""
-    - stage: publish functest-kubernetes-[healthcheck,cnf] manifests
+    - script: sudo -E bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs="docker/security"
+        - arm64_dirs=""
+        - arm_dirs=""
+    - stage: publish functest-kubernetes-[healthcheck,cnf,security] manifests
       script: >
         sudo manifest-tool push from-args \
           --platforms linux/amd64 \
@@ -58,6 +64,11 @@ jobs:
           --platforms linux/amd64 \
           --template ${DOCKER_USERNAME}/functest-kubernetes-cnf:ARCH-latest \
           --target ${DOCKER_USERNAME}/functest-kubernetes-cnf:latest
+    - script: >
+        sudo manifest-tool push from-args \
+          --platforms linux/amd64 \
+          --template ${DOCKER_USERNAME}/functest-kubernetes-security:ARCH-latest \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-security:latest
     - stage: build functest-kubernetes-smoke image
       script: sudo -E bash build.sh
       env:
