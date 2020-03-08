@@ -338,19 +338,6 @@ subtasks:
         count: 3
         with_serviceaccount: true
 
-  - title: Run a single workload with create/check/delete daemonset
-    scenario:
-      Kubernetes.create_check_and_delete_daemonset:
-        image: kubernetes/pause
-    runner:
-      constant:
-        concurrency: 1
-        times: 1
-    contexts:
-      namespaces:
-        count: 3
-        with_serviceaccount: true
-
   - title: >-
       Run a single workload with create/check/delete clusterIP service with
       custom endpoint
