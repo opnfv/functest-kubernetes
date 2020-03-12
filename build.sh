@@ -7,6 +7,7 @@ amd64_dirs=${amd64_dirs-"\
 docker/core \
 docker/healthcheck \
 docker/smoke \
+docker/cnf \
 docker/security \
 docker/features"}
 arm64_dirs=${arm64_dirs-${amd64_dirs}}
