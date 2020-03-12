@@ -1,0 +1,20 @@
+---
+tiers:
+    -
+        name: cnf
+        order: 1
+        description: >-
+            Collection of VNF test cases.
+        testcases:
+            -
+                case_name: k8s_vims
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    Deploy and test Clearwater IMS using Kubernetes as proposed
+                    by https://github.com/Metaswitch/clearwater-docker
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: k8s_vims
