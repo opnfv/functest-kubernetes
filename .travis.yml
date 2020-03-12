@@ -34,7 +34,7 @@ jobs:
           --platforms linux/amd64 \
           --template ${DOCKER_USERNAME}/functest-kubernetes-core:ARCH-iruya \
           --target ${DOCKER_USERNAME}/functest-kubernetes-core:iruya
-    - stage: build functest-kubernetes-[healthcheck,security] images
+    - stage: build functest-kubernetes-[healthcheck,cnf,security] images
       script: sudo -E bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
@@ -43,16 +43,27 @@ jobs:
     - script: sudo -E bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs="docker/cnf"
+        - arm64_dirs=""
+        - arm_dirs=""
+    - script: sudo -E bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/security"
         - arm64_dirs=""
         - arm_dirs=""
-    - stage: publish functest-kubernetes-[healthcheck,security] manifests
+    - stage: publish functest-kubernetes-[healthcheck,cnf,security] manifests
       script: >
         sudo manifest-tool push from-args \
           --platforms linux/amd64 \
           --template \
           ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:ARCH-iruya \
           --target ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:iruya
+    - script: >
+        sudo manifest-tool push from-args \
+          --platforms linux/amd64 \
+          --template ${DOCKER_USERNAME}/functest-kubernetes-cnf:ARCH-iruya \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-cnf:iruya
     - script: >
         sudo manifest-tool push from-args \
           --platforms linux/amd64 \
