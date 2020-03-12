@@ -53,6 +53,12 @@ jobs:
         - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/smoke"
         - arm64_dirs=""
+    - stage: build functest-kubernetes-cnf image
+      script: sudo -E bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs="docker/cnf"
+        - arm64_dirs=""
     - stage: publish functest-kubernetes-smoke manifests
       script: >
         sudo manifest-tool push from-args \
