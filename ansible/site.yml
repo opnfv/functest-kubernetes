@@ -22,6 +22,12 @@
               - name: functest-kubernetes-healthcheck
                 ref_arg:
                 path: docker/healthcheck
+              - name: functest-kubernetes-cnf
+                ref_arg: BRANCH
+                path: docker/cnf
+              - name: functest-kubernetes-security
+                ref_arg: BRANCH
+                path: docker/security
           - name: build containers
             containers:
               - name: functest-kubernetes-smoke
@@ -39,3 +45,12 @@
             - k8s_conformance
           properties:
             execution-type: SEQUENTIALLY
+        - repo: opnfv
+          container: functest-kubernetes-cnf
+          tests:
+            - k8s_vims
+        - repo: opnfv
+          container: functest-kubernetes-security
+          tests:
+            - kube_hunter
+            - kube_bench
