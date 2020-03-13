@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76ee991e_fb2cd9fb",
+        "filename": "functest_kubernetes/ims/bono-depl.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 7103
+      },
+      "writtenOn": "2020-03-13T09:53:20Z",
+      "side": 1,
+      "message": "a good practice is to name the port",
+      "revId": "f0afe5fc4b0976040d891ba2b031bcea9adca2a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "162020b2_cb9394b3",
+        "filename": "functest_kubernetes/ims/bono-depl.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 7103
+      },
+      "writtenOn": "2020-03-13T09:53:20Z",
+      "side": 1,
+      "message": "you have 2 liveness and readiness probes",
+      "revId": "f0afe5fc4b0976040d891ba2b031bcea9adca2a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be3b6e29_9efd1b2b",
+        "filename": "functest_kubernetes/ims/bono-svc.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 7103
+      },
+      "writtenOn": "2020-03-13T09:53:20Z",
+      "side": 1,
+      "message": "all your services are headless.\nAre you sure that\u0027s what you want?",
+      "revId": "f0afe5fc4b0976040d891ba2b031bcea9adca2a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76a48853_a536a29c",
+        "filename": "functest_kubernetes/ims/bono-svc.yaml",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 7103
+      },
+      "writtenOn": "2020-03-13T09:53:20Z",
+      "side": 1,
+      "message": "a good practice is to reference the port with its name",
+      "revId": "f0afe5fc4b0976040d891ba2b031bcea9adca2a7",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": true
+    }
+  ]
+}
