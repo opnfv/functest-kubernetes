@@ -23,4 +23,5 @@ RUN apk --no-cache add --update python3 bash git grep libffi openssl mailcap && 
     mkdir -p /var/lib/rally/database && rally db create && \
     apk del .build-deps
 COPY logging.ini /usr/lib/python3.8/site-packages/xtesting/ci/logging.ini
+COPY logging.debug.ini /usr/lib/python3.8/site-packages/xtesting/ci/logging.debug.ini
 CMD ["run_tests", "-t", "all"]
