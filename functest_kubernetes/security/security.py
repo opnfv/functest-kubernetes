@@ -25,6 +25,7 @@ from xtesting.core import testcase
 
 
 class SecurityTesting(testcase.TestCase):
+    # pylint: disable=too-many-instance-attributes
     """Run Security job"""
     namespace = 'default'
     watch_timeout = 1200
@@ -38,6 +39,8 @@ class SecurityTesting(testcase.TestCase):
         self.batchv1 = client.BatchV1Api()
         self.pod = None
         self.job_name = None
+        self.output_log_name = 'functest-kubernetes.log'
+        self.output_debug_log_name = 'functest-kubernetes.debug.log'
 
     def deploy_job(self):
         """Run Security job
