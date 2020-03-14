@@ -38,6 +38,8 @@ class SecurityTesting(testcase.TestCase):
         self.batchv1 = client.BatchV1Api()
         self.pod = None
         self.job_name = None
+        self.output_log_name = 'functest-kubernetes.log'
+        self.output_debug_log_name = 'functest-kubernetes.debug.log'
 
     def deploy_job(self):
         """Run Security job
