@@ -48,6 +48,8 @@ class Vims(testcase.TestCase):
         config.load_kube_config()
         self.corev1 = client.CoreV1Api()
         self.appsv1 = client.AppsV1Api()
+        self.output_log_name = 'functest-kubernetes.log'
+        self.output_debug_log_name = 'functest-kubernetes.debug.log'
 
     def deploy_vnf(self):
         """Deploy vIMS as proposed by clearwater-docker
