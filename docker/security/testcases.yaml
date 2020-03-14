@@ -9,7 +9,7 @@ tiers:
         testcases:
             -
                 case_name: kube_hunter
-                project_name: security
+                project_name: functest
                 criteria: 100
                 blocking: false
                 description: >-
@@ -19,7 +19,7 @@ tiers:
                     name: 'kube_hunter'
             -
                 case_name: kube_bench
-                project_name: security
+                project_name: functest
                 criteria: 100
                 blocking: false
                 description: >-
