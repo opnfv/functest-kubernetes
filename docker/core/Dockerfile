@@ -29,4 +29,5 @@ RUN apk --no-cache add --update python3 bash git grep libffi openssl mailcap && 
     rm /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch && \
     apk del .build-deps
 COPY logging.ini /usr/lib/python3.7/site-packages/xtesting/ci/logging.ini
+COPY logging.debug.ini /usr/lib/python3.7/site-packages/xtesting/ci/logging.debug.ini
 CMD ["run_tests", "-t", "all"]
