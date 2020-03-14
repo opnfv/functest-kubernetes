@@ -29,4 +29,5 @@ RUN apk --no-cache add --update python3 py3-pip bash git grep libffi openssl mai
     rm /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch && \
     apk del .build-deps
 COPY logging.ini /usr/lib/python3.6/site-packages/xtesting/ci/logging.ini
+COPY logging.debug.ini /usr/lib/python3.6/site-packages/xtesting/ci/logging.debug.ini
 CMD ["run_tests", "-t", "all"]
