@@ -7,7 +7,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 
-"""Deploy and Test Clearwater vIMS using Kubernetes"""
+"""Deploy and test Clearwater vIMS using Kubernetes"""
 
 from __future__ import division
 
@@ -25,7 +25,7 @@ from xtesting.core import testcase
 
 
 class Vims(testcase.TestCase):
-    """Deploy and Test Clearwater vIMS using Kubernetes
+    """Deploy and test Clearwater vIMS using Kubernetes
 
     It leverage on the Python kubernetes client to apply operation proposed by
     clearwater-docker.
@@ -97,6 +97,7 @@ class Vims(testcase.TestCase):
         for event in watch_deployment.stream(
                 func=self.appsv1.list_namespaced_deployment,
                 namespace=self.namespace, timeout_seconds=self.watch_timeout):
+            self.__logger.debug(event)
             if event["object"].status.ready_replicas == 1:
                 if event['object'].metadata.name in status:
                     status.remove(event['object'].metadata.name)
@@ -126,9 +127,10 @@ class Vims(testcase.TestCase):
         for event in watch_deployment.stream(
                 func=self.corev1.list_namespaced_pod,
                 namespace=self.namespace, timeout_seconds=self.watch_timeout):
+            self.__logger.debug(event)
             if event["object"].metadata.name == self.test_container_name:
                 if (event["object"].status.phase == 'Succeeded' or
-                        event["object"].status.phase == 'Error'):
+                        event["object"].status.phase == 'Failed'):
                     watch_deployment.stop()
         api_response = self.corev1.read_namespaced_pod_log(
             name=self.test_container_name, namespace=self.namespace)
