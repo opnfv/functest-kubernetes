@@ -100,7 +100,7 @@ class Vims(testcase.TestCase):
                         "%s started in %0.2f sec",
                         event['object'].metadata.name,
                         time.time()-self.start_time)
-            if len(status) == 0:
+            if not status:
                 watch_deployment.stop()
         self.result = 1/2 * 100
 
