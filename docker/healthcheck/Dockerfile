@@ -1,6 +1,6 @@
 FROM opnfv/functest-kubernetes-core
 
-ARG K8S_TAG=master
+ARG K8S_TAG=v1.18.2
 
 RUN apk --no-cache add --update make bash git \
         grep rsync linux-headers musl-dev findutils \
