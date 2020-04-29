@@ -1,4 +1,4 @@
-FROM opnfv/functest-kubernetes-core
+FROM opnfv/functest-kubernetes-core:kali
 
 ARG K8S_TAG=master
 

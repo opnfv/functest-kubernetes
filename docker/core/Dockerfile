@@ -1,8 +1,8 @@
 FROM golang:1.13-alpine3.11
 
-ARG BRANCH=master
+ARG BRANCH=stable/kali
 ARG OPENSTACK_TAG=master
-ARG OPNFV_TAG=master
+ARG OPNFV_TAG=stable/kali
 
 RUN apk --no-cache add --update python3 bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
