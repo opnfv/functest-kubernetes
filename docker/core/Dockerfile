@@ -1,7 +1,7 @@
 FROM golang:1.13-alpine3.11
 
 ARG BRANCH=stable/kali
-ARG OPENSTACK_TAG=master
+ARG OPENSTACK_TAG=stable/ussuri
 ARG OPNFV_TAG=stable/kali
 
 RUN apk --no-cache add --update python3 bash git grep libffi openssl mailcap && \
