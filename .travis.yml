@@ -21,7 +21,7 @@ before_script:
 jobs:
   include:
     - stage: run unit tests
-      script: tox -e pep8,pylint,yamllint,ansiblelint,bashate,py27,py36
+      script: tox -e pep8,pylint,yamllint,ansiblelint,bashate,py36,bandit
     - stage: build functest-kubernetes-core image
       script: sudo -E bash build.sh
       env:
