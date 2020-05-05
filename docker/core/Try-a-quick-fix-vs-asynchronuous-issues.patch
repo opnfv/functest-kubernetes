@@ -1,0 +1,31 @@
+From 30fa786dd108ac5368da755c504ac20295eaf4e8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?C=C3=A9dric=20Ollivier?= <cedric.ollivier@orange.com>
+Date: Tue, 5 May 2020 23:36:21 +0200
+Subject: [PATCH] Try a quick fix vs asynchronuous issues
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+It will confirm the issues as seen in Functest gates.
+
+Signed-off-by: Cédric Ollivier <cedric.ollivier@orange.com>
+---
+ xrally_kubernetes/service.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/xrally_kubernetes/service.py b/xrally_kubernetes/service.py
+index c5f0b7d..a8ad25d 100644
+--- a/xrally_kubernetes/service.py
++++ b/xrally_kubernetes/service.py
+@@ -308,6 +308,8 @@ class Kubernetes(service.Service):
+         }
+         self.v1_client.create_namespaced_service_account(namespace=namespace,
+                                                          body=sa_manifest)
++        # it prevents from the asynchronuous issues as seen in gates
++        commonutils.interruptable_sleep(CONF.kubernetes.start_prepoll_delay)
+ 
+     @atomic.action_timer("kubernetes.create_secret")
+     def create_secret(self, name, namespace):
+-- 
+2.26.2
+
