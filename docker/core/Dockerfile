@@ -4,6 +4,7 @@ ARG BRANCH=master
 ARG OPENSTACK_TAG=master
 ARG OPNFV_TAG=master
 
+COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
 RUN apk --no-cache add --update python3 bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
         python3-dev build-base libffi-dev openssl-dev && \
@@ -15,12 +16,15 @@ RUN apk --no-cache add --update python3 bash git grep libffi openssl mailcap && 
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
         /src/functest-kubernetes && \
+    (cd /usr/lib/python3.8/site-packages/xrally_kubernetes/ && \
+        patch -p2 < /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch) && \
     rm -rf /src/functest-kubernetes && \
     bash -c "mkdir -p /var/lib/xtesting /home/opnfv" && \
     ln -s /var/lib/xtesting /home/opnfv/functest && \
     mkdir -p /etc/rally && \
     printf "[database]\nconnection = 'sqlite:////var/lib/rally/database/rally.sqlite'" > /etc/rally/rally.conf && \
     mkdir -p /var/lib/rally/database && rally db create && \
+    rm /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch && \
     apk del .build-deps
 COPY logging.ini /usr/lib/python3.8/site-packages/xtesting/ci/logging.ini
 COPY logging.debug.ini /usr/lib/python3.8/site-packages/xtesting/ci/logging.debug.ini
