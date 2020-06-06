@@ -1,11 +1,11 @@
-FROM golang:1.13-alpine3.11
+FROM golang:1.13-alpine3.12
 
 ARG BRANCH=master
 ARG OPENSTACK_TAG=master
 ARG OPNFV_TAG=master
 
 COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
-RUN apk --no-cache add --update python3 bash git grep libffi openssl mailcap && \
+RUN apk --no-cache add --update python3 py3-pip bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
         python3-dev build-base libffi-dev openssl-dev && \
     git init /src/functest-kubernetes && \
