@@ -5,6 +5,7 @@ ARG OPENSTACK_TAG=stable/stein
 ARG OPNFV_TAG=stable/iruya
 
 COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
+COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch
 RUN apk --no-cache add --update python3 py3-pip bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
         python3-dev build-base libffi-dev openssl-dev && \
@@ -16,9 +17,10 @@ RUN apk --no-cache add --update python3 py3-pip bash git grep libffi openssl mai
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
         /src/functest-kubernetes && \
+    (cd /src/rally && patch -p1 < /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch) && \
     (cd /usr/lib/python3.7/site-packages/xrally_kubernetes/ && \
         patch -p2 < /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch) && \
-    rm -rf /src/functest-kubernetes && \
+    rm -rf /src/functest-kubernetes /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch && \
     bash -c "mkdir -p /var/lib/xtesting /home/opnfv" && \
     ln -s /var/lib/xtesting /home/opnfv/functest && \
     mkdir -p /etc/rally && \
