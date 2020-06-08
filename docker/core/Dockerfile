@@ -11,7 +11,7 @@ RUN apk --no-cache add --update python3 py3-pip bash git grep mailcap && \
     (cd /src/functest-kubernetes && \
         git fetch --tags https://gerrit.opnfv.org/gerrit/functest-kubernetes $BRANCH && \
         git checkout FETCH_HEAD) && \
-    pip3 install \
+    pip3 install --no-cache-dir --src /src \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
         /src/functest-kubernetes && \
