@@ -120,8 +120,8 @@ class Vims(testcase.TestCase):
                 func=self.corev1.list_namespaced_pod,
                 namespace=self.namespace, timeout_seconds=self.watch_timeout):
             if event["object"].metadata.name == self.test_container_name:
-                if (event["object"].status.phase == 'Succeeded'
-                        or event["object"].status.phase == 'Error'):
+                if (event["object"].status.phase == 'Succeeded' or
+                        event["object"].status.phase == 'Error'):
                     watch_deployment.stop()
         api_response = self.corev1.read_namespaced_pod_log(
             name=self.test_container_name, namespace=self.namespace)
