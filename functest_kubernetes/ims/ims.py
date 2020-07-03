@@ -66,6 +66,7 @@ class Vims(testcase.TestCase):
             self.namespace, body=body)
         self.__logger.debug("create_namespaced_config_map: %s", api_response)
         for deployment in self.deployment_list:
+            # pylint: disable=bad-continuation
             with open(pkg_resources.resource_filename(
                     'functest_kubernetes',
                     'ims/{}-depl.yaml'.format(deployment))) as yfile:
@@ -76,6 +77,7 @@ class Vims(testcase.TestCase):
                 self.__logger.debug(
                     "create_namespaced_deployment: %s", api_response)
         for service in self.deployment_list:
+            # pylint: disable=bad-continuation
             with open(pkg_resources.resource_filename(
                     'functest_kubernetes',
                     'ims/{}-svc.yaml'.format(service))) as yfile:
@@ -85,6 +87,7 @@ class Vims(testcase.TestCase):
                 self.__logger.info("Service %s created", resp.metadata.name)
                 self.__logger.debug(
                     "create_namespaced_service: %s", api_response)
+        # pylint: disable=no-member
         status = self.deployment_list.copy()
         watch_deployment = watch.Watch()
         for event in watch_deployment.stream(
@@ -120,8 +123,8 @@ class Vims(testcase.TestCase):
                 func=self.corev1.list_namespaced_pod,
                 namespace=self.namespace, timeout_seconds=self.watch_timeout):
             if event["object"].metadata.name == self.test_container_name:
-                if (event["object"].status.phase == 'Succeeded'
-                        or event["object"].status.phase == 'Error'):
+                if (event["object"].status.phase == 'Succeeded' or
+                        event["object"].status.phase == 'Error'):
                     watch_deployment.stop()
         api_response = self.corev1.read_namespaced_pod_log(
             name=self.test_container_name, namespace=self.namespace)

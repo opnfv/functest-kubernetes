@@ -46,6 +46,7 @@ class SecurityTesting(testcase.TestCase):
         """
 
         assert self.job_name
+        # pylint: disable=bad-continuation
         with open(pkg_resources.resource_filename(
                 "functest_kubernetes",
                 "security/{}.yaml".format(self.job_name))) as yfile:
