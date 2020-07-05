@@ -88,7 +88,7 @@ class Vims(testcase.TestCase):
                 self.__logger.debug(
                     "create_namespaced_service: %s", api_response)
         # pylint: disable=no-member
-        status = self.deployment_list.copy()
+        status = self.deployment_list[:]
         watch_deployment = watch.Watch()
         for event in watch_deployment.stream(
                 func=self.appsv1.list_namespaced_deployment,
