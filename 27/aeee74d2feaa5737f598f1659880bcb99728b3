@@ -1,0 +1,7 @@
+Code-Review+2: Cedric Ollivier <cedric.ollivier@orange.com>
+Verified+1: Cedric Ollivier <cedric.ollivier@orange.com>
+Submitted-by: Cedric Ollivier <cedric.ollivier@orange.com>
+Submitted-at: Sun, 05 Jul 2020 08:20:56 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/c/functest-kubernetes/+/70465
+Project: functest-kubernetes
+Branch: refs/heads/stable/hunter
