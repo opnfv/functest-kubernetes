@@ -15,6 +15,10 @@ spec:
         service: chronos
     spec:
       terminationGracePeriodSeconds: 120
+      initContainers:
+        - name: wait-on-etcd
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup etcd; do echo waiting for etcd to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-chronos:latest"
         imagePullPolicy: Always
