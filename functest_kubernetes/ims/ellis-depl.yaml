@@ -12,6 +12,10 @@ spec:
       labels:
         service: ellis
     spec:
+      initContainers:
+        - name: wait-on-cassandra
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-ellis:latest"
         imagePullPolicy: Always
