@@ -13,6 +13,10 @@ spec:
         service: homestead-prov
         snmp: enabled
     spec:
+      initContainers:
+        - name: wait-on-sprout
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup sprout; do echo waiting for sprout to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-homestead-prov:latest"
         imagePullPolicy: Always
