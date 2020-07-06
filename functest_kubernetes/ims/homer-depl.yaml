@@ -12,6 +12,10 @@ spec:
       labels:
         service: homer
     spec:
+      initContainers:
+        - name: wait-on-sprout
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup sprout; do echo waiting for sprout to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-homer:latest"
         imagePullPolicy: Always

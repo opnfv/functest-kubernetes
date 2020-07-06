@@ -9,6 +9,8 @@
 
 """Deploy and Test Clearwater vIMS using Kubernetes"""
 
+from __future__ import division
+
 import logging
 import time
 import re
