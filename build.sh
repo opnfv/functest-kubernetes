@@ -34,7 +34,7 @@ done
 find . -name Dockerfile -exec git checkout {} +
 
 find . -name Dockerfile -exec sed -i \
-    -e "s|golang:1.13-alpine3.12|arm64v8/golang:1.13-alpine3.12|g" {} +
+    -e "s|golang:1.14-alpine3.12|arm64v8/golang:1.14-alpine3.12|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-core|\
 ${repo}/functest-kubernetes-core:arm64-latest|g" {} +
@@ -51,7 +51,7 @@ for dir in ${arm64_dirs}; do
 done
 [ ! -z "${arm64_dirs}" ] &&
     (docker rmi "${repo}/functest-kubernetes-core:arm64-latest" \
-        arm64v8/golang:1.13-alpine3.12 || true)
+        arm64v8/golang:1.14-alpine3.12 || true)
 find . -name Dockerfile -exec git checkout {} +
 
 exit $?
