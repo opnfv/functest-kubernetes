@@ -16,12 +16,6 @@ spec:
         - name: wait-on-etcd
           image: busybox:1.28
           command: ['sh', '-c', 'until nslookup etcd; do echo waiting for etcd to start ...; sleep 2; done']
-        - name: wait-on-astaire
-          image: busybox:1.28
-          command: ['sh', '-c', 'until nslookup astaire; do echo waiting for astaire to start ...; sleep 2; done']
-        - name: wait-on-chronos
-          image: busybox:1.28
-          command: ['sh', '-c', 'until nslookup chronos; do echo waiting for chronos to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-cassandra:latest"
         imagePullPolicy: Always
