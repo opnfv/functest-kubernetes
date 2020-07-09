@@ -13,9 +13,12 @@ spec:
         service: ellis
     spec:
       initContainers:
-        - name: wait-on-cassandra
+        - name: wait-on-homestead-prov
           image: busybox:1.28
-          command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
+          command: ['sh', '-c', 'until nslookup homestead-prov; do echo waiting for homestead-prov to start ...; sleep 2; done']
+        - name: wait-on-sprout
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup sprout; do echo waiting for sprout to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-ellis:latest"
         imagePullPolicy: Always

@@ -14,9 +14,12 @@ spec:
         snmp: enabled
     spec:
       initContainers:
-        - name: wait-on-sprout
+        - name: wait-on-cassandra
           image: busybox:1.28
-          command: ['sh', '-c', 'until nslookup sprout; do echo waiting for sprout to start ...; sleep 2; done']
+          command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
+        - name: wait-on-astaire
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup astaire; do echo waiting for astaire to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-homestead:latest"
         imagePullPolicy: Always
