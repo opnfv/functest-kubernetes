@@ -9,7 +9,7 @@ COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.T
 RUN apk --no-cache add --update python3 py3-pip py3-wheel bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
         python3-dev build-base libffi-dev openssl-dev && \
-    apk --no-cache add --update --upgrade py3-distlib \
+    apk --no-cache add --update py3-distlib==0.3.1-r0 \
         --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main && \
     git init /src/requirements && \
     (cd /src/requirements && \
