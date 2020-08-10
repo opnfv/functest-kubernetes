@@ -11,8 +11,8 @@ RUN apk --no-cache add --update make py-pip bash git \
     (cd /src/k8s.io/kubernetes && \
         git fetch --tags https://github.com/kubernetes/kubernetes $K8S_TAG && \
         git checkout FETCH_HEAD && \
-        make kubectl ginkgo && \
-        make WHAT=test/e2e/e2e.test && \
+        make kubectl ginkgo GOFLAGS=-v && \
+        make WHAT=test/e2e/e2e.test GOFLAGS=-v && \
         mv _output/bin/* /usr/local/bin) && \
     rm -r /src/k8s.io && \
     apk del .build-deps
