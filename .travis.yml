@@ -9,76 +9,140 @@ addons:
       - libssl1.0.0
 
 before_script:
+  - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
   - sudo add-apt-repository -y ppa:deadsnakes/ppa
   - sudo apt-get update
   - sudo apt-get install python3.8 python3.8-dev python3.8-distutils
   - sudo pip install tox
-  - sudo -E docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+  - docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
   - (cd .. && git clone https://github.com/estesp/manifest-tool)
   - (cd ../manifest-tool && git checkout v0.9.0)
-  - (cd ../manifest-tool && sudo -E make && sudo -E make install)
+  - (cd ../manifest-tool && make && sudo make install)
 
 jobs:
   include:
     - stage: run unit tests
       script: tox -e pep8,pylint,yamllint,ansiblelint,bashate,py38,bandit
-    - stage: build functest-kubernetes-core image
-      script: sudo -E bash build.sh
+    - stage: build functest-kubernetes-core images
+      script: bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/core"
+        - arm_dirs=""
         - arm64_dirs=""
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs="docker/core"
+        - arm64_dirs=""
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs=""
+        - arm64_dirs="docker/core"
     - stage: publish functest-kubernetes-core manifests
       script: >
-        sudo manifest-tool push from-args \
-          --platforms linux/amd64 \
+        manifest-tool push from-args \
+          --platforms linux/amd64,linux/arm,linux/arm64 \
           --template ${DOCKER_USERNAME}/functest-kubernetes-core:ARCH-latest \
           --target ${DOCKER_USERNAME}/functest-kubernetes-core:latest
     - stage: build functest-kubernetes-[healthcheck,cnf,security] images
-      script: sudo -E bash build.sh
+      script: bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/healthcheck"
+        - arm_dirs=""
         - arm64_dirs=""
-    - script: sudo -E bash build.sh
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs="docker/healthcheck"
+        - arm64_dirs=""
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs=""
+        - arm64_dirs="docker/healthcheck"
+    - script: bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/cnf"
-        - arm64_dirs=""
         - arm_dirs=""
-    - script: sudo -E bash build.sh
+        - arm64_dirs=""
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs="docker/cnf"
+        - arm64_dirs=""
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs=""
+        - arm64_dirs="docker/cnf"
+    - script: bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/security"
-        - arm64_dirs=""
         - arm_dirs=""
+        - arm64_dirs=""
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs="docker/security"
+        - arm64_dirs=""
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs=""
+        - arm64_dirs="docker/security"
     - stage: publish functest-kubernetes-[healthcheck,cnf,security] manifests
       script: >
-        sudo manifest-tool push from-args \
-          --platforms linux/amd64 \
+        manifest-tool push from-args \
+          --platforms linux/amd64,linux/arm,linux/arm64 \
           --template \
           ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:ARCH-latest \
           --target ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:latest
     - script: >
-        sudo manifest-tool push from-args \
-          --platforms linux/amd64 \
+        manifest-tool push from-args \
+          --platforms linux/amd64,linux/arm,linux/arm64 \
           --template ${DOCKER_USERNAME}/functest-kubernetes-cnf:ARCH-latest \
           --target ${DOCKER_USERNAME}/functest-kubernetes-cnf:latest
     - script: >
-        sudo manifest-tool push from-args \
-          --platforms linux/amd64 \
+        manifest-tool push from-args \
+          --platforms linux/amd64,linux/arm,linux/arm64 \
           --template \
             ${DOCKER_USERNAME}/functest-kubernetes-security:ARCH-latest \
           --target ${DOCKER_USERNAME}/functest-kubernetes-security:latest
     - stage: build functest-kubernetes-smoke image
-      script: sudo -E bash build.sh
+      script: bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/smoke"
+        - arm_dirs=""
         - arm64_dirs=""
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs="docker/smoke"
+        - arm64_dirs=""
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs=""
+        - arm64_dirs="docker/smoke"
     - stage: publish functest-kubernetes-smoke manifests
       script: >
-        sudo manifest-tool push from-args \
-          --platforms linux/amd64 \
+        manifest-tool push from-args \
+          --platforms linux/amd64,linux/arm,linux/arm64 \
           --template ${DOCKER_USERNAME}/functest-kubernetes-smoke:ARCH-latest \
           --target ${DOCKER_USERNAME}/functest-kubernetes-smoke:latest
