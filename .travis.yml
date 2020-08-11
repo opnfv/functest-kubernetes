@@ -58,18 +58,6 @@ jobs:
     - script: bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
-        - amd64_dirs=""
-        - arm_dirs="docker/healthcheck"
-        - arm64_dirs=""
-    - script: bash build.sh
-      env:
-        - REPO="${DOCKER_USERNAME}"
-        - amd64_dirs=""
-        - arm_dirs=""
-        - arm64_dirs="docker/healthcheck"
-    - script: bash build.sh
-      env:
-        - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/cnf"
         - arm_dirs=""
         - arm64_dirs=""
@@ -106,7 +94,7 @@ jobs:
     - stage: publish functest-kubernetes-[healthcheck,cnf,security] manifests
       script: >
         manifest-tool push from-args \
-          --platforms linux/amd64,linux/arm,linux/arm64 \
+          --platforms linux/amd64 \
           --template \
           ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:ARCH-iruya \
           --target ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:iruya
