@@ -55,12 +55,12 @@ done
 find . -name Dockerfile -exec git checkout {} +
 
 find . -name Dockerfile -exec sed -i \
-    -e "s|golang:1.14-alpine3.12|arm32v7/golang:1.14-alpine3.12|g" {} +
+    -e "s|golang:1.11-alpine3.9|arm32v7/golang:1.11-alpine3.9|g" {} +
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-core|\
+    -e "s|opnfv/functest-kubernetes-core:hunter|\
 ${repo}/functest-kubernetes-core:arm-hunter|g" {} +
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-healthcheck|\
+    -e "s|opnfv/functest-kubernetes-healthcheck:hunter|\
 ${repo}/functest-kubernetes-healthcheck:arm-hunter|g" {} +
 for dir in ${arm_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
@@ -72,7 +72,7 @@ for dir in ${arm_dirs}; do
 done
 [ ! -z "${arm_dirs}" ] &&
     (docker rmi "${repo}/functest-kubernetes-core:arm-hunter" \
-        arm32v7/golang:1.14-alpine3.12 || true)
+        arm32v7/golang:1.11-alpine3.9 || true)
 find . -name Dockerfile -exec git checkout {} +
 
 exit $?
