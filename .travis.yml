@@ -24,7 +24,7 @@ jobs:
     - stage: run unit tests
       script: tox -e pep8,pylint,yamllint,ansiblelint,bashate,py37,bandit
     - stage: build functest-kubernetes-core images
-      script: sudo -E bash build.sh
+      script: bash build.sh
       env:
         - REPO="${DOCKER_USERNAME}"
         - amd64_dirs="docker/core"
