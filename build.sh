@@ -56,12 +56,12 @@ done
 find . -name Dockerfile -exec git checkout {} +
 
 find . -name Dockerfile -exec sed -i \
-    -e "s|golang:1.14-alpine3.12|arm32v7/golang:1.14-alpine3.12|g" {} +
+    -e "s|golang:1.13-alpine3.11|arm32v7/golang:1.13-alpine3.11|g" {} +
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-core|\
+    -e "s|opnfv/functest-kubernetes-core:kali|\
 ${repo}/functest-kubernetes-core:arm-kali|g" {} +
 find . -name Dockerfile -exec sed -i \
-    -e "s|opnfv/functest-kubernetes-healthcheck|\
+    -e "s|opnfv/functest-kubernetes-healthcheck:kali|\
 ${repo}/functest-kubernetes-healthcheck:arm-kali|g" {} +
 for dir in ${arm_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
@@ -73,7 +73,7 @@ for dir in ${arm_dirs}; do
 done
 [ ! -z "${arm_dirs}" ] &&
     (docker rmi "${repo}/functest-kubernetes-core:arm-kali" \
-        arm32v7/golang:1.14-alpine3.12 || true)
+        arm32v7/golang:1.13-alpine3.11 || true)
 find . -name Dockerfile -exec git checkout {} +
 
 exit $?
