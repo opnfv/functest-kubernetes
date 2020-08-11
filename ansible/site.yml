@@ -34,23 +34,17 @@
                 ref_arg:
                 path: docker/smoke
       suites:
-        - repo: opnfv
-          container: functest-kubernetes-healthcheck
+        - container: functest-kubernetes-healthcheck
           tests:
             - k8s_smoke
-        - repo: opnfv
-          container: functest-kubernetes-smoke
+        - container: functest-kubernetes-smoke
           tests:
             - xrally_kubernetes
             - k8s_conformance
-          properties:
-            execution-type: SEQUENTIALLY
-        - repo: opnfv
-          container: functest-kubernetes-cnf
-          tests:
-            - k8s_vims
-        - repo: opnfv
-          container: functest-kubernetes-security
+        - container: functest-kubernetes-security
           tests:
             - kube_hunter
             - kube_bench
+        - container: functest-kubernetes-cnf
+          tests:
+            - k8s_vims
