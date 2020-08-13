@@ -18,7 +18,10 @@ tiers:
                 dependencies:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
-                    name: k8s_conformance
+                    name: e2e_testing
+                    args:
+                        focus: \[Conformance\]
+                        skip: Alpha|\[(Disruptive|Feature:[^\]]+|Flaky)\]
             -
                 case_name: xrally_kubernetes
                 project_name: functest
