@@ -32,8 +32,6 @@ class Vims(testcase.TestCase):
 
     See https://github.com/Metaswitch/clearwater-docker for more details
     """
-    namespace = 'default'
-    zone = 'default.svc.cluster.local'
     watch_timeout = 1200
     metadata_name = "env-vars"
     test_image_name = "ollivier/clearwater-live-test:latest"
@@ -52,6 +50,8 @@ class Vims(testcase.TestCase):
         self.appsv1 = client.AppsV1Api()
         self.output_log_name = 'functest-kubernetes.log'
         self.output_debug_log_name = 'functest-kubernetes.debug.log'
+        self.namespace = ""
+        self.zone = ""
 
     def deploy_vnf(self):
         """Deploy vIMS as proposed by clearwater-docker
@@ -61,8 +61,14 @@ class Vims(testcase.TestCase):
 
         See https://github.com/Metaswitch/clearwater-docker for more details
         """
+        api_response = self.corev1.create_namespace(
+            client.V1Namespace(metadata=client.V1ObjectMeta(
+                generate_name="ims-")))
+        self.namespace = api_response.metadata.name
+        self.__logger.debug("create_namespace: %s", api_response)
         metadata = client.V1ObjectMeta(
             name=self.metadata_name, namespace=self.namespace)
+        self.zone = '{}.svc.cluster.local'.format(self.namespace)
         body = client.V1ConfigMap(
             metadata=metadata,
             data={"ADDITIONAL_SHARED_CONFIG": "", "ZONE": self.zone})
@@ -76,7 +82,7 @@ class Vims(testcase.TestCase):
                     'ims/{}-depl.yaml'.format(deployment))) as yfile:
                 body = yaml.safe_load(yfile)
                 resp = self.appsv1.create_namespaced_deployment(
-                    body=body, namespace="default")
+                    body=body, namespace=self.namespace)
                 self.__logger.info("Deployment %s created", resp.metadata.name)
                 self.__logger.debug(
                     "create_namespaced_deployment: %s", api_response)
@@ -87,7 +93,7 @@ class Vims(testcase.TestCase):
                     'ims/{}-svc.yaml'.format(service))) as yfile:
                 body = yaml.safe_load(yfile)
                 resp = self.corev1.create_namespaced_service(
-                    body=body, namespace="default")
+                    body=body, namespace=self.namespace)
                 self.__logger.info("Service %s created", resp.metadata.name)
                 self.__logger.debug(
                     "create_namespaced_service: %s", api_response)
@@ -118,7 +124,11 @@ class Vims(testcase.TestCase):
         See https://github.com/Metaswitch/clearwater-live-test for more details
         """
         container = client.V1Container(
-            name=self.test_container_name, image=self.test_image_name)
+            name=self.test_container_name, image=self.test_image_name,
+            command=["rake", "test[{}]".format(self.zone),
+                     "PROXY=bono.{}".format(self.zone),
+                     "ELLIS=ellis.{}".format(self.zone),
+                     "SIGNUP_CODE=secret", "--trace"])
         spec = client.V1PodSpec(containers=[container], restart_policy="Never")
         metadata = client.V1ObjectMeta(name=self.test_container_name)
         body = client.V1Pod(metadata=metadata, spec=spec)
@@ -194,3 +204,8 @@ class Vims(testcase.TestCase):
                     "delete_namespaced_service: %s", api_response)
             except client.rest.ApiException:
                 pass
+        try:
+            api_response = self.corev1.delete_namespace(self.namespace)
+            self.__logger.debug("delete_namespace: %s", self.namespace)
+        except client.rest.ApiException:
+            pass
