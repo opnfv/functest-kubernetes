@@ -18,4 +18,6 @@ tiers:
                 dependencies:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
-                    name: k8s_smoke
+                    name: e2e_testing
+                    args:
+                        focus: Guestbook.application
