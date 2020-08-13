@@ -23,7 +23,7 @@ import time
 from xtesting.core import testcase
 
 
-class K8sTesting(testcase.TestCase):
+class E2ETesting(testcase.TestCase):
     """Kubernetes test runner"""
     # pylint: disable=too-many-instance-attributes
 
@@ -32,7 +32,7 @@ class K8sTesting(testcase.TestCase):
     config = '/root/.kube/config'
 
     def __init__(self, **kwargs):
-        super(K8sTesting, self).__init__(**kwargs)
+        super(E2ETesting, self).__init__(**kwargs)
         self.cmd = []
         self.dir_results = "/home/opnfv/functest/results"
         self.res_dir = os.path.join(self.dir_results, self.case_name)
@@ -42,11 +42,16 @@ class K8sTesting(testcase.TestCase):
         self.output_log_name = 'functest-kubernetes.log'
         self.output_debug_log_name = 'functest-kubernetes.debug.log'
 
-    def run_kubetest(self):  # pylint: disable=too-many-branches
+    def run_kubetest(self, **kwargs):  # pylint: disable=too-many-branches
         """Run the test suites"""
-        cmd_line = self.cmd
+        cmd_line = ['e2e.test', '-ginkgo.noColor', '-kubeconfig', self.config,
+                    '-provider', 'local', '-report-dir', self.res_dir]
+        if kwargs.get("focus"):
+            cmd_line.extend(['-ginkgo.focus', kwargs.get("focus")])
+        if kwargs.get("skip"):
+            cmd_line.extend(['-ginkgo.skip', kwargs.get("skip")])
+        cmd_line.extend(['-disable-log-dump', 'true'])
         self.__logger.info("Starting k8s test: '%s'.", cmd_line)
-
         process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
         boutput = process.stdout.read()
@@ -80,35 +85,10 @@ class K8sTesting(testcase.TestCase):
             return self.EX_RUN_ERROR
         self.start_time = time.time()
         try:
-            self.run_kubetest()
+            self.run_kubetest(**kwargs)
             res = self.EX_OK
         except Exception:  # pylint: disable=broad-except
             self.__logger.exception("Error with running kubetest:")
             res = self.EX_RUN_ERROR
         self.stop_time = time.time()
         return res
-
-
-class K8sSmokeTest(K8sTesting):
-    """Kubernetes smoke test suite"""
-    def __init__(self, **kwargs):
-        if "case_name" not in kwargs:
-            kwargs.get("case_name", 'k8s_smoke')
-        super(K8sSmokeTest, self).__init__(**kwargs)
-        self.cmd = ['e2e.test', '-ginkgo.focus', 'Guestbook.application',
-                    '-ginkgo.noColor', '-kubeconfig', self.config,
-                    '-provider', 'local', '-report-dir', self.res_dir,
-                    '-disable-log-dump', 'true']
-
-
-class K8sConformanceTest(K8sTesting):
-    """Kubernetes conformance test suite"""
-    def __init__(self, **kwargs):
-        if "case_name" not in kwargs:
-            kwargs.get("case_name", 'k8s_conformance')
-        super(K8sConformanceTest, self).__init__(**kwargs)
-        self.cmd = [
-            'e2e.test', '-ginkgo.focus', r'\[Conformance\]', '-ginkgo.noColor',
-            '-ginkgo.skip', r'Alpha|\[(Disruptive|Feature:[^\]]+|Flaky)\]',
-            '-kubeconfig', self.config, '-provider', 'local',
-            '-report-dir', self.res_dir, '-disable-log-dump', 'true']

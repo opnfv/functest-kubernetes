@@ -20,7 +20,7 @@ from xtesting.core import testcase
 from functest_kubernetes import k8stest
 
 
-class K8sTests(unittest.TestCase):
+class E2EUnitTesting(unittest.TestCase):
 
     # pylint: disable=missing-docstring
 
@@ -30,24 +30,19 @@ class K8sTests(unittest.TestCase):
         os.environ["KUBE_MASTER_URL"] = "https://127.0.0.1:6443"
         os.environ["KUBERNETES_PROVIDER"] = "local"
 
-        self.k8stesting = k8stest.K8sTesting()
+        self.k8stesting = k8stest.E2ETesting()
 
     @mock.patch('functest_kubernetes.k8stest.os.path.isfile',
                 return_value=False)
     def test_run_missing_config_file(self, mock_func):
         self.k8stesting.config = 'not_file'
         with mock.patch.object(self.k8stesting,
-                               '_K8sTesting__logger') as mock_logger:
+                               '_E2ETesting__logger') as mock_logger:
             self.assertEqual(self.k8stesting.run(),
                              testcase.TestCase.EX_RUN_ERROR)
             mock_logger.error.assert_called_with(
                 "Cannot run k8s testcases. Config file not found")
         mock_func.assert_called_with('not_file')
-
-    def test_run_kubetest_cmd_none(self):
-        self.k8stesting.cmd = None
-        with self.assertRaises(TypeError):
-            self.k8stesting.run_kubetest()
 
     @mock.patch('re.search')
     @mock.patch('six.moves.builtins.open', mock.mock_open())
