@@ -20,8 +20,8 @@ tiers:
                 run:
                     name: e2e_testing
                     args:
-                        focus: \[Conformance\]
-                        skip: Alpha|\[(Disruptive|Feature:[^\]]+|Flaky)\]
+                        focus: [Conformance]
+                        skip: Alpha|[(Disruptive|Feature:[^]]+|Flaky)]
             -
                 case_name: xrally_kubernetes
                 project_name: functest
