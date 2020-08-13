@@ -59,7 +59,8 @@ class E2ETesting(testcase.TestCase):
             foutput.write(boutput)
         grp = re.search(
             r'^(FAIL|SUCCESS)!.* ([0-9]+) Passed \| ([0-9]+) Failed \|'
-            r' ([0-9]+) Pending \| ([0-9]+) Skipped', boutput.decode("utf-8"),
+            r' ([0-9]+) Pending \| ([0-9]+) Skipped',
+            boutput.decode("utf-8", errors="ignore"),
             re.MULTILINE | re.DOTALL)
         assert grp
         self.details['passed'] = int(grp.group(2))
@@ -73,7 +74,8 @@ class E2ETesting(testcase.TestCase):
         self.__logger.debug("result: %s", self.result)
         if grp.group(1) == 'FAIL':
             grp2 = re.search(
-                r'^(Summarizing [0-9]+ Failure.*)Ran', boutput.decode("utf-8"),
+                r'^(Summarizing [0-9]+ Failure.*)Ran',
+                boutput.decode("utf-8", errors="ignore"),
                 re.MULTILINE | re.DOTALL)
             if grp2:
                 self.__logger.error(grp2.group(1))
