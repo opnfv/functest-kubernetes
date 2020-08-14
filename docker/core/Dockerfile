@@ -9,12 +9,15 @@ COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.T
 RUN apk --no-cache add --update python3 py3-pip py3-wheel bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
         python3-dev build-base libffi-dev openssl-dev && \
-    apk --no-cache add --update py3-distlib==0.3.1-r0 \
-        --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main && \
     git init /src/requirements && \
     (cd /src/requirements && \
         git fetch --tags https://review.opendev.org/openstack/requirements $OPENSTACK_TAG && \
         git checkout FETCH_HEAD) && \
+    case $(uname -m) in aarch*|arm*) \
+        sed -i -E /^PyNaCl=/d /src/requirements/upper-constraints.txt && \
+        apk add --no-cache py3-pynacl ;; esac && \
+    apk --no-cache add --update py3-distlib\>=0.3.1 \
+        --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main && \
     git init /src/functest-kubernetes && \
     (cd /src/functest-kubernetes && \
         git fetch --tags https://gerrit.opnfv.org/gerrit/functest-kubernetes $BRANCH && \
