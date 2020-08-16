@@ -1,4 +1,4 @@
-FROM golang:1.13-alpine3.11
+FROM alpine:3.11
 
 ARG BRANCH=stable/kali
 ARG OPENSTACK_TAG=stable/ussuri
