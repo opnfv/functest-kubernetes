@@ -123,6 +123,7 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
 
         See https://github.com/Metaswitch/clearwater-live-test for more details
         """
+        time.sleep(60)
         container = client.V1Container(
             name=self.test_container_name, image=self.test_image_name,
             command=["rake", "test[{}]".format(self.zone),
