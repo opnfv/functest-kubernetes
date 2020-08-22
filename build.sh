@@ -8,7 +8,8 @@ docker/core \
 docker/healthcheck \
 docker/smoke \
 docker/cnf \
-docker/security"}
+docker/security \
+docker/benchmarking"}
 arm_dirs=${arm_dirs-${amd64_dirs}}
 arm64_dirs=${arm64_dirs-${amd64_dirs}}
 build_opts=(--pull=true --no-cache --force-rm=true)
@@ -42,6 +43,9 @@ ${repo}/functest-kubernetes-core:arm64-jerma|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-healthcheck:jerma|\
 ${repo}/functest-kubernetes-healthcheck:arm64-jerma|g" {} +
+find . -name Dockerfile -exec sed -i \
+    -e "s|opnfv/functest-kubernetes-smoke:jerma|\
+${repo}/functest-kubernetes-smoke:arm64-jerma|g" {} +
 for dir in ${arm64_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
         -t "${repo}/functest-kubernetes-${dir##**/}:arm64-jerma" .)
@@ -63,6 +67,9 @@ ${repo}/functest-kubernetes-core:arm-jerma|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-healthcheck:jerma|\
 ${repo}/functest-kubernetes-healthcheck:arm-jerma|g" {} +
+find . -name Dockerfile -exec sed -i \
+    -e "s|opnfv/functest-kubernetes-smoke:jerma|\
+${repo}/functest-kubernetes-smoke:arm-jerma|g" {} +
 for dir in ${arm_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
         -t "${repo}/functest-kubernetes-${dir##**/}:arm-jerma" .)

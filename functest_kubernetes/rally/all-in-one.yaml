@@ -8,16 +8,16 @@ subtasks:
       Kubernetes.list_namespaces: {}
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
 
   - title: Run a single workload with create/read/delete namespace
     scenario:
       Kubernetes.create_and_delete_namespace: {}
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
 
   - title: Run a single workload with create/read/delete pod
     scenario:
@@ -25,11 +25,11 @@ subtasks:
         image: kubernetes/pause
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/read/delete replication controller
@@ -39,11 +39,11 @@ subtasks:
         replicas: 2
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/scale/delete replication controller
@@ -54,11 +54,11 @@ subtasks:
         scale_replicas: 3
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/read/delete replicaset
@@ -68,11 +68,11 @@ subtasks:
         replicas: 1
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/scale/delete replicaset
@@ -83,11 +83,11 @@ subtasks:
         scale_replicas: 2
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title:
@@ -98,11 +98,11 @@ subtasks:
         mount_path: /opt/check
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: >-
@@ -125,7 +125,7 @@ subtasks:
         times: 1
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/read/delete pod with secret volume
@@ -138,11 +138,11 @@ subtasks:
         mount_path: /opt/check
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/check/delete pod with secret volume
@@ -159,11 +159,11 @@ subtasks:
         error_regexp: No such file
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: >-
@@ -188,7 +188,7 @@ subtasks:
         times: 1
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title:
@@ -206,11 +206,11 @@ subtasks:
             test
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: >-
@@ -237,7 +237,7 @@ subtasks:
         times: 1
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/read/delete deployment
@@ -247,11 +247,11 @@ subtasks:
         replicas: 2
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/rollout/delete deployment
@@ -271,11 +271,11 @@ subtasks:
               value: "true"
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/read/delete statefulset
@@ -285,11 +285,11 @@ subtasks:
         replicas: 2
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/scale/delete statefulset
@@ -300,11 +300,11 @@ subtasks:
         scale_replicas: 2
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/read/delete job
@@ -316,11 +316,11 @@ subtasks:
           - "SUCCESS"
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/check/delete clusterIP service
@@ -331,11 +331,11 @@ subtasks:
         protocol: TCP
     runner:
       constant:
-        concurrency: 1
-        times: 2
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: >-
@@ -353,7 +353,7 @@ subtasks:
         times: 1
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
 
   - title: Run a single workload with create/check/delete NodePort service
@@ -365,9 +365,9 @@ subtasks:
         request_timeout: 10
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
-        count: 3
+        count: {{ namespaces_count }}
         with_serviceaccount: true
