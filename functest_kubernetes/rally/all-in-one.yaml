@@ -121,8 +121,8 @@ subtasks:
         error_regexp: No such file
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
         count: {{ namespaces_count }}
@@ -184,8 +184,8 @@ subtasks:
         volume_path: /tmp/
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
         count: {{ namespaces_count }}
@@ -233,8 +233,8 @@ subtasks:
         error_regexp: No such file
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
         count: {{ namespaces_count }}
@@ -349,8 +349,8 @@ subtasks:
         custom_endpoint: true
     runner:
       constant:
-        concurrency: 1
-        times: 1
+        concurrency: {{ concurrency }}
+        times: {{ times }}
     contexts:
       namespaces:
         count: {{ namespaces_count }}
