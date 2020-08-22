@@ -8,7 +8,9 @@ docker/core \
 docker/healthcheck \
 docker/smoke \
 docker/cnf \
-docker/security"}
+docker/security \
+docker/benchmarking"}
+arm_dirs=${arm_dirs-${amd64_dirs}}
 arm64_dirs=${arm64_dirs-${amd64_dirs}}
 build_opts=(--pull=true --no-cache --force-rm=true)
 
@@ -41,6 +43,9 @@ ${repo}/functest-kubernetes-core:arm64-hunter|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-healthcheck:hunter|\
 ${repo}/functest-kubernetes-healthcheck:arm64-hunter|g" {} +
+find . -name Dockerfile -exec sed -i \
+    -e "s|opnfv/functest-kubernetes-smoke:hunter|\
+${repo}/functest-kubernetes-smoke:arm64-hunter|g" {} +
 for dir in ${arm64_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
         -t "${repo}/functest-kubernetes-${dir##**/}:arm64-hunter" .)
@@ -62,6 +67,9 @@ ${repo}/functest-kubernetes-core:arm-hunter|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-healthcheck:hunter|\
 ${repo}/functest-kubernetes-healthcheck:arm-hunter|g" {} +
+find . -name Dockerfile -exec sed -i \
+    -e "s|opnfv/functest-kubernetes-smoke:hunter|\
+${repo}/functest-kubernetes-smoke:arm-hunter|g" {} +
 for dir in ${arm_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
         -t "${repo}/functest-kubernetes-${dir##**/}:arm-hunter" .)

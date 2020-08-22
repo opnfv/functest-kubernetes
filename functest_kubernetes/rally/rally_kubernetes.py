@@ -11,6 +11,7 @@ import logging
 import os
 import time
 
+from jinja2 import Template
 import pkg_resources
 from rally import api
 from rally import exceptions
@@ -25,6 +26,10 @@ class RallyKubernetes(testcase.TestCase):
     """Run tasks for checking basic functionality of Kubernetes cluster"""
 
     __logger = logging.getLogger(__name__)
+
+    concurrency = 1
+    times = 1
+    namespaces_count = 1
 
     def __init__(self, **kwargs):
         super(RallyKubernetes, self).__init__(**kwargs)
@@ -53,10 +58,15 @@ class RallyKubernetes(testcase.TestCase):
                 "Cannot check env heath: %s",
                 result['existing@kubernetes']['message'])
             return
-        input_task = open(
-            pkg_resources.resource_filename(
-                'functest_kubernetes', 'rally/all-in-one.yaml')).read()
-        task = yaml.safe_load(input_task)
+        # pylint: disable=bad-continuation
+        with open(pkg_resources.resource_filename(
+                'functest_kubernetes', 'rally/all-in-one.yaml')) as tfile:
+            template = Template(tfile.read())
+        task = yaml.safe_load(template.render(
+            concurrency=kwargs.get("concurrency", self.concurrency),
+            times=kwargs.get("times", self.times),
+            namespaces_count=kwargs.get(
+                "namespaces_count", self.namespaces_count)))
         rapi.task.validate(deployment='my-kubernetes', config=task)
         task_instance = rapi.task.create(deployment='my-kubernetes')
         rapi.task.start(
