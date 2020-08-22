@@ -20,7 +20,7 @@
               - name: functest-kubernetes-core
                 ref_arg: BRANCH
                 path: docker/core
-          - name: build opnfv/functest-kubernetes-healthcheck
+          - name: build containers
             containers:
               - name: functest-kubernetes-healthcheck
                 ref_arg:
@@ -31,11 +31,16 @@
               - name: functest-kubernetes-security
                 ref_arg: BRANCH
                 path: docker/security
-          - name: build containers
+          - name: build opnfv/functest-kubernetes-smoke
             containers:
               - name: functest-kubernetes-smoke
                 ref_arg:
                 path: docker/smoke
+          - name: build opnfv/functest-kubernetes-benchmarking
+            containers:
+              - name: functest-kubernetes-benchmarking
+                ref_arg:
+                path: docker/benchmarking
       suites:
         - container: functest-kubernetes-healthcheck
           tests:
@@ -48,6 +53,9 @@
           tests:
             - kube_hunter
             - kube_bench
+        - container: functest-kubernetes-benchmarking
+          tests:
+            - xrally_kubernetes_full
         - container: functest-kubernetes-cnf
           tests:
             - k8s_vims

@@ -146,3 +146,29 @@ jobs:
           --platforms linux/amd64,linux/arm,linux/arm64 \
           --template ${DOCKER_USERNAME}/functest-kubernetes-smoke:ARCH-iruya \
           --target ${DOCKER_USERNAME}/functest-kubernetes-smoke:iruya
+    - stage: build functest-kubernetes-benchmarking image
+      script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs="docker/benchmarking"
+        - arm_dirs=""
+        - arm64_dirs=""
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs="docker/benchmarking"
+        - arm64_dirs=""
+    - script: bash build.sh
+      env:
+        - REPO="${DOCKER_USERNAME}"
+        - amd64_dirs=""
+        - arm_dirs=""
+        - arm64_dirs="docker/benchmarking"
+    - stage: publish functest-kubernetes-benchmarking manifests
+      script: >
+        manifest-tool push from-args \
+          --platforms linux/amd64,linux/arm,linux/arm64 \
+          --template \
+        ${DOCKER_USERNAME}/functest-kubernetes-benchmarking:ARCH-iruya \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-benchmarking:iruya

@@ -8,7 +8,8 @@ docker/core \
 docker/healthcheck \
 docker/smoke \
 docker/cnf \
-docker/security"}
+docker/security \
+docker/benchmarking"}
 arm_dirs=${arm_dirs-${amd64_dirs}}
 arm64_dirs=${arm64_dirs-${amd64_dirs}}
 build_opts=(--pull=true --no-cache --force-rm=true)
@@ -42,6 +43,9 @@ ${repo}/functest-kubernetes-core:arm64-iruya|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-healthcheck:iruya|\
 ${repo}/functest-kubernetes-healthcheck:arm64-iruya|g" {} +
+find . -name Dockerfile -exec sed -i \
+    -e "s|opnfv/functest-kubernetes-smoke:iruya|\
+${repo}/functest-kubernetes-smoke:arm64-iruya|g" {} +
 for dir in ${arm64_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
         -t "${repo}/functest-kubernetes-${dir##**/}:arm64-iruya" .)
@@ -63,6 +67,9 @@ ${repo}/functest-kubernetes-core:arm-iruya|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-healthcheck:iruya|\
 ${repo}/functest-kubernetes-healthcheck:arm-iruya|g" {} +
+find . -name Dockerfile -exec sed -i \
+    -e "s|opnfv/functest-kubernetes-smoke:iruya|\
+${repo}/functest-kubernetes-smoke:arm-iruya|g" {} +
 for dir in ${arm_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
         -t "${repo}/functest-kubernetes-${dir##**/}:arm-iruya" .)
