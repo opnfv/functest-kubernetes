@@ -6,3 +6,4 @@ xtesting # Apache-2.0
 rally
 xrally-kubernetes
 kubernetes # Apache-2.0
+Jinja2 # BSD License (3 clause)
