@@ -8,7 +8,8 @@ docker/core \
 docker/healthcheck \
 docker/smoke \
 docker/cnf \
-docker/security"}
+docker/security \
+docker/benchmarking"}
 arm_dirs=${arm_dirs-${amd64_dirs}}
 arm64_dirs=${arm64_dirs-${amd64_dirs}}
 build_opts=(--pull=true --no-cache --force-rm=true)
@@ -42,6 +43,9 @@ ${repo}/functest-kubernetes-core:arm64-kali|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-healthcheck:kali|\
 ${repo}/functest-kubernetes-healthcheck:arm64-kali|g" {} +
+find . -name Dockerfile -exec sed -i \
+    -e "s|opnfv/functest-kubernetes-smoke:kali|\
+${repo}/functest-kubernetes-smoke:arm64-kali|g" {} +
 for dir in ${arm64_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
         -t "${repo}/functest-kubernetes-${dir##**/}:arm64-kali" .)
@@ -63,6 +67,9 @@ ${repo}/functest-kubernetes-core:arm-kali|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-healthcheck:kali|\
 ${repo}/functest-kubernetes-healthcheck:arm-kali|g" {} +
+find . -name Dockerfile -exec sed -i \
+    -e "s|opnfv/functest-kubernetes-smoke:kali|\
+${repo}/functest-kubernetes-smoke:arm-kali|g" {} +
 for dir in ${arm_dirs}; do
     (cd "${dir}" && docker build "${build_opts[@]}" \
         -t "${repo}/functest-kubernetes-${dir##**/}:arm-kali" .)
