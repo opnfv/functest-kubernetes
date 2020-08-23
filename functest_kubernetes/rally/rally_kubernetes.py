@@ -23,6 +23,7 @@ from xtesting.core import testcase
 
 
 class RallyKubernetes(testcase.TestCase):
+    # pylint: disable=too-many-instance-attributes
     """Run tasks for checking basic functionality of Kubernetes cluster"""
 
     __logger = logging.getLogger(__name__)
@@ -35,6 +36,8 @@ class RallyKubernetes(testcase.TestCase):
         super(RallyKubernetes, self).__init__(**kwargs)
         self.dir_results = "/home/opnfv/functest/results"
         self.res_dir = os.path.join(self.dir_results, self.case_name)
+        self.output_log_name = 'functest-kubernetes.log'
+        self.output_debug_log_name = 'functest-kubernetes.debug.log'
 
     def run(self, **kwargs):
         self.start_time = time.time()
