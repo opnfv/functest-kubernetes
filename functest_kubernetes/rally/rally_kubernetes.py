@@ -75,7 +75,7 @@ class RallyKubernetes(testcase.TestCase):
         rapi.task.start(
             deployment='my-kubernetes', config=task,
             task=task_instance["uuid"])
-        self.details = rapi.task.get(task_instance["uuid"], detailed=True)
+        self.details = rapi.task.get(task_instance["uuid"], detailed=False)
         self.__logger.debug("details: %s", self.details)
         if self.details['pass_sla']:
             self.result = 100
