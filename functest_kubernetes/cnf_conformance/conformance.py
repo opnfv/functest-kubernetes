@@ -42,10 +42,19 @@ class CNFConformance(testcase.TestCase):
 
     __logger = logging.getLogger(__name__)
 
+    def check_requirements(self):
+        """Check if cnf-conformance is in $PATH"""
+        if not os.path.exists(os.path.join(self.bin_dir, 'cnf-conformance')):
+            self.__logger.warning(
+                "cnf-conformance is not compiled for arm and arm64 for the "
+                "time being")
+            self.is_skipped = True
+
     def setup(self):
         """Implement initialization and pre-reqs steps"""
-        os.makedirs(self.res_dir, exist_ok=True)
-
+        if os.path.exists(self.res_dir):
+            shutil.rmtree(self.res_dir)
+        os.makedirs(self.res_dir)
         shutil.copy2(os.path.join(self.src_dir, 'points.yml'), self.res_dir)
         shutil.copy2(
             os.path.join(self.src_dir, 'cnf-conformance.yml'), self.res_dir)
@@ -101,4 +110,8 @@ class CNFConformance(testcase.TestCase):
                'cnf-config=cnf-conformance.yml']
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
-        shutil.rmtree(self.res_dir)
+        shutil.rmtree(os.path.join(self.res_dir, 'tools'), ignore_errors=True)
+        shutil.rmtree(os.path.join(self.res_dir, 'cnfs'), ignore_errors=True)
+        for lfile in os.listdir(self.res_dir):
+            if not fnmatch.fnmatch(lfile, 'cnf-conformance-results-*.yml'):
+                os.remove(os.path.join(self.res_dir, lfile))
