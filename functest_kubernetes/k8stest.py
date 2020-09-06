@@ -46,10 +46,8 @@ class E2ETesting(testcase.TestCase):
         """Run the test suites"""
         cmd_line = ['e2e.test', '-ginkgo.noColor', '-kubeconfig', self.config,
                     '-provider', 'local', '-report-dir', self.res_dir]
-        if kwargs.get("focus"):
-            cmd_line.extend(['-ginkgo.focus', kwargs.get("focus")])
-        if kwargs.get("skip"):
-            cmd_line.extend(['-ginkgo.skip', kwargs.get("skip")])
+        for arg in kwargs:
+            cmd_line.extend(['-ginkgo.{}'.format(arg), kwargs.get(arg)])
         cmd_line.extend(['-disable-log-dump', 'true'])
         self.__logger.info("Starting k8s test: '%s'.", cmd_line)
         process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
