@@ -41,6 +41,7 @@
       suites:
         - container: functest-kubernetes-healthcheck
           tests:
+            - k8s_quick
             - k8s_smoke
         - container: functest-kubernetes-smoke
           tests:
