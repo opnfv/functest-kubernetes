@@ -20,7 +20,7 @@ tiers:
                     name: e2e_testing
                     args:
                         focus: \[Conformance\]
-                        skip: Alpha|\[(Disruptive|Feature:[^\]]+|Flaky)\]
+                        skip: \[Disruptive\]|NoExecuteTaintManager
             -
                 case_name: xrally_kubernetes
                 project_name: functest
