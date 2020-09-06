@@ -2,7 +2,6 @@
 tiers:
     -
         name: smoke
-        order: 1
         description: >-
             A set of conformance tests integrated from kubernetes project.
         testcases:
