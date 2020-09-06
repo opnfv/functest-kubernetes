@@ -2,7 +2,6 @@
 tiers:
     -
         name: security
-        order: 1
         ci_loop: '(daily)|(weekly)'
         description: >-
             Set of basic security tests.
