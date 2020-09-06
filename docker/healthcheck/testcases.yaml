@@ -33,4 +33,4 @@ tiers:
                 run:
                     name: e2e_testing
                     args:
-                        focus: Kubectl client Guestbook application
+                        focus: Guestbook.application
