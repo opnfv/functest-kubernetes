@@ -2,7 +2,6 @@
 tiers:
     -
         name: benchmarking
-        order: 1
         description: >-
             A set of benchmarking tests integrated from xRally for Kubernetes
             platform.
