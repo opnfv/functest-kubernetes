@@ -42,6 +42,11 @@ class CNFConformance(testcase.TestCase):
 
     __logger = logging.getLogger(__name__)
 
+    def __init__(self, **kwargs):
+        super(CNFConformance, self).__init__(**kwargs)
+        self.output_log_name = 'functest-kubernetes.log'
+        self.output_debug_log_name = 'functest-kubernetes.debug.log'
+
     def check_requirements(self):
         """Check if cnf-conformance is in $PATH"""
         if not os.path.exists(os.path.join(self.bin_dir, 'cnf-conformance')):
