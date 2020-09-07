@@ -3,7 +3,7 @@ FROM opnfv/functest-kubernetes-core:iruya
 ARG CNF_CONFORMANCE_TAG=v0.7.2-beta1
 
 RUN apk --no-cache add --update wget curl libc6-compat && \
-    K8S_TAG=$(curl -s https://storage.googleapis.com/kubernetes-release/release/latest-1.19.txt)  && \
+    K8S_TAG=$(curl -s https://storage.googleapis.com/kubernetes-release/release/latest-1.15.txt)  && \
     case $(uname -m) in armv7l) ARCH=arm;; aarch64) ARCH=arm64;; x86_64) ARCH=amd64;; esac && \
     curl https://storage.googleapis.com/kubernetes-release/release/$K8S_TAG/bin/linux/$ARCH/kubectl \
         -s --output /usr/local/bin/kubectl && \
