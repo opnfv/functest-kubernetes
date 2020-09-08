@@ -4,7 +4,7 @@ ARG K8S_TAG=v1.13.12
 ARG CNF_CONFORMANCE_TAG=v0.7.2-beta1
 
 RUN apk --no-cache add --update wget curl libc6-compat && \
-    apk --no-cache add --virtual .build-deps --update make rsync findutils gcc && \
+    apk --no-cache add --virtual .build-deps --update make rsync findutils gcc musl-dev && \
     case $(uname -m) in armv7l) ARCH=arm;; aarch64) ARCH=arm64;; x86_64) ARCH=amd64;; esac && \
     git init /src/k8s.io/kubernetes && \
     (cd /src/k8s.io/kubernetes && \
