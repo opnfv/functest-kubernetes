@@ -25,7 +25,6 @@ spec:
           command: ['sh', '-c', 'until nslookup homestead; do echo waiting for homestead to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-sprout:latest"
-        imagePullPolicy: Always
         name: sprout
         ports:
         - containerPort: 22

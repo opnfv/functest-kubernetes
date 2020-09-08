@@ -19,7 +19,6 @@ spec:
           command: ['sh', '-c', 'until nslookup sprout; do echo waiting for sprout to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-bono:latest"
-        imagePullPolicy: Always
         name: bono
         ports:
         - containerPort: 22

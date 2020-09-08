@@ -19,7 +19,6 @@ spec:
           command: ['sh', '-c', 'until nslookup homestead; do echo waiting for homestead to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-homestead-prov:latest"
-        imagePullPolicy: Always
         name: homestead-prov
         ports:
         - containerPort: 22
