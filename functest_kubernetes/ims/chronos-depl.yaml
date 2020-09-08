@@ -21,7 +21,6 @@ spec:
           command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-chronos:latest"
-        imagePullPolicy: Always
         name: chronos
         ports:
         - containerPort: 22
