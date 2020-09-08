@@ -20,7 +20,7 @@ spec:
           image: busybox:1.28
           command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
       containers:
-      - image: "ollivier/clearwater-chronos:latest"
+      - image: "ollivier/clearwater-chronos"
         name: chronos
         ports:
         - containerPort: 22

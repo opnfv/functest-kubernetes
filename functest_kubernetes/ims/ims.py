@@ -34,7 +34,7 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
     """
     watch_timeout = 1200
     metadata_name = "env-vars"
-    test_image_name = "ollivier/clearwater-live-test:latest"
+    test_image_name = "ollivier/clearwater-live-test"
     test_container_name = "live-test"
 
     __logger = logging.getLogger(__name__)
