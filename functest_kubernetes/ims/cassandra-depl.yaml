@@ -18,7 +18,6 @@ spec:
           command: ['sh', '-c', 'until nslookup etcd; do echo waiting for etcd to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-cassandra:latest"
-        imagePullPolicy: Always
         name: cassandra
         ports:
         - containerPort: 22

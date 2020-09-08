@@ -21,7 +21,6 @@ spec:
           command: ['sh', '-c', 'until nslookup sprout; do echo waiting for sprout to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-ellis:latest"
-        imagePullPolicy: Always
         name: ellis
         ports:
         - containerPort: 22

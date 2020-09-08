@@ -22,7 +22,6 @@ spec:
           command: ['sh', '-c', 'until nslookup astaire; do echo waiting for astaire to start ...; sleep 2; done']
       containers:
       - image: "ollivier/clearwater-homestead:latest"
-        imagePullPolicy: Always
         name: homestead
         ports:
         - containerPort: 22
