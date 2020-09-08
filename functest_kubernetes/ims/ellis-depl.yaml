@@ -20,7 +20,7 @@ spec:
           image: busybox:1.28
           command: ['sh', '-c', 'until nslookup sprout; do echo waiting for sprout to start ...; sleep 2; done']
       containers:
-      - image: "ollivier/clearwater-ellis"
+      - image: "ollivier/clearwater-ellis:hunter"
         name: ellis
         ports:
         - containerPort: 22
