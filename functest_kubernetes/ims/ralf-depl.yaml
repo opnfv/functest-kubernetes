@@ -18,7 +18,7 @@ spec:
           image: busybox:1.28
           command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
       containers:
-      - image: "ollivier/clearwater-ralf:latest"
+      - image: "ollivier/clearwater-ralf"
         name: ralf
         ports:
         - containerPort: 22
