@@ -18,7 +18,7 @@ spec:
           image: busybox:1.28
           command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
       containers:
-      - image: "ollivier/clearwater-astaire"
+      - image: "ollivier/clearwater-astaire:hunter"
         name: astaire
         ports:
         - containerPort: 22
@@ -47,7 +47,7 @@ spec:
           preStop:
             exec:
               command: ["/bin/bash", "-c", "/usr/bin/pre-stop"]
-      - image: busybox
+      - image: busybox:1.28
         name: tailer
         command: [ "tail", "-F", "/var/log/astaire/astaire_current.txt" ]
         volumeMounts:

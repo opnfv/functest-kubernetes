@@ -17,7 +17,7 @@ spec:
           image: busybox:1.28
           command: ['sh', '-c', 'until nslookup etcd; do echo waiting for etcd to start ...; sleep 2; done']
       containers:
-      - image: "ollivier/clearwater-cassandra"
+      - image: "ollivier/clearwater-cassandra:hunter"
         name: cassandra
         ports:
         - containerPort: 22
