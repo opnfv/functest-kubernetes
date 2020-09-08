@@ -22,7 +22,7 @@ subtasks:
   - title: Run a single workload with create/read/delete pod
     scenario:
       Kubernetes.create_and_delete_pod:
-        image: kubernetes/pause
+        image: k8s.gcr.io/pause:3.3
     runner:
       constant:
         concurrency: {{ concurrency }}
@@ -35,7 +35,7 @@ subtasks:
   - title: Run a single workload with create/read/delete replication controller
     scenario:
       Kubernetes.create_and_delete_replication_controller:
-        image: kubernetes/pause
+        image: k8s.gcr.io/pause:3.3
         replicas: 2
     runner:
       constant:
@@ -49,7 +49,7 @@ subtasks:
   - title: Run a single workload with create/scale/delete replication controller
     scenario:
       Kubernetes.create_scale_and_delete_replication_controller:
-        image: kubernetes/pause
+        image: k8s.gcr.io/pause:3.3
         replicas: 2
         scale_replicas: 3
     runner:
@@ -64,7 +64,7 @@ subtasks:
   - title: Run a single workload with create/read/delete replicaset
     scenario:
       Kubernetes.create_and_delete_replicaset:
-        image: kubernetes/pause
+        image: k8s.gcr.io/pause:3.3
         replicas: 1
     runner:
       constant:
@@ -78,7 +78,7 @@ subtasks:
   - title: Run a single workload with create/scale/delete replicaset
     scenario:
       Kubernetes.create_scale_and_delete_replicaset:
-        image: kubernetes/pause
+        image: k8s.gcr.io/pause:3.3
         replicas: 1
         scale_replicas: 2
     runner:
@@ -94,7 +94,7 @@ subtasks:
       Run a single workload with create/read/delete pod with emptyDir volume
     scenario:
       Kubernetes.create_and_delete_pod_with_emptydir_volume:
-        image: kubernetes/pause
+        image: k8s.gcr.io/pause:3.3
         mount_path: /opt/check
     runner:
       constant:
@@ -110,7 +110,7 @@ subtasks:
       volume
     scenario:
       Kubernetes.create_and_delete_pod_with_emptydir_volume:
-        image: busybox
+        image: busybox:1.28
         command:
           - sleep
           - "3600"
@@ -131,7 +131,7 @@ subtasks:
   - title: Run a single workload with create/read/delete pod with secret volume
     scenario:
       Kubernetes.create_and_delete_pod_with_secret_volume:
-        image: busybox
+        image: busybox:1.28
         command:
           - sleep
           - "3600"
@@ -148,7 +148,7 @@ subtasks:
   - title: Run a single workload with create/check/delete pod with secret volume
     scenario:
       Kubernetes.create_and_delete_pod_with_secret_volume:
-        image: busybox
+        image: busybox:1.28
         command:
           - sleep
           - "3600"
@@ -171,7 +171,7 @@ subtasks:
       volume
     scenario:
       Kubernetes.create_and_delete_pod_with_hostpath_volume:
-        image: busybox
+        image: busybox:1.28
         command:
           - sleep
           - "3600"
@@ -195,7 +195,7 @@ subtasks:
       Run a single workload with create/read/delete pod with configMap volume
     scenario:
       Kubernetes.create_and_delete_pod_with_configmap_volume:
-        image: busybox
+        image: busybox:1.28
         command:
           - "sleep"
           - "3600"
@@ -218,7 +218,7 @@ subtasks:
       volume
     scenario:
       Kubernetes.create_and_delete_pod_with_configmap_volume:
-        image: busybox
+        image: busybox:1.28
         command:
           - "sleep"
           - "3600"
@@ -243,7 +243,7 @@ subtasks:
   - title: Run a single workload with create/read/delete deployment
     scenario:
       Kubernetes.create_and_delete_deployment:
-        image: kubernetes/pause
+        image: k8s.gcr.io/pause:3.3
         replicas: 2
     runner:
       constant:
@@ -257,7 +257,7 @@ subtasks:
   - title: Run a single workload with create/rollout/delete deployment
     scenario:
       Kubernetes.create_rollout_and_delete_deployment:
-        image: busybox
+        image: busybox:1.28
         replicas: 1
         command:
           - sleep
@@ -281,7 +281,7 @@ subtasks:
   - title: Run a single workload with create/read/delete statefulset
     scenario:
       Kubernetes.create_and_delete_statefulset:
-        image: kubernetes/pause
+        image: k8s.gcr.io/pause:3.3
         replicas: 2
     runner:
       constant:
@@ -295,7 +295,7 @@ subtasks:
   - title: Run a single workload with create/scale/delete statefulset
     scenario:
       Kubernetes.create_scale_and_delete_statefulset:
-        image: kubernetes/pause
+        image: k8s.gcr.io/pause:3.3
         replicas: 1
         scale_replicas: 2
     runner:
@@ -310,7 +310,7 @@ subtasks:
   - title: Run a single workload with create/read/delete job
     scenario:
       Kubernetes.create_and_delete_job:
-        image: busybox
+        image: busybox:1.28
         command:
           - echo
           - "SUCCESS"
