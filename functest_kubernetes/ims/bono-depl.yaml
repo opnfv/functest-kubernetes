@@ -18,7 +18,7 @@ spec:
           image: busybox:1.28
           command: ['sh', '-c', 'until nslookup sprout; do echo waiting for sprout to start ...; sleep 2; done']
       containers:
-      - image: "ollivier/clearwater-bono:latest"
+      - image: "ollivier/clearwater-bono"
         name: bono
         ports:
         - containerPort: 22

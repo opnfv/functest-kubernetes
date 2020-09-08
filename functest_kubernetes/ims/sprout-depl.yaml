@@ -24,7 +24,7 @@ spec:
           image: busybox:1.28
           command: ['sh', '-c', 'until nslookup homestead; do echo waiting for homestead to start ...; sleep 2; done']
       containers:
-      - image: "ollivier/clearwater-sprout:latest"
+      - image: "ollivier/clearwater-sprout"
         name: sprout
         ports:
         - containerPort: 22
