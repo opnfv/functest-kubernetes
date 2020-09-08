@@ -21,7 +21,7 @@ spec:
           image: busybox:1.28
           command: ['sh', '-c', 'until nslookup astaire; do echo waiting for astaire to start ...; sleep 2; done']
       containers:
-      - image: "ollivier/clearwater-homestead"
+      - image: "ollivier/clearwater-homestead:hunter"
         name: homestead
         ports:
         - containerPort: 22
@@ -44,7 +44,7 @@ spec:
         volumeMounts:
         - name: homesteadlogs
           mountPath: /var/log/homestead
-      - image: busybox
+      - image: busybox:1.28
         name: tailer
         command: [ "tail", "-F", "/var/log/homestead/homestead_current.txt" ]
         volumeMounts:
