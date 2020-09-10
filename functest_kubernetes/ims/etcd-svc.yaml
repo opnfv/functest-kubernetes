@@ -14,4 +14,3 @@ spec:
     port: 4001
   selector:
     instance-type: etcd-pod
-  clusterIP: None
