@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: bono
 spec:
-  clusterIP: None
   ports:
   - name: "3478"
     port: 3478
