@@ -60,6 +60,7 @@ k8s.gcr.io/prometheus-dummy-exporter:v0.1.0
 k8s.gcr.io/prometheus-to-sd:v0.5.0
 k8s.gcr.io/sd-dummy-exporter:v0.2.0
 quay.io/kubernetes_incubator/nfs-provisioner:v2.2.2
+quay.io/coreos/etcd:v2.2.5
 EOF
 for i in $(cat $tmpfile); do
     sudo docker pull $i
