@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: ellis
 spec:
-  clusterIP: None
   ports:
   - name: "http"
     port: 80
