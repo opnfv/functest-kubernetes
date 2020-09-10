@@ -14,4 +14,3 @@ spec:
     port: 9160
   selector:
     service: cassandra
-  clusterIP: None
