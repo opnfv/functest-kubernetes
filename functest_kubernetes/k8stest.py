@@ -48,6 +48,9 @@ class E2ETesting(testcase.TestCase):
                     '-provider', 'local', '-report-dir', self.res_dir]
         for arg in kwargs:
             cmd_line.extend(['-ginkgo.{}'.format(arg), kwargs.get(arg)])
+        if "NON_BLOCKING_TAINTS" in os.environ:
+            cmd_line.extend(
+                ['-non-blocking-taints', os.environ["NON_BLOCKING_TAINTS"]])
         cmd_line.extend(['-disable-log-dump', 'true'])
         self.__logger.info("Starting k8s test: '%s'.", cmd_line)
         process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
