@@ -8,3 +8,4 @@ spec:
     port: 8889
   selector:
     service: homestead-prov
+  clusterIP: None
