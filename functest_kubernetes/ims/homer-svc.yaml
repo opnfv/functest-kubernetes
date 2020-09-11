@@ -8,3 +8,4 @@ spec:
     port: 7888
   selector:
     service: homer
+  clusterIP: None
