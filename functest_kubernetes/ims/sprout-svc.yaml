@@ -10,3 +10,4 @@ spec:
     port: 5054
   selector:
     service: sprout
+  clusterIP: None

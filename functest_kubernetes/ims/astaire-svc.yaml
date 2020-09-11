@@ -8,3 +8,4 @@ spec:
     port: 11311
   selector:
     service: astaire
+  clusterIP: None
