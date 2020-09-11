@@ -8,3 +8,4 @@ spec:
     port: 7253
   selector:
     service: chronos
+  clusterIP: None
