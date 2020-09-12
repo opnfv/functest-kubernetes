@@ -18,6 +18,7 @@ tiers:
                     name: 'kube_hunter'
                     args:
                         severity: high
+
             -
                 case_name: kube_bench
                 project_name: functest
