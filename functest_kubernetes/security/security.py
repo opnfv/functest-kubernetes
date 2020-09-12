@@ -13,6 +13,7 @@ Define the parent for Kubernetes testing.
 
 from __future__ import division
 
+import ast
 import json
 import logging
 import time
@@ -189,10 +190,28 @@ class KubeBench(SecurityTesting):
     See https://github.com/aquasecurity/kube-bench for more details
     """
 
+    __logger = logging.getLogger(__name__)
+
     def __init__(self, **kwargs):
         super(KubeBench, self).__init__(**kwargs)
         self.job_name = "kube-bench"
 
     def run(self, **kwargs):
         super(KubeBench, self).run(**kwargs)
+        self.details = ast.literal_eval(self.pod_log)
+        msg = prettytable.PrettyTable(
+            header_style='upper', padding_width=5,
+            field_names=['node_type', 'version', 'test_desc', 'pass',
+                         'fail', 'warn'])
+        for details in self.details:
+            for test in details['tests']:
+                msg.add_row(
+                    [details['node_type'], details['version'], test['desc'],
+                     test['pass'], test['fail'], test['warn']])
+                for result in test["results"]:
+                    if result['scored'] and result['status'] == 'FAIL':
+                        self.__logger.error(
+                            "%s\n%s", result['test_desc'],
+                            result['remediation'])
+        self.__logger.warning("Targets:\n\n%s\n", msg.get_string())
         self.result = 100
