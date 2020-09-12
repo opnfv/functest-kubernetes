@@ -110,7 +110,11 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
                         time.time()-self.start_time)
             if not status:
                 watch_deployment.stop()
-        self.result = 1/2 * 100
+        if not status:
+            self.result = 1/2 * 100
+            return True
+        self.__logger.error("Cannot deploy vIMS")
+        return False
 
     def test_vnf(self):
         """Test vIMS as proposed by clearwater-live-test
@@ -167,8 +171,8 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
     def run(self, **kwargs):
         self.start_time = time.time()
         try:
-            self.deploy_vnf()
-            self.test_vnf()
+            if self.deploy_vnf():
+                self.test_vnf()
         except client.rest.ApiException:
             self.__logger.exception("Cannot deploy and test vIms")
         self.stop_time = time.time()
