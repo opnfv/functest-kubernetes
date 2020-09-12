@@ -13,14 +13,17 @@ Define the parent for Kubernetes testing.
 
 from __future__ import division
 
+import json
 import logging
 import time
+import textwrap
 import yaml
 
 from kubernetes import client
 from kubernetes import config
 from kubernetes import watch
 import pkg_resources
+import prettytable
 from xtesting.core import testcase
 
 
@@ -37,6 +40,7 @@ class SecurityTesting(testcase.TestCase):
         self.corev1 = client.CoreV1Api()
         self.batchv1 = client.BatchV1Api()
         self.pod = None
+        self.pod_log = ""
         self.job_name = None
         self.output_log_name = 'functest-kubernetes.log'
         self.output_debug_log_name = 'functest-kubernetes.debug.log'
@@ -75,10 +79,9 @@ class SecurityTesting(testcase.TestCase):
         pods = self.corev1.list_namespaced_pod(
             self.namespace, label_selector='job-name={}'.format(self.job_name))
         self.pod = pods.items[0].metadata.name
-        api_response = self.corev1.read_namespaced_pod_log(
+        self.pod_log = self.corev1.read_namespaced_pod_log(
             name=self.pod, namespace=self.namespace)
-        self.__logger.warning("\n\n%s", api_response)
-        self.result = 100
+        self.__logger.info("\n\n%s", self.pod_log)
 
     def run(self, **kwargs):
         assert self.job_name
@@ -119,9 +122,62 @@ class KubeHunter(SecurityTesting):
     See https://github.com/aquasecurity/kube-hunter for more details
     """
 
+    __logger = logging.getLogger(__name__)
+
     def __init__(self, **kwargs):
         super(KubeHunter, self).__init__(**kwargs)
         self.job_name = "kube-hunter"
+
+    def process_results(self, **kwargs):
+        """Process kube-hunter details"""
+        self.details = json.loads(self.pod_log.splitlines()[-1])
+        if self.details["vulnerabilities"]:
+            self.result = 100
+            msg = prettytable.PrettyTable(
+                header_style='upper', padding_width=5,
+                field_names=['category', 'vulnerability', 'severity'])
+            severity = kwargs.get("severity", "high")
+            if severity == "low":
+                allowed_severity = []
+            elif severity == "medium":
+                allowed_severity = ["low"]
+            elif severity == "high":
+                allowed_severity = ["low", "medium"]
+            else:
+                self.__logger.warning(
+                    "Selecting high as default severity (%s is incorrect)",
+                    kwargs.get("severity", "high"))
+                severity = "high"
+                allowed_severity = ["low", "medium"]
+            for vulnerability in self.details["vulnerabilities"]:
+                if vulnerability["severity"] in allowed_severity:
+                    self.__logger.warning(
+                        "Skipping %s (severity is configured as %s)",
+                        vulnerability["vulnerability"], severity)
+                else:
+                    self.result = 0
+                msg.add_row(
+                    [vulnerability["category"], vulnerability["vulnerability"],
+                     vulnerability["severity"]])
+            self.__logger.warning("\n\n%s\n", msg.get_string())
+        if self.details["hunter_statistics"]:
+            msg = prettytable.PrettyTable(
+                header_style='upper', padding_width=5,
+                field_names=['name', 'description', 'vulnerabilities'])
+            for statistics in self.details["hunter_statistics"]:
+                msg.add_row(
+                    [statistics["name"],
+                     textwrap.fill(statistics["description"], width=50),
+                     statistics["vulnerabilities"]])
+            self.__logger.info("\n\n%s\n", msg.get_string())
+
+    def run(self, **kwargs):
+        super(KubeHunter, self).run(**kwargs)
+        try:
+            self.process_results(**kwargs)
+        except Exception:  # pylint: disable=broad-except
+            self.__logger.exception("Cannot process results")
+            self.result = 0
 
 
 class KubeBench(SecurityTesting):
@@ -135,3 +191,7 @@ class KubeBench(SecurityTesting):
     def __init__(self, **kwargs):
         super(KubeBench, self).__init__(**kwargs)
         self.job_name = "kube-bench"
+
+    def run(self, **kwargs):
+        super(KubeBench, self).run(**kwargs)
+        self.result = 100
