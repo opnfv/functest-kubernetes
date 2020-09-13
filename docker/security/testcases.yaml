@@ -2,7 +2,6 @@
 tiers:
     -
         name: security
-        ci_loop: '(daily)|(weekly)'
         description: >-
             Set of basic security tests.
         testcases:
@@ -15,17 +14,34 @@ tiers:
                     Check that the kubernetes cluster has no known
                     vulnerabilities
                 run:
-                    name: 'kube_hunter'
+                    name: kube_hunter
                     args:
                         severity: high
 
             -
-                case_name: kube_bench
+                case_name: kube_bench_master
                 project_name: functest
                 criteria: 100
                 blocking: false
                 description: >-
-                    Check that the kubernetes cluster has no known
-                    vulnerabilities
+                    Checks whether Kubernetes is deployed securely by running
+                    the master checks documented in the CIS Kubernetes
+                    Benchmark.
                 run:
-                    name: 'kube_bench'
+                    name: kube_bench
+                    args:
+                        target: master
+
+            -
+                case_name: kube_bench_node
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    Checks whether Kubernetes is deployed securely by running
+                    the node checks documented in the CIS Kubernetes
+                    Benchmark.
+                run:
+                    name: kube_bench
+                    args:
+                        target: node
