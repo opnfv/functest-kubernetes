@@ -197,12 +197,12 @@ class KubeBench(SecurityTesting):
 
     def run(self, **kwargs):
         super(KubeBench, self).run(**kwargs)
-        self.details = ast.literal_eval(self.pod_log)
+        self.details["report"] = ast.literal_eval(self.pod_log)
         msg = prettytable.PrettyTable(
             header_style='upper', padding_width=5,
             field_names=['node_type', 'version', 'test_desc', 'pass',
                          'fail', 'warn'])
-        for details in self.details:
+        for details in self.details["report"]:
             for test in details['tests']:
                 msg.add_row(
                     [details['node_type'], details['version'], test['desc'],
