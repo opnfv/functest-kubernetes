@@ -192,11 +192,8 @@ class KubeBench(SecurityTesting):
 
     __logger = logging.getLogger(__name__)
 
-    def __init__(self, **kwargs):
-        super(KubeBench, self).__init__(**kwargs)
-        self.job_name = "kube-bench"
-
     def run(self, **kwargs):
+        self.job_name = "kube-bench-{}".format(kwargs.get("target", "node"))
         super(KubeBench, self).run(**kwargs)
         self.details["report"] = ast.literal_eval(self.pod_log)
         msg = prettytable.PrettyTable(
