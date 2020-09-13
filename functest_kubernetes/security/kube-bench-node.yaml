@@ -2,23 +2,16 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: kube-bench
+  name: kube-bench-node
 spec:
   template:
-    metadata:
-      labels:
-        app: kube-bench
     spec:
       hostPID: true
       containers:
         - name: kube-bench
           image: aquasec/kube-bench:0.3.1
-          command: ["kube-bench"]
-          args: ["--json"]
+          command: ["kube-bench", "node", "--json"]
           volumeMounts:
-            - name: var-lib-etcd
-              mountPath: /var/lib/etcd
-              readOnly: true
             - name: var-lib-kubelet
               mountPath: /var/lib/kubelet
               readOnly: true
@@ -35,9 +28,6 @@ spec:
               readOnly: true
       restartPolicy: Never
       volumes:
-        - name: var-lib-etcd
-          hostPath:
-            path: "/var/lib/etcd"
         - name: var-lib-kubelet
           hostPath:
             path: "/var/lib/kubelet"
