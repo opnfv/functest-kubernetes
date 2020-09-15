@@ -57,5 +57,6 @@
             - xrally_kubernetes_full
         - container: functest-kubernetes-cnf
           tests:
-            - cnf_conformance
             - k8s_vims
+            - helm_vims
+            - cnf_conformance
