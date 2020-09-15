@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: chronos
+  name: chronos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: chronos
+  template:
+    metadata:
+      labels:
+        service: chronos
+    spec:
+      terminationGracePeriodSeconds: 120
+      initContainers:
+        - name: wait-on-cassandra
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
+      containers:
+      - image: "{{ .Values.image.path }}-chronos:{{ .Values.image.tag }}"
+        name: chronos
+        ports:
+        - containerPort: 22
+        - containerPort: 7253
+        envFrom:
+        - configMapRef:
+              name: env-vars
+        env:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        livenessProbe:
+          tcpSocket:
+            port: 7253
+          periodSeconds: 10
+          failureThreshold: 9
+        readinessProbe:
+          tcpSocket:
+            port: 7253
+        volumeMounts:
+        - name: chronoslogs
+          mountPath: /var/log/chronos
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/bash", "-c", "/usr/bin/pre-stop"]
+      - image: busybox:1.28
+        name: tailer
+        command: [ "tail", "-F", "/var/log/chronos/chronos_current.txt" ]
+        volumeMounts:
+        - name: chronoslogs
+          mountPath: /var/log/chronos
+      volumes:
+      - name: chronoslogs
+        emptyDir: {}
+      imagePullSecrets:
+      - name: ~
+      restartPolicy: Always
