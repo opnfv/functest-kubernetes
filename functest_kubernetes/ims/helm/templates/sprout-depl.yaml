@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sprout
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: sprout
+  template:
+    metadata:
+      labels:
+        service: sprout
+        snmp: enabled
+    spec:
+      initContainers:
+        - name: wait-on-ralf
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup ralf; do echo waiting for ralf to start ...; sleep 2; done']
+        - name: wait-on-chronos
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup chronos; do echo waiting for chronos to start ...; sleep 2; done']
+        - name: wait-on-homestead
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup homestead; do echo waiting for homestead to start ...; sleep 2; done']
+      containers:
+      - image: "{{ .Values.image.path }}-sprout:{{ .Values.image.tag }}"
+        name: sprout
+        ports:
+        - containerPort: 22
+        envFrom:
+        - configMapRef:
+              name: env-vars
+        env:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        livenessProbe:
+          exec:
+            command: ["/bin/bash", "/usr/share/kubernetes/liveness.sh", "5052 5054"]
+          initialDelaySeconds: 30
+          periodSeconds: 3
+        readinessProbe:
+          exec:
+            command: ["/bin/bash", "/usr/share/kubernetes/liveness.sh", "5052 5054"]
+        volumeMounts:
+        - name: sproutlogs
+          mountPath: /var/log/sprout
+      - image: busybox:1.28
+        name: tailer
+        command: [ "tail", "-F", "/var/log/sprout/sprout_current.txt" ]
+        volumeMounts:
+        - name: sproutlogs
+          mountPath: /var/log/sprout
+      volumes:
+      - name: sproutlogs
+        emptyDir: {}
+      imagePullSecrets:
+      - name: ~
+      restartPolicy: Always
