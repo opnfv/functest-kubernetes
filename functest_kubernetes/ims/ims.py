@@ -32,7 +32,7 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
 
     See https://github.com/Metaswitch/clearwater-docker for more details
     """
-    watch_timeout = 1200
+    watch_timeout = 1800
     metadata_name = "env-vars"
     test_image_name = "ollivier/clearwater-live-test:hunter"
     test_container_name = "live-test"
