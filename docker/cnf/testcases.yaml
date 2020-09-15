@@ -6,6 +6,32 @@ tiers:
             Collection of VNF test cases.
         testcases:
             -
+                case_name: k8s_vims
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    Deploy and test Clearwater IMS using Kubernetes as proposed
+                    by https://github.com/Metaswitch/clearwater-docker
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: k8s_vims
+
+            -
+                case_name: helm_vims
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    Deploy and test Clearwater IMS using Kubernetes as proposed
+                    by https://github.com/Metaswitch/clearwater-docker
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: helm_vims
+
+            -
                 case_name: cnf_conformance
                 project_name: functest
                 criteria: 75
@@ -18,15 +44,3 @@ tiers:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
                     name: cnf_conformance
-            -
-                case_name: k8s_vims
-                project_name: functest
-                criteria: 100
-                blocking: false
-                description: >-
-                    Deploy and test Clearwater IMS using Kubernetes as proposed
-                    by https://github.com/Metaswitch/clearwater-docker
-                dependencies:
-                    - DEPLOY_SCENARIO: 'k8-*'
-                run:
-                    name: k8s_vims

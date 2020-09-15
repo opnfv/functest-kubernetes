@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: astaire
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: astaire
+  template:
+    metadata:
+      labels:
+        service: astaire
+    spec:
+      terminationGracePeriodSeconds: 120
+      initContainers:
+        - name: wait-on-cassandra
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
+      containers:
+      - image: "{{ .Values.image.path }}-astaire:{{ .Values.image.tag }}"
+        name: astaire
+        ports:
+        - containerPort: 22
+        - containerPort: 11211
+        - containerPort: 11311
+        envFrom:
+        - configMapRef:
+              name: env-vars
+        env:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        livenessProbe:
+          tcpSocket:
+            port: 11311
+          periodSeconds: 10
+          failureThreshold: 9
+        readinessProbe:
+          tcpSocket:
+            port: 11311
+        volumeMounts:
+        - name: astairelogs
+          mountPath: /var/log/astaire
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/bash", "-c", "/usr/bin/pre-stop"]
+      - image: busybox:1.28
+        name: tailer
+        command: [ "tail", "-F", "/var/log/astaire/astaire_current.txt" ]
+        volumeMounts:
+        - name: astairelogs
+          mountPath: /var/log/astaire
+      volumes:
+      - name: astairelogs
+        emptyDir: {}
+      imagePullSecrets:
+      - name: ~
+      restartPolicy: Always

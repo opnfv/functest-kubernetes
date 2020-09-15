@@ -11,8 +11,10 @@
 
 from __future__ import division
 
+import abc
 import logging
 import time
+import subprocess
 import re
 import yaml
 
@@ -53,51 +55,40 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
         self.namespace = ""
         self.zone = ""
 
-    def deploy_vnf(self):
-        """Deploy vIMS as proposed by clearwater-docker
+    def prepare_vnf(self):
+        """Prepare vIMS as proposed by clearwater-live-test
 
-        It leverages on unofficial Clearwater dockers as proposed in the
-        documentation.
+        It creates a dedicated namespace and the configmap needed.
 
-        See https://github.com/Metaswitch/clearwater-docker for more details
+        See https://github.com/Metaswitch/clearwater-live-test for more details
         """
         api_response = self.corev1.create_namespace(
             client.V1Namespace(metadata=client.V1ObjectMeta(
                 generate_name="ims-")))
         self.namespace = api_response.metadata.name
         self.__logger.debug("create_namespace: %s", api_response)
+        self.zone = '{}.svc.cluster.local'.format(self.namespace)
         metadata = client.V1ObjectMeta(
             name=self.metadata_name, namespace=self.namespace)
-        self.zone = '{}.svc.cluster.local'.format(self.namespace)
         body = client.V1ConfigMap(
             metadata=metadata,
             data={"ADDITIONAL_SHARED_CONFIG": "", "ZONE": self.zone})
         api_response = self.corev1.create_namespaced_config_map(
             self.namespace, body=body)
         self.__logger.debug("create_namespaced_config_map: %s", api_response)
-        for deployment in self.deployment_list:
-            # pylint: disable=bad-continuation
-            with open(pkg_resources.resource_filename(
-                    'functest_kubernetes',
-                    'ims/{}-depl.yaml'.format(deployment))) as yfile:
-                body = yaml.safe_load(yfile)
-                resp = self.appsv1.create_namespaced_deployment(
-                    body=body, namespace=self.namespace)
-                self.__logger.info("Deployment %s created", resp.metadata.name)
-                self.__logger.debug(
-                    "create_namespaced_deployment: %s", api_response)
-        for service in self.deployment_list:
-            # pylint: disable=bad-continuation
-            with open(pkg_resources.resource_filename(
-                    'functest_kubernetes',
-                    'ims/{}-svc.yaml'.format(service))) as yfile:
-                body = yaml.safe_load(yfile)
-                resp = self.corev1.create_namespaced_service(
-                    body=body, namespace=self.namespace)
-                self.__logger.info("Service %s created", resp.metadata.name)
-                self.__logger.debug(
-                    "create_namespaced_service: %s", api_response)
-        # pylint: disable=no-member
+
+    @abc.abstractmethod
+    def deploy_vnf(self):
+        """Deploy vIMS as proposed by clearwater-docker
+
+        It must be overriden on purpose.
+
+        See https://github.com/Metaswitch/clearwater-docker for more details
+        """
+
+    def wait_vnf(self):
+        """Wait vIMS is up and running"""
+        assert self.namespace
         status = self.deployment_list[:]
         watch_deployment = watch.Watch()
         for event in watch_deployment.stream(
@@ -122,12 +113,14 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
     def test_vnf(self):
         """Test vIMS as proposed by clearwater-live-test
 
-        It leverages on an unofficial Clearwater docker to allow testing from
+        It leverages an unofficial Clearwater docker to allow testing from
         the Kubernetes cluster.
 
         See https://github.com/Metaswitch/clearwater-live-test for more details
         """
         time.sleep(120)
+        assert self.namespace
+        assert self.zone
         container = client.V1Container(
             name=self.test_container_name, image=self.test_image_name,
             command=["rake", "test[{}]".format(self.zone),
@@ -174,13 +167,21 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
     def run(self, **kwargs):
         self.start_time = time.time()
         try:
-            if self.deploy_vnf():
+            self.prepare_vnf()
+            self.deploy_vnf()
+            if self.wait_vnf():
                 self.test_vnf()
         except client.rest.ApiException:
             self.__logger.exception("Cannot deploy and test vIms")
         self.stop_time = time.time()
 
     def clean(self):
+        try:
+            api_response = self.corev1.delete_namespaced_pod(
+                name=self.test_container_name, namespace=self.namespace)
+            self.__logger.debug("delete_namespaced_pod: %s", api_response)
+        except client.rest.ApiException:
+            pass
         try:
             api_response = self.corev1.delete_namespaced_config_map(
                 name=self.metadata_name, namespace=self.namespace)
@@ -189,11 +190,53 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
         except client.rest.ApiException:
             pass
         try:
-            api_response = self.corev1.delete_namespaced_pod(
-                name=self.test_container_name, namespace=self.namespace)
-            self.__logger.debug("delete_namespaced_pod: %s", api_response)
+            api_response = self.corev1.delete_namespace(self.namespace)
+            self.__logger.debug("delete_namespace: %s", self.namespace)
         except client.rest.ApiException:
             pass
+
+
+class K8sVims(Vims):
+    """Deploy vIMS via kubectl as proposed by clearwater-docker
+
+    It leverages unofficial Clearwater dockers as proposed in the
+    documentation.
+
+    See https://github.com/Metaswitch/clearwater-docker for more details
+    """
+
+    __logger = logging.getLogger(__name__)
+
+    def deploy_vnf(self):
+        """Deploy vIMS via kubectl as proposed by clearwater-docker
+
+        See https://github.com/Metaswitch/clearwater-docker for more details
+        """
+        assert self.namespace
+        for deployment in self.deployment_list:
+            # pylint: disable=bad-continuation
+            with open(pkg_resources.resource_filename(
+                    'functest_kubernetes',
+                    'ims/{}-depl.yaml'.format(deployment))) as yfile:
+                body = yaml.safe_load(yfile)
+                resp = self.appsv1.create_namespaced_deployment(
+                    body=body, namespace=self.namespace)
+                self.__logger.info("Deployment %s created", resp.metadata.name)
+                self.__logger.debug(
+                    "create_namespaced_deployment: %s", resp)
+        for service in self.deployment_list:
+            # pylint: disable=bad-continuation
+            with open(pkg_resources.resource_filename(
+                    'functest_kubernetes',
+                    'ims/{}-svc.yaml'.format(service))) as yfile:
+                body = yaml.safe_load(yfile)
+                resp = self.corev1.create_namespaced_service(
+                    body=body, namespace=self.namespace)
+                self.__logger.info("Service %s created", resp.metadata.name)
+                self.__logger.debug(
+                    "create_namespaced_service: %s", resp)
+
+    def clean(self):
         for deployment in self.deployment_list:
             try:
                 api_response = self.appsv1.delete_namespaced_deployment(
@@ -209,8 +252,34 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
                     "delete_namespaced_service: %s", api_response)
             except client.rest.ApiException:
                 pass
-        try:
-            api_response = self.corev1.delete_namespace(self.namespace)
-            self.__logger.debug("delete_namespace: %s", self.namespace)
-        except client.rest.ApiException:
-            pass
+        super(K8sVims, self).clean()
+
+
+class HelmVims(Vims):
+    """Deploy vIMS via Helm as proposed by clearwater-docker
+
+    It leverages unofficial Clearwater dockers as proposed in the
+    documentation.
+
+    See https://github.com/Metaswitch/clearwater-docker for more details
+    """
+
+    __logger = logging.getLogger(__name__)
+
+    def deploy_vnf(self):
+        """Deploy vIMS via Helm as proposed by clearwater-docker
+
+        See https://github.com/Metaswitch/clearwater-docker for more details
+        """
+        cmd = [
+            "helm", "install", "clearwater",
+            pkg_resources.resource_filename("functest_kubernetes", "ims/helm"),
+            "-n", self.namespace]
+        output = subprocess.check_output(cmd)
+        self.__logger.debug(output.decode("utf-8"))
+
+    def clean(self):
+        cmd = ["helm", "uninstall", "clearwater", "-n", self.namespace]
+        output = subprocess.check_output(cmd)
+        self.__logger.debug(output.decode("utf-8"))
+        super(HelmVims, self).clean()

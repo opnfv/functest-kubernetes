@@ -2,6 +2,7 @@ FROM opnfv/functest-kubernetes-core:hunter
 
 ARG K8S_TAG=v1.13.12
 ARG CNF_CONFORMANCE_TAG=v0.7.2-beta1
+ARG HELM_TAG=v3.3.1
 
 RUN apk --no-cache add --update wget curl libc6-compat && \
     apk --no-cache add --virtual .build-deps --update make rsync findutils gcc musl-dev && \
@@ -12,7 +13,12 @@ RUN apk --no-cache add --update wget curl libc6-compat && \
         git checkout FETCH_HEAD && \
         make kubectl && \
         mv _output/bin/* /usr/local/bin) && \
-    rm -r /src/k8s.io && \
+    curl https://get.helm.sh/helm-$HELM_TAG-linux-$ARCH.tar.gz \
+        -s --output /src/helm-$HELM_TAG-linux-$ARCH.tar.gz && \
+    tar zxf /src/helm-$HELM_TAG-linux-$ARCH.tar.gz linux-$ARCH/helm -C /src && \
+    mv /src/linux-$ARCH/helm /usr/local/bin && \
+    chmod +x /usr/local/bin/kubectl /usr/local/bin/helm && \
+    rm -r /src/k8s.io /src/helm-$HELM_TAG-linux-$ARCH.tar.gz /src/linux-$ARCH && \
     case $(uname -m) in x86_64) \
         curl https://github.com/cncf/cnf-conformance/releases/download/$CNF_CONFORMANCE_TAG/cnf-conformance-$(echo $CNF_CONFORMANCE_TAG |cut -d\- -f 1)-$ARCH-static \
             -Ls --output /usr/local/bin/cnf-conformance && \
