@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ralf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: ralf
+  template:
+    metadata:
+      labels:
+        service: ralf
+        snmp: enabled
+    spec:
+      initContainers:
+        - name: wait-on-cassandra
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
+      containers:
+      - image: "{{ .Values.image.path }}-ralf:{{ .Values.image.tag }}"
+        name: ralf
+        ports:
+        - containerPort: 22
+        - containerPort: 10888
+        envFrom:
+        - configMapRef:
+              name: env-vars
+        env:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        livenessProbe:
+          tcpSocket:
+            port: 10888
+          initialDelaySeconds: 30
+        readinessProbe:
+          tcpSocket:
+            port: 10888
+        volumeMounts:
+        - name: ralflogs
+          mountPath: /var/log/ralf
+      - image: busybox:1.28
+        name: tailer
+        command: [ "tail", "-F", "/var/log/ralf/ralf_current.txt" ]
+        volumeMounts:
+        - name: ralflogs
+          mountPath: /var/log/ralf
+      volumes:
+      - name: ralflogs
+        emptyDir: {}
+      imagePullSecrets:
+      - name: ~
+      restartPolicy: Always
