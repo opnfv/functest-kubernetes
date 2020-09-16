@@ -23,3 +23,4 @@
         - container: functest-kubernetes-cnf
           tests:
             - k8s_vims
+            - helm_vims
