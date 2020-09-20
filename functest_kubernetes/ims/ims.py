@@ -273,11 +273,11 @@ class HelmVims(Vims):
             "helm", "install", "clearwater",
             pkg_resources.resource_filename("functest_kubernetes", "ims/helm"),
             "-n", self.namespace]
-        output = subprocess.check_output(cmd)
+        output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.debug(output.decode("utf-8"))
 
     def clean(self):
         cmd = ["helm", "uninstall", "clearwater", "-n", self.namespace]
-        output = subprocess.check_output(cmd)
+        output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.debug(output.decode("utf-8"))
         super(HelmVims, self).clean()
