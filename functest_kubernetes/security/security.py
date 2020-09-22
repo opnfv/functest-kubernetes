@@ -46,6 +46,7 @@ class SecurityTesting(testcase.TestCase):
         self.output_log_name = 'functest-kubernetes.log'
         self.output_debug_log_name = 'functest-kubernetes.debug.log'
         self.namespace = ""
+        self.ns_generate_name = "security-"
 
     def deploy_job(self):
         """Run Security job
@@ -56,7 +57,7 @@ class SecurityTesting(testcase.TestCase):
         assert self.job_name
         api_response = self.corev1.create_namespace(
             client.V1Namespace(metadata=client.V1ObjectMeta(
-                generate_name="ims-")))
+                generate_name=self.ns_generate_name)))
         self.namespace = api_response.metadata.name
         self.__logger.debug("create_namespace: %s", api_response)
         # pylint: disable=bad-continuation
@@ -129,6 +130,7 @@ class KubeHunter(SecurityTesting):
     def __init__(self, **kwargs):
         super(KubeHunter, self).__init__(**kwargs)
         self.job_name = "kube-hunter"
+        self.ns_generate_name = "kube-hunter-"
 
     def process_results(self, **kwargs):
         """Process kube-hunter details"""
@@ -191,6 +193,11 @@ class KubeBench(SecurityTesting):
     """
 
     __logger = logging.getLogger(__name__)
+
+    def __init__(self, **kwargs):
+        super(KubeBench, self).__init__(**kwargs)
+        self.job_name = "kube-bench"
+        self.ns_generate_name = "kube-bench-"
 
     def run(self, **kwargs):
         self.job_name = "kube-bench-{}".format(kwargs.get("target", "node"))

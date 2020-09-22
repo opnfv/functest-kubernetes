@@ -38,6 +38,7 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
     metadata_name = "env-vars"
     test_image_name = "ollivier/clearwater-live-test:hunter"
     test_container_name = "live-test"
+    ns_generate_name = "ims-"
 
     __logger = logging.getLogger(__name__)
 
@@ -64,7 +65,7 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
         """
         api_response = self.corev1.create_namespace(
             client.V1Namespace(metadata=client.V1ObjectMeta(
-                generate_name="ims-")))
+                generate_name=self.ns_generate_name)))
         self.namespace = api_response.metadata.name
         self.__logger.debug("create_namespace: %s", api_response)
         self.zone = '{}.svc.cluster.local'.format(self.namespace)
