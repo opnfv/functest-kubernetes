@@ -16,7 +16,8 @@
         - container: functest-kubernetes-security
           tests:
             - kube_hunter
-            - kube_bench
+            - kube_bench_master
+            - kube_bench_node
         - container: functest-kubernetes-benchmarking
           tests:
             - xrally_kubernetes_full
