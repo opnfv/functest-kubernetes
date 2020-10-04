@@ -1,8 +1,8 @@
 FROM alpine:3.12
 
-ARG BRANCH=master
+ARG BRANCH=stable/leguer
 ARG OPENSTACK_TAG=master
-ARG OPNFV_TAG=master
+ARG OPNFV_TAG=stable/leguer
 
 COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
 COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch
