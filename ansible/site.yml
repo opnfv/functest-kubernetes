@@ -5,6 +5,9 @@
       project: functest-kubernetes
       db_project: functest
       gerrit_project: functest-kubernetes
+      docker_tags:
+        - leguer:
+            branch: stable/leguer
       builds:
         dependencies:
           - repo: _

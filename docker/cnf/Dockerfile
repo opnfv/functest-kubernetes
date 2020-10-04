@@ -1,4 +1,4 @@
-FROM opnfv/functest-kubernetes-core
+FROM opnfv/functest-kubernetes-core:leguer
 
 ARG CNF_CONFORMANCE_TAG=v0.7.2-beta1
 ARG HELM_TAG=v3.3.1
