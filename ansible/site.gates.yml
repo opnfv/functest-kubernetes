@@ -1,0 +1,65 @@
+---
+- hosts: 127.0.0.1
+  roles:
+    - role: collivier.xtesting
+      project: functest-kubernetes
+      db_project: functest
+      gerrit_project: functest-kubernetes
+      docker_tags:
+        - leguer:
+            branch: stable/leguer
+      builds:
+        dependencies:
+          - repo: _
+            dport:
+            container: alpine
+            tag: 3.12
+        steps:
+          - name: build opnfv/functest-kubernetes-core
+            containers:
+              - name: functest-kubernetes-core
+                ref_arg: BRANCH
+                path: docker/core
+          - name: build containers
+            containers:
+              - name: functest-kubernetes-healthcheck
+                ref_arg:
+                path: docker/healthcheck
+              - name: functest-kubernetes-cnf
+                ref_arg: BRANCH
+                path: docker/cnf
+              - name: functest-kubernetes-security
+                ref_arg: BRANCH
+                path: docker/security
+          - name: build opnfv/functest-kubernetes-smoke
+            containers:
+              - name: functest-kubernetes-smoke
+                ref_arg:
+                path: docker/smoke
+          - name: build opnfv/functest-kubernetes-benchmarking
+            containers:
+              - name: functest-kubernetes-benchmarking
+                ref_arg:
+                path: docker/benchmarking
+      suites:
+        - container: functest-kubernetes-healthcheck
+          tests:
+            - k8s_quick
+            - k8s_smoke
+        - container: functest-kubernetes-smoke
+          tests:
+            - xrally_kubernetes
+            - k8s_conformance
+        - container: functest-kubernetes-security
+          tests:
+            - kube_hunter
+            - kube_bench_master
+            - kube_bench_node
+        - container: functest-kubernetes-benchmarking
+          tests:
+            - xrally_kubernetes_full
+        - container: functest-kubernetes-cnf
+          tests:
+            - k8s_vims
+            - helm_vims
+            - cnf_conformance

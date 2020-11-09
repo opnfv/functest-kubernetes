@@ -4,43 +4,9 @@
     - role: collivier.xtesting
       project: functest-kubernetes
       db_project: functest
-      gerrit_project: functest-kubernetes
       docker_tags:
         - leguer:
             branch: stable/leguer
-      builds:
-        dependencies:
-          - repo: _
-            dport:
-            container: alpine
-            tag: 3.12
-        steps:
-          - name: build opnfv/functest-kubernetes-core
-            containers:
-              - name: functest-kubernetes-core
-                ref_arg: BRANCH
-                path: docker/core
-          - name: build containers
-            containers:
-              - name: functest-kubernetes-healthcheck
-                ref_arg:
-                path: docker/healthcheck
-              - name: functest-kubernetes-cnf
-                ref_arg: BRANCH
-                path: docker/cnf
-              - name: functest-kubernetes-security
-                ref_arg: BRANCH
-                path: docker/security
-          - name: build opnfv/functest-kubernetes-smoke
-            containers:
-              - name: functest-kubernetes-smoke
-                ref_arg:
-                path: docker/smoke
-          - name: build opnfv/functest-kubernetes-benchmarking
-            containers:
-              - name: functest-kubernetes-benchmarking
-                ref_arg:
-                path: docker/benchmarking
       suites:
         - container: functest-kubernetes-healthcheck
           tests:
