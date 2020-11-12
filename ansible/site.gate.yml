@@ -44,6 +44,7 @@
             - k8s_quick
             - k8s_smoke
         - container: functest-kubernetes-smoke
+          timeout: 3h
           tests:
             - xrally_kubernetes
             - k8s_conformance
