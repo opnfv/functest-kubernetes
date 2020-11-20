@@ -13,6 +13,7 @@ RUN apk --no-cache add --update python3 py3-pip py3-wheel bash git grep libffi o
     (cd /src/requirements && \
         git fetch --tags https://review.opendev.org/openstack/requirements $OPENSTACK_TAG && \
         git checkout FETCH_HEAD) && \
+    sed -i -E /^kubernetes==+.*$/d /src/requirements/upper-constraints.txt && \
     case $(uname -m) in aarch*|arm*) \
         sed -i -E /^PyNaCl=/d /src/requirements/upper-constraints.txt && \
         apk add --no-cache py3-pynacl ;; esac && \
