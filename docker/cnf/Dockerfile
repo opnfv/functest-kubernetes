@@ -1,6 +1,6 @@
 FROM opnfv/functest-kubernetes-core:iruya
 
-ARG CNF_CONFORMANCE_TAG=v0.7.2-beta1
+ARG CNF_CONFORMANCE_TAG=v0.9.4
 ARG HELM_TAG=v3.3.1
 
 RUN apk --no-cache add --update wget curl libc6-compat && \
@@ -15,13 +15,16 @@ RUN apk --no-cache add --update wget curl libc6-compat && \
     chmod +x /usr/local/bin/kubectl /usr/local/bin/helm && \
     rm -r /src/helm-$HELM_TAG-linux-$ARCH.tar.gz /src/linux-$ARCH && \
     case $(uname -m) in x86_64) \
-        curl https://github.com/cncf/cnf-conformance/releases/download/$CNF_CONFORMANCE_TAG/cnf-conformance-$(echo $CNF_CONFORMANCE_TAG |cut -d\- -f 1)-$ARCH-static \
-            -Ls --output /usr/local/bin/cnf-conformance && \
-            chmod +x /usr/local/bin/cnf-conformance ;; esac && \
-    mkdir -p /src/cnf-conformance && \
-    curl -Ls https://raw.githubusercontent.com/cncf/cnf-conformance/$CNF_CONFORMANCE_TAG/example-cnfs/coredns/cnf-conformance.yml \
-        -s --output /src/cnf-conformance/cnf-conformance.yml && \
-    curl -Ls https://raw.githubusercontent.com/cncf/cnf-conformance/$CNF_CONFORMANCE_TAG/points.yml \
-        -s --output /src/cnf-conformance/points.yml
+        curl https://github.com/cncf/cnf-conformance/releases/download/$CNF_CONFORMANCE_TAG/cnf-conformance-$CNF_CONFORMANCE_TAG.tar.gz \
+            -Ls --output /src/cnf-conformance-$CNF_CONFORMANCE_TAG.tar.gz && \
+        tar zxf /src/cnf-conformance-$CNF_CONFORMANCE_TAG.tar.gz ./cnf-conformance -C /usr/local/bin && \
+        chmod +x /usr/local/bin/cnf-conformance && \
+        mkdir /src/cnf-conformance && \
+        curl -Ls https://raw.githubusercontent.com/cncf/cnf-conformance/e636baff623dd934eadfce77891fc54da08a8134/example-cnfs/coredns/cnf-conformance.yml \
+            --output /src/cnf-conformance/cnf-conformance.yml && \
+        curl -Ls https://raw.githubusercontent.com/cncf/cnf-conformance/$CNF_CONFORMANCE_TAG/points.yml \
+            --output /src/cnf-conformance/points.yml && \
+        helm repo add stable https://cncf.gitlab.io/stable && \
+        rm /src/cnf-conformance-$CNF_CONFORMANCE_TAG.tar.gz ;; esac
 COPY testcases.yaml /usr/lib/python3.6/site-packages/xtesting/ci/testcases.yaml
 CMD ["run_tests", "-t", "all"]
