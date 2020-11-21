@@ -34,8 +34,7 @@ tiers:
             -
                 case_name: cnf_conformance
                 project_name: functest
-                enabled: false
-                criteria: 75
+                criteria: 95
                 blocking: false
                 description: >-
                     Enable interoperability of Cloud native Network
