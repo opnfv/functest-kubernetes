@@ -4,6 +4,7 @@ set -e
 
 tmpfile=$(mktemp)
 cat << EOF > $tmpfile
+docker.io/appropriate/curl:edge
 docker.io/aquasec/kube-bench:0.3.1
 docker.io/aquasec/kube-hunter:0.3.1
 docker.io/gluster/glusterdynamic-provisioner:v1.0
