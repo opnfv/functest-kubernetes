@@ -63,6 +63,12 @@ class CNFConformance(testcase.TestCase):
         shutil.copy2(os.path.join(self.src_dir, 'points.yml'), self.res_dir)
         shutil.copy2(
             os.path.join(self.src_dir, 'cnf-conformance.yml'), self.res_dir)
+        os.makedirs(os.path.join(self.res_dir, 'spec/fixtures'))
+        for cfile in ["chaos_network_loss.yml", "chaos_cpu_hog.yml",
+                      "chaos_container_kill.yml"]:
+            shutil.copy2(
+                os.path.join(self.src_dir, 'spec/fixtures', cfile),
+                os.path.join(self.res_dir, 'spec/fixtures', cfile))
         os.chdir(self.res_dir)
         cmd = ['cnf-conformance', 'setup']
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
