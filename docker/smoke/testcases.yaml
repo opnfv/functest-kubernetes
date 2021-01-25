@@ -66,6 +66,24 @@ tiers:
                           \\[Feature:IPv6DualStackAlphaFeature\\]|\
                           \\[Feature:Example\\]"
             -
+                case_name: sig_storage
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    It runs the remaining sig-storage testing excluding the
+                    next labels: Conformance (part of k8s_conformance), all
+                    features, all drivers and Slow.
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: e2e_testing
+                    args:
+                        focus: \[sig-storage\]
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                          \\[Conformance\\]|\\[Feature:.+\\]|\\[Driver:.+\\]|\
+                          \\[Slow\\]"
+            -
                 case_name: xrally_kubernetes
                 project_name: functest
                 criteria: 100
