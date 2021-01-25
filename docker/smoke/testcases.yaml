@@ -6,6 +6,18 @@ tiers:
             A set of conformance tests integrated from kubernetes project.
         testcases:
             -
+                case_name: xrally_kubernetes
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    All in one tasks for checking basic functionality of
+                    Kubernetes cluster.
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: xrally_kubernetes
+            -
                 case_name: k8s_conformance
                 project_name: functest
                 criteria: 100
@@ -83,15 +95,3 @@ tiers:
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\
                           \\[Conformance\\]|\\[Feature:.+\\]|\\[Driver:.+\\]|\
                           \\[Slow\\]"
-            -
-                case_name: xrally_kubernetes
-                project_name: functest
-                criteria: 100
-                blocking: false
-                description: >-
-                    All in one tasks for checking basic functionality of
-                    Kubernetes cluster.
-                dependencies:
-                    - DEPLOY_SCENARIO: 'k8-*'
-                run:
-                    name: xrally_kubernetes
