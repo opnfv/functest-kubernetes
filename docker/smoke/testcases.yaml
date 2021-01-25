@@ -22,6 +22,33 @@ tiers:
                         focus: \[Conformance\]
                         skip: \[Disruptive\]|NoExecuteTaintManager
             -
+                case_name: sig_network_feature
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    It verifies a couple of features by running a subset of e2e
+                    tests: Ingress, Networking-IPv4, Networking-Performance,
+                    PerformanceDNS, SCTP and NoSNAT. It excludes by default
+                    NetworkPolicy, Networking-IPv6, IPv6DualStackAlphaFeature
+                    and Example. A couple of features may be automatically
+                    skipped like NEG and kubemci.
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: e2e_testing
+                    args:
+                        focus: "\\[Feature:Ingress\\]|\
+                          \\[Feature:Networking-IPv4\\]|\
+                          \\[Feature:Networking-Performance\\]|\
+                          \\[Feature:PerformanceDNS\\]|\
+                          \\[Feature:SCTP\\]|\\[Feature:NoSNAT\\]"
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                          \\[Feature:NetworkPolicy\\]|\
+                          \\[Feature:Networking-IPv6\\]|\
+                          \\[Feature:IPv6DualStackAlphaFeature\\]|\
+                          \\[Feature:Example\\]"
+            -
                 case_name: xrally_kubernetes
                 project_name: functest
                 criteria: 100

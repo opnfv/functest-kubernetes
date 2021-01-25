@@ -14,6 +14,7 @@
           tests:
             - xrally_kubernetes
             - k8s_conformance
+            - sig_network_feature
         - container: functest-kubernetes-security
           tests:
             - kube_hunter
