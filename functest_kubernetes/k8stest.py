@@ -53,8 +53,10 @@ class E2ETesting(testcase.TestCase):
                 ['-non-blocking-taints', os.environ["NON_BLOCKING_TAINTS"]])
         cmd_line.extend(['-disable-log-dump', 'true'])
         self.__logger.info("Starting k8s test: '%s'.", cmd_line)
+        env=os.environ.copy()
+        env["GINKGO_PARALLEL"]='y'
         process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
-                                   stderr=subprocess.STDOUT)
+                                   stderr=subprocess.STDOUT, env=env)
         boutput = process.stdout.read()
         with open(os.path.join(self.res_dir, 'e2e.log'), 'wb') as foutput:
             foutput.write(boutput)
