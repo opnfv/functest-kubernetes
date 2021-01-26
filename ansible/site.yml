@@ -15,7 +15,8 @@
             - xrally_kubernetes
             - k8s_conformance
             - sig_network
-            - sig_network_feature
+            - sig_network_features
+            - sig_storage
         - container: functest-kubernetes-security
           tests:
             - kube_hunter

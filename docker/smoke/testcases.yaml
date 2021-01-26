@@ -49,7 +49,8 @@ tiers:
                     args:
                         focus: \[sig-network\]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\
-                          \\[Conformance\\]|load.balancer|\\[Feature:.+\\]"
+                          \\[Conformance\\]|load.balancer|LoadBalancer|\
+                          \\[Feature:.+\\]"
             -
                 case_name: sig_network_feature
                 project_name: functest
@@ -58,9 +59,9 @@ tiers:
                 description: >-
                     It verifies a couple of features by running a subset of e2e
                     tests: Ingress, Networking-IPv4, Networking-Performance,
-                    PerformanceDNS, SCTP and NoSNAT. It excludes by default
-                    NetworkPolicy, Networking-IPv6, IPv6DualStackAlphaFeature
-                    and Example. A couple of features may be automatically
+                    PerformanceDNS and NoSNAT. It excludes by default
+                    NetworkPolicy, Networking-IPv6, IPv6DualStackAlphaFeature,
+                    SCTP and Example. A couple of features may be automatically
                     skipped like NEG and kubemci.
                 dependencies:
                     - DEPLOY_SCENARIO: 'k8-*'
@@ -70,13 +71,12 @@ tiers:
                         focus: "\\[Feature:Ingress\\]|\
                           \\[Feature:Networking-IPv4\\]|\
                           \\[Feature:Networking-Performance\\]|\
-                          \\[Feature:PerformanceDNS\\]|\
-                          \\[Feature:SCTP\\]|\\[Feature:NoSNAT\\]"
+                          \\[Feature:PerformanceDNS\\]|\\[Feature:NoSNAT\\]"
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\
                           \\[Feature:NetworkPolicy\\]|\
                           \\[Feature:Networking-IPv6\\]|\
                           \\[Feature:IPv6DualStackAlphaFeature\\]|\
-                          \\[Feature:Example\\]"
+                          \\[Feature:SCTP\\]|\\[Feature:Example\\]"
             -
                 case_name: sig_storage
                 project_name: functest
@@ -85,7 +85,7 @@ tiers:
                 description: >-
                     It runs the remaining sig-storage testing excluding the
                     next labels: Conformance (part of k8s_conformance), all
-                    features, all drivers and Slow.
+                    features, all drivers, PersistentVolumes.NFS and Slow.
                 dependencies:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
@@ -94,4 +94,4 @@ tiers:
                         focus: \[sig-storage\]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\
                           \\[Conformance\\]|\\[Feature:.+\\]|\\[Driver:.+\\]|\
-                          \\[Slow\\]"
+                          PersistentVolumes.NFS|\\[Slow\\]"
