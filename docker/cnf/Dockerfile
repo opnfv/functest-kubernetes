@@ -1,19 +1,20 @@
 FROM opnfv/functest-kubernetes-core:jerma
 
+ARG K8S_TAG=1.17
 ARG CNF_CONFORMANCE_TAG=v0.9.19
 ARG HELM_TAG=v3.3.1
 
 RUN apk --no-cache add --update wget curl libc6-compat && \
-    K8S_TAG=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable-1.17.txt)  && \
-    case $(uname -m) in armv7l) ARCH=arm;; aarch64) ARCH=arm64;; x86_64) ARCH=amd64;; esac && \
-    curl https://storage.googleapis.com/kubernetes-release/release/$K8S_TAG/bin/linux/$ARCH/kubectl \
+    tag=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable-$K8S_TAG.txt)  && \
+    case $(uname -m) in armv7l) arch=arm;; aarch64) arch=arm64;; x86_64) arch=amd64;; esac && \
+    curl https://storage.googleapis.com/kubernetes-release/release/$tag/bin/linux/$arch/kubectl \
         --output /usr/local/bin/kubectl && \
-    curl https://get.helm.sh/helm-$HELM_TAG-linux-$ARCH.tar.gz \
-        --output /src/helm-$HELM_TAG-linux-$ARCH.tar.gz && \
-    tar zxf /src/helm-$HELM_TAG-linux-$ARCH.tar.gz linux-$ARCH/helm -C /src && \
-    mv /src/linux-$ARCH/helm /usr/local/bin && \
+    curl https://get.helm.sh/helm-$HELM_TAG-linux-$arch.tar.gz \
+        --output /src/helm-$HELM_TAG-linux-$arch.tar.gz && \
+    tar zxf /src/helm-$HELM_TAG-linux-$arch.tar.gz linux-$arch/helm -C /src && \
+    mv /src/linux-$arch/helm /usr/local/bin && \
     chmod +x /usr/local/bin/kubectl /usr/local/bin/helm && \
-    rm -r /src/helm-$HELM_TAG-linux-$ARCH.tar.gz /src/linux-$ARCH && \
+    rm -r /src/helm-$HELM_TAG-linux-$arch.tar.gz /src/linux-$arch && \
     case $(uname -m) in x86_64) \
         curl https://github.com/cncf/cnf-conformance/releases/download/$CNF_CONFORMANCE_TAG/cnf-conformance-$CNF_CONFORMANCE_TAG.tar.gz \
             -L --output /src/cnf-conformance-$CNF_CONFORMANCE_TAG.tar.gz && \
