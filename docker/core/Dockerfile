@@ -7,7 +7,8 @@ ARG OPNFV_TAG=stable/kali
 COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
 COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch
 COPY Allow-offline-testing-in-PodWithClusterIPSvc.patch /tmp/Allow-offline-testing-in-PodWithClusterIPSvc.patch
-RUN apk --no-cache add --update python3 bash git grep libffi openssl mailcap && \
+RUN apk -U upgrade && \
+    apk --no-cache add --update python3 bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
         python3-dev build-base libffi-dev openssl-dev && \
     git init /src/functest-kubernetes && \
