@@ -6,7 +6,8 @@ ARG OPNFV_TAG=master
 
 COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
 COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch
-RUN apk --no-cache add --update python3 py3-pip py3-wheel bash git grep libffi openssl mailcap && \
+RUN apk -U upgrade && \
+    apk --no-cache add --update python3 py3-pip py3-wheel bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
         python3-dev build-base libffi-dev openssl-dev && \
     git init /src/requirements && \
