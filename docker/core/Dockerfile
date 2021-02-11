@@ -9,7 +9,7 @@ COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.T
 RUN apk -U upgrade && \
     apk --no-cache add --update python3 py3-pip py3-wheel bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
-        python3-dev build-base libffi-dev openssl-dev rust && \
+        python3-dev build-base libffi-dev openssl-dev rust cargo && \
     git init /src/requirements && \
     (cd /src/requirements && \
         git fetch --tags https://review.opendev.org/openstack/requirements $OPENSTACK_TAG && \
