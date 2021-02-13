@@ -8,6 +8,7 @@ COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-async
 COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch
 COPY Allow-offline-testing-in-PodWithClusterIPSvc.patch /tmp/Allow-offline-testing-in-PodWithClusterIPSvc.patch
 RUN apk -U upgrade && \
+    apk --no-cache add --update libcurl --repository=http://dl-cdn.alpinelinux.org/alpine/v3.11/main && \
     apk --no-cache add --update python py-pip bash git grep libffi openssl mailcap && \
     apk --no-cache add --virtual .build-deps --update \
         python-dev build-base libffi-dev openssl-dev && \
