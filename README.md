@@ -15,14 +15,14 @@ and testing (vIMS, vRouter and vEPC) to ensure that the platforms meet Network
 Functions Virtualization requirements. Raspberry PI is also supported to verify
 datacenters as the lowest cost (50 euros hardware and software included).
 
-| Functest releases | Kubernetes releases       |
-|-------------------|---------------------------|
-| Hunter            | v1.13                     |
-| Iruya             | v1.15                     |
-| Jerma             | v1.17                     |
-| Kali              | v1.19                     |
-| Leguer            | v1.20                     |
-| Master            | v1.21.0-alpha.3 (rolling) |
+| Functest releases | Kubernetes releases           |
+|-------------------|-------------------------------|
+| Hunter            | v1.13                         |
+| Iruya             | v1.15                         |
+| Jerma             | v1.17                         |
+| Kali              | v1.19                         |
+| Leguer            | v1.20                         |
+| **Master**        | **v1.21.0-alpha.3 (rolling)** |
 
 ## Prepare your environment
 
