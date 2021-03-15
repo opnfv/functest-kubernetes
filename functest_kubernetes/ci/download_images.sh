@@ -49,7 +49,8 @@ gcr.io/kubernetes-e2e-test-images/volume/rbd:1.0.1
 k8s.gcr.io/build-image/debian-iptables:v12.1.2
 k8s.gcr.io/conformance:v1.19.0
 k8s.gcr.io/e2e-test-images/agnhost:2.20
-k8s.gcr.io/etcd:3.4.9
+k8s.gcr.io/etcd:3.4.3
+k8s.gcr.io/etcd:3.4.13-0
 k8s.gcr.io/pause:3.2
 k8s.gcr.io/pause:3.3
 k8s.gcr.io/prometheus-dummy-exporter:v0.1.0
