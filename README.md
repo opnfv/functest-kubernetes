@@ -116,3 +116,23 @@ sudo docker run --env-file env \
 |     cnf_conformance     |     functest     |     cnf      |      02:15       |      PASS      |
 +-------------------------+------------------+--------------+------------------+----------------+
 ```
+
+
+## Use on air gap environments (no access to Internet)
+
+To test a Kubernetes without access to Internet, repository mirrors needs to be
+provided.
+
+Currently, only rally tests supports this feature.
+
+There's two ways for providing the repository mirrors:
+
+- Give an environment variable (`MIRROR_REPO`) which gives a repository with
+  all needed images.
+- Gives an environment variable per needed repo:
+  - `DOCKERHUB_REPO` for DockerHub repository (`docker.io`)
+  - `GCR_REPO` for Google Cloud repository (`gcr.io`)
+  - `K8S_GCR_REPO` for Kubernetes repository (`k8s.gcr.io`)
+
+All needed images are given in
+[functest-kubernetes/ci/images.txt](functest-kubernetes/ci/images.txt)
