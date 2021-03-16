@@ -31,6 +31,9 @@ class RallyKubernetes(testcase.TestCase):
     concurrency = 1
     times = 1
     namespaces_count = 1
+    dockerhub_repo = os.getenv("MIRROR_REPO", "docker.io")
+    gcr_repo = os.getenv("MIRROR_REPO", "gcr.io")
+    k8s_gcr_repo = os.getenv("MIRROR_REPO", "k8s.gcr.io")
 
     def __init__(self, **kwargs):
         super(RallyKubernetes, self).__init__(**kwargs)
@@ -68,7 +71,10 @@ class RallyKubernetes(testcase.TestCase):
             concurrency=kwargs.get("concurrency", self.concurrency),
             times=kwargs.get("times", self.times),
             namespaces_count=kwargs.get(
-                "namespaces_count", self.namespaces_count)))
+                "namespaces_count", self.namespaces_count),
+            dockerhub_repo=os.getenv("DOCKERHUB_REPO", self.dockerhub_repo),
+            gcr_repo=os.getenv("GCR_REPO", self.gcr_repo),
+            k8s_gcr_repo=os.getenv("K8S_GCR_REPO", self.k8s_gcr_repo)))
         rapi.task.validate(deployment='my-kubernetes', config=task)
         task_instance = rapi.task.create(deployment='my-kubernetes')
         rapi.task.start(
