@@ -31,6 +31,9 @@ class RallyKubernetes(testcase.TestCase):
     concurrency = 1
     times = 1
     namespaces_count = 1
+    dockerhub_repo = "docker.io"
+    grc_repo = "gcr.io"
+    k8s_grc_repo = "k8s.gcr.io"
 
     def __init__(self, **kwargs):
         super(RallyKubernetes, self).__init__(**kwargs)
@@ -61,6 +64,15 @@ class RallyKubernetes(testcase.TestCase):
                 "Cannot check env heath: %s",
                 result['existing@kubernetes']['message'])
             return
+        if os.getenv("MIRROR_REPO"):
+            self.dockerhub_repo = os.getenv("MIRROR_REPO")
+            self.grc_repo = os.getenv("MIRROR_REPO")
+            self.k8s_grc_repo = os.getenv("MIRROR_REPO")
+        else:
+            self.dockerhub_repo = os.getenv("DOCKERHUB_REPO",
+                                            self.dockerhub_repo)
+            self.grc_repo = os.getenv("GCR_REPO", self.grc_repo)
+            self.k8s_grc_repo = os.getenv("K8S_GCR_REPO", self.k8s_grc_repo)
         with open(pkg_resources.resource_filename(
                 'functest_kubernetes', 'rally/all-in-one.yaml')) as file:
             template = Template(file.read())
@@ -68,7 +80,10 @@ class RallyKubernetes(testcase.TestCase):
             concurrency=kwargs.get("concurrency", self.concurrency),
             times=kwargs.get("times", self.times),
             namespaces_count=kwargs.get(
-                "namespaces_count", self.namespaces_count)))
+                "namespaces_count", self.namespaces_count),
+            dockerhub_repo=self.dockerhub_repo,
+            grc_repo=self.grc_repo,
+            k8s_grc_repo=self.k8s_grc_repo))
         rapi.task.validate(deployment='my-kubernetes', config=task)
         task_instance = rapi.task.create(deployment='my-kubernetes')
         rapi.task.start(
