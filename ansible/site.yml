@@ -18,6 +18,7 @@
             - sig_apps
             - sig_auth
             - sig_cli
+            - sig_cluster_lifecycle
             - sig_instrumentation
             - sig_network
             - sig_network_features
