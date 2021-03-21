@@ -17,6 +17,7 @@
           tests:
             - xrally_kubernetes
             - k8s_conformance
+            - sig_api_machinery
             - sig_network
             - sig_network_features
             - sig_storage
