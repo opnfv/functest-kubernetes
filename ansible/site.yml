@@ -20,6 +20,7 @@
             - sig_cli
             - sig_network
             - sig_network_features
+            - sig_scheduling
             - sig_storage
         - container: functest-kubernetes-security
           tests:
