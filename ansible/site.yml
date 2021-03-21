@@ -18,6 +18,7 @@
             - xrally_kubernetes
             - k8s_conformance
             - sig_api_machinery
+            - sig_apps
             - sig_auth
             - sig_network
             - sig_network_features
