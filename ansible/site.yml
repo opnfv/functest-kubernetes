@@ -17,6 +17,7 @@
             - sig_api_machinery
             - sig_apps
             - sig_auth
+            - sig_cli
             - sig_network
             - sig_network_features
             - sig_storage

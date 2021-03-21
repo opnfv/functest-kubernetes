@@ -87,6 +87,22 @@ tiers:
                           \\[Conformance\\]|\\[Feature:PodSecurityPolicy\\]|\
                           \\[Feature:BoundServiceAccountTokenVolume\\]"
             -
+                case_name: sig_cli
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    It runs the remaining sig-cli testing excluding Conformance
+                    (part of k8s_conformance).
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: e2e_testing
+                    args:
+                        focus: \[sig-cli]
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                          \\[Conformance\\]"
+            -
                 case_name: sig_network
                 project_name: functest
                 criteria: 100
