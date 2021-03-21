@@ -50,14 +50,33 @@ tiers:
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\
                           \\[Conformance\\]"
             -
+                case_name: sig_apps
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    It runs the remaining sig-apps testing excluding the
+                    following labels: Conformance (part of k8s_conformance) and
+                    both StatefulUpgrade and StatefulSet features.
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: e2e_testing
+                    args:
+                        focus: \[sig-apps]
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                          \\[Conformance\\]|\\[Feature:StatefulUpgrade\\]|\
+                          [Feature:StatefulSet\\]"
+            -
                 case_name: sig_auth
                 project_name: functest
                 criteria: 100
                 blocking: false
                 description: >-
                     It runs the remaining sig-auth testing excluding the
-                    next labels: Conformance (part of k8s_conformance),
-                    PodSecurityPolicy and BoundServiceAccountTokenVolume.
+                    following labels: Conformance (part of k8s_conformance) and
+                    both PodSecurityPolicy and BoundServiceAccountTokenVolume
+                    features.
                 dependencies:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
