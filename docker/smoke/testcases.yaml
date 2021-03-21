@@ -163,6 +163,29 @@ tiers:
                           \\[Feature:IPv6DualStackAlphaFeature\\]|\
                           \\[Feature:SCTP\\]|\\[Feature:Example\\]"
             -
+                case_name: sig_node
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    It runs the remaining sig-node testing excluding the
+                    following labels: Conformance (part of k8s_conformance),
+                    RuntimeClass, all RuntimeHandler, PodGarbageCollector,
+                    RegularResourceUsageTrackingfeatures and
+                    ExperimentalResourceUsageTracking features.
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: e2e_testing
+                    args:
+                        focus: \[sig-node]
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                          \\[Conformance\\]|\\[NodeFeature:RuntimeHandler\\]|\
+                          \\[Feature:PodGarbageCollector\\]|\
+                          \\[Feature:RegularResourceUsageTracking\\]|\
+                          \\[Feature:ExperimentalResourceUsageTracking\\]|\
+                          RuntimeClass"
+            -
                 case_name: sig_scheduling
                 project_name: functest
                 criteria: 100
