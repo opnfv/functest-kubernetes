@@ -34,14 +34,30 @@ tiers:
                         focus: \[Conformance\]
                         skip: \[Disruptive\]|NoExecuteTaintManager
             -
+                case_name: sig_api_machinery
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    It runs the remaining sig-api-machinery testing excluding
+                    the label Conformance (part of k8s_conformance)
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: e2e_testing
+                    args:
+                        focus: \[sig-api-machinery\]
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                          \\[Conformance\\]"
+            -
                 case_name: sig_network
                 project_name: functest
                 criteria: 100
                 blocking: false
                 description: >-
                     It runs the remaining sig-network testing excluding the
-                    next labels: Conformance (part of k8s_conformance), all
-                    features and load.balancer.
+                    following labels: Conformance (part of k8s_conformance),
+                    all features and load.balancer.
                 dependencies:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
@@ -84,8 +100,8 @@ tiers:
                 blocking: false
                 description: >-
                     It runs the remaining sig-storage testing excluding the
-                    next labels: Conformance (part of k8s_conformance), all
-                    features, all drivers, PersistentVolumes.NFS and Slow.
+                    following labels: Conformance (part of k8s_conformance),
+                    all features, all drivers, PersistentVolumes.NFS and Slow.
                 dependencies:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
