@@ -50,6 +50,24 @@ tiers:
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\
                           \\[Conformance\\]"
             -
+                case_name: sig_auth
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    It runs the remaining sig-auth testing excluding the
+                    next labels: Conformance (part of k8s_conformance),
+                    PodSecurityPolicy and BoundServiceAccountTokenVolume.
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: e2e_testing
+                    args:
+                        focus: \[sig-auth\]
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                          \\[Conformance\\]|\\[Feature:PodSecurityPolicy\\]|\
+                          \\[Feature:BoundServiceAccountTokenVolume\\]"
+            -
                 case_name: sig_network
                 project_name: functest
                 criteria: 100
