@@ -164,6 +164,22 @@ tiers:
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\
                           \\[Conformance\\]|\\[Feature:GPUDevicePlugin\\]"
             -
+                case_name: sig_instrumentation
+                project_name: functest
+                criteria: 100
+                blocking: false
+                description: >-
+                    It runs the remaining sig-instrumentation testing excluding
+                    Conformance (part of k8s_conformance)
+                dependencies:
+                    - DEPLOY_SCENARIO: 'k8-*'
+                run:
+                    name: e2e_testing
+                    args:
+                        focus: \[sig-instrumentation\]
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                          \\[Conformance\\]"
+            -
                 case_name: sig_storage
                 project_name: functest
                 criteria: 100
