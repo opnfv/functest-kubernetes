@@ -14,10 +14,10 @@ spec:
     spec:
       initContainers:
         - name: wait-on-cassandra
-          image: busybox:1.28
+          image: {{ dockerhub_repo }}/busybox:1.28
           command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
       containers:
-      - image: "ollivier/clearwater-homer:hunter"
+      - image: "{{ dockerhub_repo }}/ollivier/clearwater-homer:hunter"
         name: homer
         ports:
         - containerPort: 22

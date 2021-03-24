@@ -13,11 +13,13 @@ from __future__ import division
 
 import abc
 import logging
+import os
 import time
 import subprocess
 import re
 import yaml
 
+from jinja2 import Template
 from kubernetes import client
 from kubernetes import config
 from kubernetes import watch
@@ -39,6 +41,8 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
     test_image_name = "ollivier/clearwater-live-test:hunter"
     test_container_name = "live-test"
     ns_generate_name = "ims-"
+    dockerhub_repo = os.getenv("MIRROR_REPO", "docker.io")
+    quay_repo = os.getenv("MIRROR_REPO", "quay.io")
 
     __logger = logging.getLogger(__name__)
 
@@ -218,7 +222,12 @@ class K8sVims(Vims):
             with open(pkg_resources.resource_filename(
                     'functest_kubernetes',
                     'ims/{}-depl.yaml'.format(deployment))) as yfile:
-                body = yaml.safe_load(yfile)
+                template = Template(yfile.read())
+                body = yaml.safe_load(template.render(
+                    dockerhub_repo=os.getenv(
+                        "DOCKERHUB_REPO", self.dockerhub_repo)),
+                    quay_repo=os.getenv(
+                        "QUAY_REPO", self.quay_repo))
                 resp = self.appsv1.create_namespaced_deployment(
                     body=body, namespace=self.namespace)
                 self.__logger.info("Deployment %s created", resp.metadata.name)
@@ -270,8 +279,11 @@ class HelmVims(Vims):
 
         See https://github.com/Metaswitch/clearwater-docker for more details
         """
+        dockerhub_repo = os.getenv("DOCKERHUB_REPO", self.dockerhub_repo)
+        quay_repo = os.getenv("QUAY_REPO", self.quay_repo)
         cmd = [
-            "helm", "install", "clearwater",
+            "helm", "install", "clearwater", "--set",
+            "repo.dockerHub={},repo.quay={}".format(dockerhub_repo, quay_repo),
             pkg_resources.resource_filename("functest_kubernetes", "ims/helm"),
             "-n", self.namespace]
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
