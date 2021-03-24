@@ -15,10 +15,10 @@ spec:
     spec:
       initContainers:
         - name: wait-on-homestead
-          image: busybox:1.28
+          image: {{ .Values.repo.dockerHub }}/busybox:1.28
           command: ['sh', '-c', 'until nslookup homestead; do echo waiting for homestead to start ...; sleep 2; done']
       containers:
-      - image: "{{ .Values.image.path }}-homestead-prov:{{ .Values.image.tag }}"
+      - image: "{{ .Values.repo.dockerHub }}/{{ .Values.image.path }}-homestead-prov:{{ .Values.image.tag }}"
         name: homestead-prov
         ports:
         - containerPort: 22

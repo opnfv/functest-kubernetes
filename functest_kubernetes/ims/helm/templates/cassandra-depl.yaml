@@ -14,10 +14,10 @@ spec:
     spec:
       initContainers:
         - name: wait-on-etcd
-          image: busybox:1.28
+          image: {{ .Values.repo.dockerHub }}/busybox:1.28
           command: ['sh', '-c', 'until nslookup etcd; do echo waiting for etcd to start ...; sleep 2; done']
       containers:
-      - image: "{{ .Values.image.path }}-cassandra:{{ .Values.image.tag }}"
+      - image: "{{ .Values.repo.dockerHub }}/{{ .Values.image.path }}-cassandra:{{ .Values.image.tag }}"
         name: cassandra
         ports:
         - containerPort: 22

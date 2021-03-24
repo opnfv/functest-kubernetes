@@ -4,3 +4,6 @@
 image:
   path: ollivier/clearwater
   tag: hunter
+repo:
+  dockerHub: docker.io
+  quay: quay.io
