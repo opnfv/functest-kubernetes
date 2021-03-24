@@ -20,6 +20,7 @@ import time
 import textwrap
 import yaml
 
+from jinja2 import Template
 from kubernetes import client
 from kubernetes import config
 from kubernetes import watch
@@ -32,6 +33,7 @@ class SecurityTesting(testcase.TestCase):
     # pylint: disable=too-many-instance-attributes
     """Run Security job"""
     watch_timeout = 1200
+    dockerhub_repo = os.getenv("MIRROR_REPO", "docker.io")
 
     __logger = logging.getLogger(__name__)
 
@@ -63,7 +65,10 @@ class SecurityTesting(testcase.TestCase):
         with open(pkg_resources.resource_filename(
                 "functest_kubernetes",
                 "security/{}.yaml".format(self.job_name))) as yfile:
-            body = yaml.safe_load(yfile)
+            template = Template(yfile.read())
+            body = yaml.safe_load(template.render(
+                dockerhub_repo=os.getenv("DOCKERHUB_REPO",
+                                         self.dockerhub_repo)))
             api_response = self.batchv1.create_namespaced_job(
                 body=body, namespace=self.namespace)
             self.__logger.info("Job %s created", api_response.metadata.name)
