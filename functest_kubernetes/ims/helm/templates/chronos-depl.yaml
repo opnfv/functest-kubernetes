@@ -17,10 +17,10 @@ spec:
       terminationGracePeriodSeconds: 120
       initContainers:
         - name: wait-on-cassandra
-          image: busybox:1.28
+          image: {{ .Values.repo.dockerHub }}/busybox:1.28
           command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
       containers:
-      - image: "{{ .Values.image.path }}-chronos:{{ .Values.image.tag }}"
+      - image: "{{ .Values.repo.dockerHub }}/{{ .Values.image.path }}-chronos:{{ .Values.image.tag }}"
         name: chronos
         ports:
         - containerPort: 22
@@ -48,7 +48,7 @@ spec:
           preStop:
             exec:
               command: ["/bin/bash", "-c", "/usr/bin/pre-stop"]
-      - image: busybox:1.28
+      - image: {{ .Values.repo.dockerHub }}/busybox:1.28
         name: tailer
         command: [ "tail", "-F", "/var/log/chronos/chronos_current.txt" ]
         volumeMounts:

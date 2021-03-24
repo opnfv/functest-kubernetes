@@ -15,10 +15,10 @@ spec:
     spec:
       initContainers:
         - name: wait-on-sprout
-          image: busybox:1.28
+          image: {{ .Values.repo.dockerHub }}/busybox:1.28
           command: ['sh', '-c', 'until nslookup sprout; do echo waiting for sprout to start ...; sleep 2; done']
       containers:
-      - image: "{{ .Values.image.path }}-bono:{{ .Values.image.tag }}"
+      - image: "{{ .Values.repo.dockerHub }}/{{ .Values.image.path }}-bono:{{ .Values.image.tag }}"
         name: bono
         ports:
         - containerPort: 22
@@ -54,7 +54,7 @@ spec:
         volumeMounts:
         - name: bonologs
           mountPath: /var/log/bono
-      - image: busybox:1.28
+      - image: {{ .Values.repo.dockerHub }}/busybox:1.28
         name: tailer
         command: [ "tail", "-F", "/var/log/bono/bono_current.txt" ]
         volumeMounts:
