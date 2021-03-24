@@ -15,16 +15,16 @@ spec:
     spec:
       initContainers:
         - name: wait-on-ralf
-          image: busybox:1.28
+          image: {{ dockerhub_repo }}/busybox:1.28
           command: ['sh', '-c', 'until nslookup ralf; do echo waiting for ralf to start ...; sleep 2; done']
         - name: wait-on-chronos
-          image: busybox:1.28
+          image: {{ dockerhub_repo }}/busybox:1.28
           command: ['sh', '-c', 'until nslookup chronos; do echo waiting for chronos to start ...; sleep 2; done']
         - name: wait-on-homestead
-          image: busybox:1.28
+          image: {{ dockerhub_repo }}/busybox:1.28
           command: ['sh', '-c', 'until nslookup homestead; do echo waiting for homestead to start ...; sleep 2; done']
       containers:
-      - image: "ollivier/clearwater-sprout:hunter"
+      - image: "{{ dockerhub_repo }}/ollivier/clearwater-sprout:hunter"
         name: sprout
         ports:
         - containerPort: 22
@@ -47,7 +47,7 @@ spec:
         volumeMounts:
         - name: sproutlogs
           mountPath: /var/log/sprout
-      - image: busybox:1.28
+      - image: {{ dockerhub_repo }}/busybox:1.28
         name: tailer
         command: [ "tail", "-F", "/var/log/sprout/sprout_current.txt" ]
         volumeMounts:
