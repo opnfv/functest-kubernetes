@@ -123,7 +123,7 @@ sudo docker run --env-file env \
 To test a Kubernetes without access to Internet, repository mirrors needs to be
 provided.
 
-Currently, only rally and security tests supports this feature.
+Currently, only ims, rally and security tests supports this feature.
 
 There's two ways for providing the repository mirrors:
 
@@ -133,6 +133,7 @@ There's two ways for providing the repository mirrors:
   - `DOCKERHUB_REPO` for DockerHub repository (`docker.io`)
   - `GCR_REPO` for Google Cloud repository (`gcr.io`)
   - `K8S_GCR_REPO` for Kubernetes repository (`k8s.gcr.io`)
+  - `QUAY_REPO` for Quay repository (`quay.io`)
 
 All needed images are given in
 [functest-kubernetes/ci/images.txt](functest-kubernetes/ci/images.txt)
