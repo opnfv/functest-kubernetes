@@ -123,7 +123,7 @@ sudo docker run --env-file env \
 To test a Kubernetes without access to Internet, repository mirrors needs to be
 provided.
 
-Currently, only ims, rally and security tests supports this feature.
+Currently, all tests supports this feature except cnf conformance.
 
 There's two ways for providing the repository mirrors:
 
@@ -137,3 +137,9 @@ There's two ways for providing the repository mirrors:
 
 All needed images are given in
 [functest-kubernetes/ci/images.txt](functest-kubernetes/ci/images.txt)
+
+For e2e tests, `docker.io` is hardcoded. it does mean that you'll have to set up
+a mirror on docker. An example on how to set it up on docker daemon is provided
+here:
+[daemon-configuration-file](
+https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file)
