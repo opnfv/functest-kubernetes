@@ -20,6 +20,7 @@ import re
 import subprocess
 import time
 
+from jinja2 import Template
 from xtesting.core import testcase
 
 
@@ -30,6 +31,9 @@ class E2ETesting(testcase.TestCase):
     __logger = logging.getLogger(__name__)
 
     config = '/root/.kube/config'
+    dockerhub_repo = os.getenv("MIRROR_REPO", "docker.io")
+    gcr_repo = os.getenv("MIRROR_REPO", "gcr.io")
+    k8s_gcr_repo = os.getenv("MIRROR_REPO", "k8s.gcr.io")
 
     def __init__(self, **kwargs):
         super(E2ETesting, self).__init__(**kwargs)
@@ -52,9 +56,11 @@ class E2ETesting(testcase.TestCase):
             cmd_line.extend(
                 ['-non-blocking-taints', os.environ["NON_BLOCKING_TAINTS"]])
         cmd_line.extend(['-disable-log-dump', 'true'])
+        self._generate_repo_list_file()
         self.__logger.info("Starting k8s test: '%s'.", cmd_line)
         env = os.environ.copy()
         env["GINKGO_PARALLEL"] = 'y'
+        env["KUBE_TEST_REPO_LIST"] = "{}/repositories.yml".format(self.res_dir)"
         process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT, env=env)
         boutput = process.stdout.read()
@@ -97,3 +103,32 @@ class E2ETesting(testcase.TestCase):
             res = self.EX_RUN_ERROR
         self.stop_time = time.time()
         return res
+
+    def _generate_repo_list_file(self):
+        """Generate the repositories list for the test."""
+        # The list is taken from
+        # https://github.com/kubernetes/kubernetes/blob/master/test/utils/image/manifest.go
+        # It may needs update regularly
+        dockerhub_repo = os.getenv("DOCKERHUB_REPO", self.dockerhub_repo)
+        gcr_repo = os.getenv("GCR_REPO", self.gcr_repo)
+        k8s_gcr_repo = os.getenv("K8S_GCR_REPO", self.k8s_gcr_repo)
+        repo_list = {
+            "GcAuthenticatedRegistry": "{}/authenticated-image-pulling".format(
+                gcr_repo),
+            "E2eRegistry":             "{}/kubernetes-e2e-test-images".format(
+                gcr_repo),
+            "PromoterE2eRegistry":     "{}/e2e-test-images".format(
+                k8s_gcr_repo),
+            "BuildImageRegistry":      "{}/build-image".format(k8s_gcr_repo),
+            "InvalidRegistry":         "invalid.com/invalid",
+            "GcEtcdRegistry":          "{}".format(k8s_gcr_repo),
+            "GcRegistry":              "{}".format(k8s_gcr_repo),
+            "SigStorageRegistry":      "{}/sig-storage".format(k8s_gcr_repo),
+            "PrivateRegistry":         "{}/k8s-authenticated-test".format(
+                gcr_repo),
+            "SampleRegistry":          "{}/google-samples".format(gcr_repo),
+            "GcrReleaseRegistry":      "{}/gke-release".format(gcr_repo),
+            "MicrosoftRegistry":       "mcr.microsoft.com",
+        }
+        with open("{}/repositories.yml".format(self.res_dir), 'w') as file:
+            yaml.dump(repo_list, file)
