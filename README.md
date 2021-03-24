@@ -123,7 +123,7 @@ sudo docker run --env-file env \
 To test a Kubernetes without access to Internet, repository mirrors needs to be
 provided.
 
-Currently, only rally tests supports this feature.
+Currently, only rally and security tests supports this feature.
 
 There's two ways for providing the repository mirrors:
 
