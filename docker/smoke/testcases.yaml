@@ -50,7 +50,7 @@ tiers:
                         focus: \[sig-api-machinery\]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Serial\\]|\\[Conformance\\]|\
-                          \\[Feature:Feature:StorageVersionAPI\\]"
+                          \\[Feature:StorageVersionAPI\\]"
             -
                 case_name: sig_apps
                 project_name: functest
