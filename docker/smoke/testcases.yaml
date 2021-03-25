@@ -40,7 +40,8 @@ tiers:
                 blocking: false
                 description: >-
                     It runs the remaining sig-api-machinery testing excluding
-                    the label Conformance (part of k8s_conformance)
+                    the label Conformance (part of k8s_conformance) and
+                    StorageVersionAPI.
                 dependencies:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
@@ -48,7 +49,8 @@ tiers:
                     args:
                         focus: \[sig-api-machinery\]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Conformance\\]"
+                          \\[Conformance\\]|\
+                          \\[Feature:Feature:StorageVersionAPI\\]"
             -
                 case_name: sig_apps
                 project_name: functest
