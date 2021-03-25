@@ -47,7 +47,7 @@ tiers:
                     name: e2e_testing
                     args:
                         focus: \[sig-api-machinery\]
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Conformance\\]"
             -
                 case_name: sig_apps
@@ -64,7 +64,7 @@ tiers:
                     name: e2e_testing
                     args:
                         focus: \[sig-apps]
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Conformance\\]|\\[Feature:StatefulUpgrade\\]|\
                           \\[Feature:StatefulSet\\]"
             -
@@ -83,7 +83,7 @@ tiers:
                     name: e2e_testing
                     args:
                         focus: \[sig-auth\]
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Conformance\\]|\\[Feature:PodSecurityPolicy\\]|\
                           \\[Feature:BoundServiceAccountTokenVolume\\]"
             -
@@ -100,7 +100,7 @@ tiers:
                     name: e2e_testing
                     args:
                         focus: \[sig-cli]
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Conformance\\]"
             -
                 case_name: sig_cluster_lifecycle
@@ -116,7 +116,7 @@ tiers:
                     name: e2e_testing
                     args:
                         focus: \[sig-cluster-lifecycle\]
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Conformance\\]"
             -
                 case_name: sig_network
@@ -133,7 +133,7 @@ tiers:
                     name: e2e_testing
                     args:
                         focus: \[sig-network\]
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Conformance\\]|load.balancer|LoadBalancer|\
                           \\[Feature:.+\\]"
             -
@@ -157,7 +157,7 @@ tiers:
                           \\[Feature:Networking-IPv4\\]|\
                           \\[Feature:Networking-Performance\\]|\
                           \\[Feature:PerformanceDNS\\]|\\[Feature:NoSNAT\\]"
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Feature:NetworkPolicy\\]|\
                           \\[Feature:Networking-IPv6\\]|\
                           \\[Feature:IPv6DualStackAlphaFeature\\]|\
@@ -179,7 +179,7 @@ tiers:
                     name: e2e_testing
                     args:
                         focus: \[sig-node]
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Conformance\\]|\\[NodeFeature:RuntimeHandler\\]|\
                           \\[Feature:PodGarbageCollector\\]|\
                           \\[Feature:RegularResourceUsageTracking\\]|\
@@ -200,7 +200,7 @@ tiers:
                     name: e2e_testing
                     args:
                         focus: \[sig-scheduling\]
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Conformance\\]|\\[Feature:GPUDevicePlugin\\]"
             -
                 case_name: sig_instrumentation
@@ -216,7 +216,7 @@ tiers:
                     name: e2e_testing
                     args:
                         focus: \[sig-instrumentation\]
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Conformance\\]"
             -
                 case_name: sig_storage
@@ -233,6 +233,6 @@ tiers:
                     name: e2e_testing
                     args:
                         focus: \[sig-storage\]
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\
+                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                           \\[Conformance\\]|\\[Feature:.+\\]|\\[Driver:.+\\]|\
                           PersistentVolumes.NFS|\\[Slow\\]"
