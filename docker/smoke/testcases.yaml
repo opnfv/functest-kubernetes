@@ -40,7 +40,8 @@ tiers:
                 blocking: false
                 description: >-
                     It runs the remaining sig-api-machinery testing excluding
-                    the label Conformance (part of k8s_conformance)
+                    the label Conformance (part of k8s_conformance) and
+                    StorageVersionAPI.
                 dependencies:
                     - DEPLOY_SCENARIO: 'k8-*'
                 run:
@@ -48,7 +49,8 @@ tiers:
                     args:
                         focus: \[sig-api-machinery\]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Conformance\\]"
+                          \\[Serial\\]|\\[Conformance\\]|\
+                          \\[Feature:Feature:StorageVersionAPI\\]"
             -
                 case_name: sig_apps
                 project_name: functest
@@ -65,7 +67,8 @@ tiers:
                     args:
                         focus: \[sig-apps]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Conformance\\]|\\[Feature:StatefulUpgrade\\]|\
+                          \\[Serial\\]|\\[Conformance\\]|\
+                          \\[Feature:StatefulUpgrade\\]|\
                           \\[Feature:StatefulSet\\]"
             -
                 case_name: sig_auth
@@ -84,7 +87,8 @@ tiers:
                     args:
                         focus: \[sig-auth\]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Conformance\\]|\\[Feature:PodSecurityPolicy\\]|\
+                          \\[Serial\\]|\\[Conformance\\]|\
+                          \\[Feature:PodSecurityPolicy\\]|\
                           \\[Feature:BoundServiceAccountTokenVolume\\]"
             -
                 case_name: sig_cli
@@ -101,7 +105,7 @@ tiers:
                     args:
                         focus: \[sig-cli]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Conformance\\]"
+                          \\[Serial\\]|\\[Conformance\\]"
             -
                 case_name: sig_cluster_lifecycle
                 project_name: functest
@@ -117,7 +121,7 @@ tiers:
                     args:
                         focus: \[sig-cluster-lifecycle\]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Conformance\\]"
+                          \\[Serial\\]|\\[Conformance\\]"
             -
                 case_name: sig_network
                 project_name: functest
@@ -134,8 +138,8 @@ tiers:
                     args:
                         focus: \[sig-network\]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Conformance\\]|load.balancer|LoadBalancer|\
-                          \\[Feature:.+\\]"
+                          \\[Serial\\]|\\[Conformance\\]|load.balancer|\
+                          LoadBalancer|\\[Feature:.+\\]"
             -
                 case_name: sig_network_features
                 project_name: functest
@@ -158,6 +162,7 @@ tiers:
                           \\[Feature:Networking-Performance\\]|\
                           \\[Feature:PerformanceDNS\\]|\\[Feature:NoSNAT\\]"
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+                          \\[Serial\\]|\\[Conformance\\]|\
                           \\[Feature:NetworkPolicy\\]|\
                           \\[Feature:Networking-IPv6\\]|\
                           \\[Feature:IPv6DualStackAlphaFeature\\]|\
@@ -180,7 +185,8 @@ tiers:
                     args:
                         focus: \[sig-node]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Conformance\\]|\\[NodeFeature:RuntimeHandler\\]|\
+                          \\[Serial\\]|\\[Conformance\\]|\
+                          \\[NodeFeature:RuntimeHandler\\]|\
                           \\[Feature:PodGarbageCollector\\]|\
                           \\[Feature:RegularResourceUsageTracking\\]|\
                           \\[Feature:ExperimentalResourceUsageTracking\\]|\
@@ -201,7 +207,8 @@ tiers:
                     args:
                         focus: \[sig-scheduling\]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Conformance\\]|\\[Feature:GPUDevicePlugin\\]"
+                          \\[Serial\\]|\\[Conformance\\]|\
+                          \\[Feature:GPUDevicePlugin\\]"
             -
                 case_name: sig_instrumentation
                 project_name: functest
@@ -217,7 +224,7 @@ tiers:
                     args:
                         focus: \[sig-instrumentation\]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Conformance\\]"
+                          \\[Serial\\]|\\[Conformance\\]"
             -
                 case_name: sig_storage
                 project_name: functest
@@ -234,5 +241,6 @@ tiers:
                     args:
                         focus: \[sig-storage\]
                         skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Conformance\\]|\\[Feature:.+\\]|\\[Driver:.+\\]|\
+                          \\[Serial\\]|\\[Conformance\\]|\
+                          \\[Feature:.+\\]|\\[Driver:.+\\]|\
                           PersistentVolumes.NFS|\\[Slow\\]"
