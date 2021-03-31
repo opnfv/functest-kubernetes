@@ -192,24 +192,6 @@ tiers:
                           \\[Feature:ExperimentalResourceUsageTracking\\]|\
                           RuntimeClass"
             -
-                case_name: sig_scheduling
-                project_name: functest
-                criteria: 100
-                blocking: false
-                description: >-
-                    It runs the remaining sig-network testing excluding the
-                    next labels: Conformance (part of k8s_conformance) and the
-                    GPUDevicePlugin feature.
-                dependencies:
-                    - DEPLOY_SCENARIO: 'k8-*'
-                run:
-                    name: e2e_testing
-                    args:
-                        focus: \[sig-scheduling\]
-                        skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                          \\[Serial\\]|\\[Conformance\\]|\
-                          \\[Feature:GPUDevicePlugin\\]"
-            -
                 case_name: sig_instrumentation
                 project_name: functest
                 criteria: 100
