@@ -48,7 +48,7 @@ class E2ETesting(testcase.TestCase):
     def run_kubetest(self, **kwargs):  # pylint: disable=too-many-branches
         """Run the test suites"""
         cmd_line = ['e2e.test', '-ginkgo.noColor', '-kubeconfig', self.config,
-                    '-provider', 'local', '-report-dir', self.res_dir]
+                    '-provider', 'skeleton', '-report-dir', self.res_dir]
         for arg in kwargs:
             cmd_line.extend(['-ginkgo.{}'.format(arg), kwargs.get(arg)])
         if "NON_BLOCKING_TAINTS" in os.environ:
