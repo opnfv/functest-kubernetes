@@ -1,36 +1,35 @@
 ---
 tiers:
-    -
-        name: healthcheck
+  - name: healthcheck
+    description: >-
+      A set of e2e tests integrated from kubernetes project.
+    testcases:
+      - case_name: k8s_quick
+        project_name: functest
+        criteria: 100
+        blocking: false
         description: >-
-            A set of e2e tests integrated from kubernetes project.
-        testcases:
-            -
-                case_name: k8s_quick
-                project_name: functest
-                criteria: 100
-                blocking: false
-                description: >-
-                    It runs just a single test, helping to quickly validate the
-                    Kubernetes configuration as proposed by Sonobuoy.
-                dependencies:
-                    - DEPLOY_SCENARIO: 'k8-*'
-                run:
-                    name: e2e_testing
-                    args:
-                        focus: Pods should be submitted and removed
-            -
-                case_name: k8s_smoke
-                project_name: functest
-                criteria: 100
-                blocking: false
-                description: >-
-                    Smoke Tests a running Kubernetes cluster, which
-                    validates the deployed cluster is accessible, and
-                    at least satisfies minimal functional requirements.
-                dependencies:
-                    - DEPLOY_SCENARIO: 'k8-*'
-                run:
-                    name: e2e_testing
-                    args:
-                        focus: Kubectl client Guestbook application
+          It runs just a single test, helping to quickly validate the
+          Kubernetes configuration as proposed by Sonobuoy.
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: e2e_testing
+          args:
+            ginkgo:
+              focus: Pods should be submitted and removed
+      - case_name: k8s_smoke
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          Smoke Tests a running Kubernetes cluster, which
+          validates the deployed cluster is accessible, and
+          at least satisfies minimal functional requirements.
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: e2e_testing
+          args:
+            ginkgo:
+              focus: Kubectl client Guestbook application

@@ -47,10 +47,13 @@ class E2ETesting(testcase.TestCase):
 
     def run_kubetest(self, **kwargs):  # pylint: disable=too-many-branches
         """Run the test suites"""
-        cmd_line = ['e2e.test', '-ginkgo.noColor', '-kubeconfig', self.config,
-                    '-provider', 'skeleton', '-report-dir', self.res_dir]
-        for arg in kwargs:
-            cmd_line.extend(['-ginkgo.{}'.format(arg), kwargs.get(arg)])
+        cmd_line = [
+            'ginkgo', '--nodes={}'.format(kwargs.get("nodes", 1)),
+            '--noColor', '/usr/local/bin/e2e.test', '--',
+            '-kubeconfig', self.config,
+            '-provider', 'skeleton', '-report-dir', self.res_dir]
+        for arg in kwargs.get("ginkgo", {}):
+            cmd_line.extend(['-ginkgo.{}'.format(arg), kwargs["ginkgo"][arg]])
         if "NON_BLOCKING_TAINTS" in os.environ:
             cmd_line.extend(
                 ['-non-blocking-taints', os.environ["NON_BLOCKING_TAINTS"]])
@@ -58,7 +61,6 @@ class E2ETesting(testcase.TestCase):
         self._generate_repo_list_file()
         self.__logger.info("Starting k8s test: '%s'.", cmd_line)
         env = os.environ.copy()
-        env["GINKGO_PARALLEL"] = 'y'
         env["KUBE_TEST_REPO_LIST"] = "{}/repositories.yml".format(self.res_dir)
         process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT, env=env)
