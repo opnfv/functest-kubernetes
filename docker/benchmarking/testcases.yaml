@@ -1,24 +1,22 @@
 ---
 tiers:
-    -
-        name: benchmarking
+  - name: benchmarking
+    description: >-
+      A set of benchmarking tests integrated from xRally for Kubernetes
+      platform.
+    testcases:
+      - case_name: xrally_kubernetes_full
+        project_name: functest
+        criteria: 100
+        blocking: false
         description: >-
-            A set of benchmarking tests integrated from xRally for Kubernetes
-            platform.
-        testcases:
-            -
-                case_name: xrally_kubernetes_full
-                project_name: functest
-                criteria: 100
-                blocking: false
-                description: >-
-                    All in one tasks for checking basic functionality of
-                    Kubernetes cluster.
-                dependencies:
-                    - DEPLOY_SCENARIO: 'k8-*'
-                run:
-                    name: xrally_kubernetes
-                    args:
-                        times: 10
-                        concurrency: 4
-                        namespaces_count: 3
+          All in one tasks for checking basic functionality of
+          Kubernetes cluster.
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: xrally_kubernetes
+          args:
+            times: 10
+            concurrency: 4
+            namespaces_count: 3
