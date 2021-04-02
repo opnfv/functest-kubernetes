@@ -1,47 +1,43 @@
 ---
 tiers:
-    -
-        name: security
+  - name: security
+    description: >-
+      Set of basic security tests.
+    testcases:
+      - case_name: kube_hunter
+        project_name: functest
+        criteria: 100
+        blocking: false
         description: >-
-            Set of basic security tests.
-        testcases:
-            -
-                case_name: kube_hunter
-                project_name: functest
-                criteria: 100
-                blocking: false
-                description: >-
-                    Check that the kubernetes cluster has no known
-                    vulnerabilities
-                run:
-                    name: kube_hunter
-                    args:
-                        severity: high
+          Check that the kubernetes cluster has no known
+          vulnerabilities
+        run:
+          name: kube_hunter
+          args:
+            severity: high
 
-            -
-                case_name: kube_bench_master
-                project_name: functest
-                criteria: 100
-                blocking: false
-                description: >-
-                    Checks whether Kubernetes is deployed securely by running
-                    the master checks documented in the CIS Kubernetes
-                    Benchmark.
-                run:
-                    name: kube_bench
-                    args:
-                        target: master
+      - case_name: kube_bench_master
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          Checks whether Kubernetes is deployed securely by running
+          the master checks documented in the CIS Kubernetes
+          Benchmark.
+        run:
+          name: kube_bench
+          args:
+            target: master
 
-            -
-                case_name: kube_bench_node
-                project_name: functest
-                criteria: 100
-                blocking: false
-                description: >-
-                    Checks whether Kubernetes is deployed securely by running
-                    the node checks documented in the CIS Kubernetes
-                    Benchmark.
-                run:
-                    name: kube_bench
-                    args:
-                        target: node
+      - case_name: kube_bench_node
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          Checks whether Kubernetes is deployed securely by running
+          the node checks documented in the CIS Kubernetes
+          Benchmark.
+        run:
+          name: kube_bench
+          args:
+            target: node
