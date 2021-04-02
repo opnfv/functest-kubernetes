@@ -16,7 +16,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 120
       initContainers:
-        - name: {{ dockerhub_repo }}/wait-on-cassandra
+        - name: wait-on-cassandra
           image: {{ dockerhub_repo }}/busybox:1.28
           command: ['sh', '-c', 'until nslookup cassandra; do echo waiting for cassandra to start ...; sleep 2; done']
       containers:
