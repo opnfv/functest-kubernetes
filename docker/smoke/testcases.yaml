@@ -28,8 +28,25 @@ tiers:
         run:
           name: e2e_testing
           args:
+            nodes: 25
             ginkgo:
               focus: \[Conformance\]
+              skip: \[Serial\]|\[Disruptive\]|NoExecuteTaintManager
+      - case_name: k8s_conformance_serial
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          Conformance Tests are expect to pass on any Kubernetes
+          cluster, this tests are necessary demonstrate conformance
+          of the Kubernetes deployment.
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: e2e_testing
+          args:
+            ginkgo:
+              focus: \[Serial\].*\[Conformance\]
               skip: \[Disruptive\]|NoExecuteTaintManager
       - case_name: sig_api_machinery
         project_name: functest
