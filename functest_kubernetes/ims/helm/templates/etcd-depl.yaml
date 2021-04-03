@@ -45,7 +45,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: {{ .Values.repo.quay }}//coreos/etcd:v2.2.5
+        image: {{ .Values.repo.quay }}/coreos/etcd:v2.2.5
         name: etcd
         ports:
         - containerPort: 2379
