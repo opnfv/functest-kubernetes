@@ -149,7 +149,9 @@ tiers:
         description: >-
           It runs the remaining sig-network testing excluding the
           following labels: Conformance (part of k8s_conformance),
-          all features and load.balancer.
+          load.balancer, NetworkPolicy, Networking-IPv6,
+          IPv6DualStackAlphaFeature, SCTP and Example. A couple of features may
+          be automatically skipped like NEG and kubemci.
         dependencies:
           - DEPLOY_SCENARIO: "k8-*"
         run:
@@ -160,32 +162,7 @@ tiers:
               focus: \[sig-network\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|load.balancer|\
-                LoadBalancer|\\[Feature:.+\\]"
-      - case_name: sig_network_features
-        project_name: functest
-        criteria: 100
-        blocking: false
-        description: >-
-          It verifies a couple of features by running a subset of e2e
-          tests: Ingress, Networking-IPv4, Networking-Performance,
-          PerformanceDNS and NoSNAT. It excludes by default
-          NetworkPolicy, Networking-IPv6, IPv6DualStackAlphaFeature,
-          SCTP and Example. A couple of features may be automatically
-          skipped like NEG and kubemci.
-        dependencies:
-          - DEPLOY_SCENARIO: "k8-*"
-        run:
-          name: e2e_testing
-          args:
-            nodes: 25
-            ginkgo:
-              focus: "\\[Feature:Ingress\\]|\
-                \\[Feature:Networking-IPv4\\]|\
-                \\[Feature:Networking-Performance\\]|\
-                \\[Feature:PerformanceDNS\\]|\\[Feature:NoSNAT\\]"
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                \\[Serial\\]|\\[Conformance\\]|\
-                \\[Feature:NetworkPolicy\\]|\
+                LoadBalancer|\\[Feature:NetworkPolicy\\]|\
                 \\[Feature:Networking-IPv6\\]|\
                 \\[Feature:IPv6DualStackAlphaFeature\\]|\
                 \\[Feature:SCTP\\]|\\[Feature:Example\\]"
