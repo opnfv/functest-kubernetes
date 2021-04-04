@@ -15,6 +15,24 @@ tiers:
           - DEPLOY_SCENARIO: "k8-*"
         run:
           name: xrally_kubernetes
+      - case_name: k8s_io
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          It runs k8s.io testing excluding the label Conformance (part of
+          k8s_conformance) and all sigs.
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: e2e_testing
+          args:
+            nodes: 25
+            ginkgo:
+              focus: \[k8s.io\]
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+                \\[Serial\\]|\\[Conformance\\]|\\[sig-.+\\]|
+                \\[Feature:TTLAfterFinished\\]"
       - case_name: k8s_conformance
         project_name: functest
         criteria: 100
@@ -67,6 +85,24 @@ tiers:
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:StorageVersionAPI\\]"
+      - case_name: sig_api_machinery_serial
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          It runs the remaining sig-api-machinery testing excluding
+          the label Conformance (part of k8s_conformance) and
+          StorageVersionAPI.
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: e2e_testing
+          args:
+            ginkgo:
+              focus: \[sig-api-machinery\].*\[Serial\]
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+                \\[Conformance\\]|\
+                \\[Feature:StorageVersionAPI\\]"
       - case_name: sig_apps
         project_name: functest
         criteria: 100
@@ -85,6 +121,25 @@ tiers:
               focus: \[sig-apps]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
+                \\[Feature:StatefulUpgrade\\]|\
+                \\[Feature:StatefulSet\\]"
+      - case_name: sig_apps_serial
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          It runs the remaining sig-apps testing excluding the
+          following labels: Conformance (part of k8s_conformance) and
+          both StatefulUpgrade and StatefulSet features.
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: e2e_testing
+          args:
+            ginkgo:
+              focus: \[sig-apps].*\[Serial\]
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+                \\[Conformance\\]|\
                 \\[Feature:StatefulUpgrade\\]|\
                 \\[Feature:StatefulSet\\]"
       - case_name: sig_auth
@@ -125,6 +180,22 @@ tiers:
               focus: \[sig-cli]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]"
+      - case_name: sig_cli_serial
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          It runs the remaining sig-cli testing excluding Conformance
+          (part of k8s_conformance).
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: e2e_testing
+          args:
+            ginkgo:
+              focus: \[sig-cli].*\[Serial\]
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+                \\[Conformance\\]"
       - case_name: sig_cluster_lifecycle
         project_name: functest
         criteria: 100
@@ -140,6 +211,23 @@ tiers:
             nodes: 25
             ginkgo:
               focus: \[sig-cluster-lifecycle\]
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+                \\[Serial\\]|\\[Conformance\\]"
+      - case_name: sig_instrumentation
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          It runs the remaining sig-instrumentation testing excluding
+          Conformance (part of k8s_conformance)
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: e2e_testing
+          args:
+            nodes: 25
+            ginkgo:
+              focus: \[sig-instrumentation\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]"
       - case_name: sig_network
@@ -162,6 +250,29 @@ tiers:
               focus: \[sig-network\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|load.balancer|\
+                LoadBalancer|\\[Feature:NetworkPolicy\\]|\
+                \\[Feature:Networking-IPv6\\]|\
+                \\[Feature:IPv6DualStackAlphaFeature\\]|\
+                \\[Feature:SCTP\\]|\\[Feature:Example\\]"
+      - case_name: sig_network_serial
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          It runs the remaining sig-network testing excluding the
+          following labels: Conformance (part of k8s_conformance),
+          load.balancer, NetworkPolicy, Networking-IPv6,
+          IPv6DualStackAlphaFeature, SCTP and Example. A couple of features may
+          be automatically skipped like NEG and kubemci.
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: e2e_testing
+          args:
+            ginkgo:
+              focus: \[sig-network\].*\[Serial\]
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+                \\[Conformance\\]|load.balancer|\
                 LoadBalancer|\\[Feature:NetworkPolicy\\]|\
                 \\[Feature:Networking-IPv6\\]|\
                 \\[Feature:IPv6DualStackAlphaFeature\\]|\
@@ -191,23 +302,48 @@ tiers:
                 \\[Feature:RegularResourceUsageTracking\\]|\
                 \\[Feature:ExperimentalResourceUsageTracking\\]|\
                 RuntimeClass"
-      - case_name: sig_instrumentation
+      - case_name: sig_node_serial
         project_name: functest
         criteria: 100
         blocking: false
         description: >-
-          It runs the remaining sig-instrumentation testing excluding
-          Conformance (part of k8s_conformance)
+          It runs the remaining sig-node testing excluding the
+          following labels: Conformance (part of k8s_conformance),
+          RuntimeClass, all RuntimeHandler, PodGarbageCollector,
+          RegularResourceUsageTrackingfeatures and
+          ExperimentalResourceUsageTracking features.
         dependencies:
           - DEPLOY_SCENARIO: "k8-*"
         run:
           name: e2e_testing
           args:
-            nodes: 25
             ginkgo:
-              focus: \[sig-instrumentation\]
+              focus: \[sig-node].*\[Serial\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                \\[Serial\\]|\\[Conformance\\]"
+                \\[Conformance\\]|\
+                \\[NodeFeature:RuntimeHandler\\]|\
+                \\[Feature:PodGarbageCollector\\]|\
+                \\[Feature:RegularResourceUsageTracking\\]|\
+                \\[Feature:ExperimentalResourceUsageTracking\\]|\
+                RuntimeClass"
+      - case_name: sig_scheduling_serial
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          It runs the remaining sig-network testing excluding the
+          next labels: Conformance (part of k8s_conformance) and the
+          GPUDevicePlugin feature.
+        dependencies:
+          - DEPLOY_SCENARIO: 'k8-*'
+        run:
+          name: e2e_testing
+          args:
+            ginkgo:
+              focus: \[sig-scheduling\].*\[Serial\]
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+                \\[Conformance\\]|\
+                \\[Feature:GPUDevicePlugin\\]"
       - case_name: sig_storage
         project_name: functest
         criteria: 100
@@ -226,5 +362,24 @@ tiers:
               focus: \[sig-storage\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
+                \\[Feature:.+\\]|\\[Driver:.+\\]|\
+                PersistentVolumes.NFS|\\[Slow\\]"
+      - case_name: sig_storage_serial
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          It runs the remaining sig-storage testing excluding the
+          following labels: Conformance (part of k8s_conformance),
+          all features, all drivers, PersistentVolumes.NFS and Slow.
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: e2e_testing
+          args:
+            ginkgo:
+              focus: \[sig-storage\].*\[Serial\]
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+                \\[Conformance\\]|\
                 \\[Feature:.+\\]|\\[Driver:.+\\]|\
                 PersistentVolumes.NFS|\\[Slow\\]"
