@@ -15,17 +15,25 @@
             execution-type: SEQUENTIALLY
           tests:
             - xrally_kubernetes
+            - k8s_io
             - k8s_conformance
             - k8s_conformance_serial
             - sig_api_machinery
+            - sig_api_machinery_serial
             - sig_apps
+            - sig_apps_serial
             - sig_auth
             - sig_cli
+            - sig_cli_serial
             - sig_cluster_lifecycle
             - sig_instrumentation
             - sig_network
+            - sig_network_serial
             - sig_node
+            - sig_node_serial
+            - sig_scheduling_serial
             - sig_storage
+            - sig_storage_serial
         - container: functest-kubernetes-security
           tests:
             - kube_hunter
