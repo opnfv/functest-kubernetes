@@ -15,24 +15,6 @@ tiers:
           - DEPLOY_SCENARIO: "k8-*"
         run:
           name: xrally_kubernetes
-      - case_name: k8s_io
-        project_name: functest
-        criteria: 100
-        blocking: false
-        description: >-
-          It runs k8s.io testing excluding the label Conformance (part of
-          k8s_conformance) and all sigs.
-        dependencies:
-          - DEPLOY_SCENARIO: "k8-*"
-        run:
-          name: e2e_testing
-          args:
-            nodes: 25
-            ginkgo:
-              focus: \[k8s.io\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                \\[Serial\\]|\\[Conformance\\]|\\[sig-.+\\]|
-                \\[Feature:TTLAfterFinished\\]"
       - case_name: k8s_conformance
         project_name: functest
         criteria: 100
