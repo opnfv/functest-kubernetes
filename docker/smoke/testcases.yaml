@@ -256,8 +256,6 @@ tiers:
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Conformance\\]|load.balancer|\
                 LoadBalancer|\\[Feature:NetworkPolicy\\]|\
-                \\[Feature:Networking-IPv6\\]|\
-                \\[Feature:IPv6DualStackAlphaFeature\\]|\
                 \\[Feature:SCTP\\]|\\[Feature:Example\\]"
       - case_name: sig_node
         project_name: functest
