@@ -149,8 +149,8 @@ tiers:
         description: >-
           It runs the remaining sig-auth testing excluding the
           following labels: Conformance (part of k8s_conformance) and
-          both PodSecurityPolicy and BoundServiceAccountTokenVolume
-          features.
+          all PodSecurityPolicy, BoundServiceAccountTokenVolume,
+          TokenRequestProjection and ServiceAccountIssuerDiscovery features.
         dependencies:
           - DEPLOY_SCENARIO: "k8-*"
         run:
@@ -162,7 +162,9 @@ tiers:
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:PodSecurityPolicy\\]|\
-                \\[Feature:BoundServiceAccountTokenVolume\\]"
+                \\[Feature:BoundServiceAccountTokenVolume\\]|\
+                \\[Feature:TokenRequestProjection\\]|\
+                \\[Feature:ServiceAccountIssuerDiscovery\\]"
       - case_name: sig_cli
         project_name: functest
         criteria: 100
