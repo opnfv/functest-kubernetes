@@ -221,7 +221,8 @@ tiers:
         blocking: false
         description: >-
           It runs the remaining sig-instrumentation testing excluding
-          Conformance (part of k8s_conformance)
+          Conformance (part of k8s_conformance) and StackdriverLogging
+          feature.
         dependencies:
           - DEPLOY_SCENARIO: "k8-*"
         run:
@@ -231,7 +232,8 @@ tiers:
             ginkgo:
               focus: \[sig-instrumentation\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                \\[Serial\\]|\\[Conformance\\]"
+                \\[Serial\\]|\\[Conformance\\]|\
+                \\[Feature:StackdriverLogging\\]"
       - case_name: sig_network
         project_name: functest
         criteria: 100
