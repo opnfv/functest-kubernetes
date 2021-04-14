@@ -30,7 +30,6 @@
             - sig_network
             - sig_network_serial
             - sig_node
-            - sig_node_serial
             - sig_scheduling_serial
             - sig_storage
             - sig_storage_serial
