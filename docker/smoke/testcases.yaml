@@ -282,30 +282,6 @@ tiers:
                 \\[Feature:RegularResourceUsageTracking\\]|\
                 \\[Feature:ExperimentalResourceUsageTracking\\]|\
                 RuntimeClass"
-      - case_name: sig_node_serial
-        project_name: functest
-        criteria: 100
-        blocking: false
-        description: >-
-          It runs the remaining sig-node testing excluding the
-          following labels: Conformance (part of k8s_conformance),
-          RuntimeClass, all RuntimeHandler, PodGarbageCollector,
-          RegularResourceUsageTrackingfeatures and
-          ExperimentalResourceUsageTracking features.
-        dependencies:
-          - DEPLOY_SCENARIO: "k8-*"
-        run:
-          name: e2e_testing
-          args:
-            ginkgo:
-              focus: \[sig-node].*\[Serial\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                \\[Conformance\\]|\
-                \\[NodeFeature:RuntimeHandler\\]|\
-                \\[Feature:PodGarbageCollector\\]|\
-                \\[Feature:RegularResourceUsageTracking\\]|\
-                \\[Feature:ExperimentalResourceUsageTracking\\]|\
-                RuntimeClass"
       - case_name: sig_scheduling_serial
         project_name: functest
         criteria: 100
