@@ -289,8 +289,8 @@ tiers:
           It runs the remaining sig-node testing excluding the
           following labels: Conformance (part of k8s_conformance),
           RuntimeClass, all RuntimeHandler, PodGarbageCollector,
-          RegularResourceUsageTrackingfeatures and
-          ExperimentalResourceUsageTracking features.
+          RegularResourceUsageTrackingfeatures,
+          ExperimentalResourceUsageTracking and SetHostnameAsFQDN features.
         dependencies:
           - DEPLOY_SCENARIO: "k8-*"
         run:
@@ -305,6 +305,7 @@ tiers:
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
                 \\[Feature:ExperimentalResourceUsageTracking\\]|\
+                \\[Feature:SetHostnameAsFQDN\\]|\
                 RuntimeClass"
       - case_name: sig_node_serial
         project_name: functest
