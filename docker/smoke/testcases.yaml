@@ -235,7 +235,8 @@ tiers:
                 LoadBalancer|\\[Feature:NetworkPolicy\\]|\
                 \\[Feature:Networking-IPv6\\]|\
                 \\[Feature:IPv6DualStackAlphaFeature\\]|\
-                \\[Feature:SCTP\\]|\\[Feature:Example\\]"
+                \\[Feature:SCTP\\]|\\[Feature:Example\\]|\
+                Network.should.set.TCP.CLOSE_WAIT.timeout"
       - case_name: sig_network_serial
         project_name: functest
         criteria: 100
