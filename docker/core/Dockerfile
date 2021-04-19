@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.13
 
 ARG BRANCH=stable/leguer
 ARG OPENSTACK_TAG=stable/victoria
@@ -18,13 +18,14 @@ RUN apk -U upgrade && \
     case $(uname -m) in aarch*|arm*) \
         sed -i -E /^PyNaCl=/d /src/requirements/upper-constraints.txt && \
         apk add --no-cache py3-pynacl ;; esac && \
+    sed -i -E /^packaging=/d /src/requirements/upper-constraints.txt && \
     apk --no-cache add --update py3-distlib\>=0.3.1 \
         --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main && \
     git init /src/functest-kubernetes && \
     (cd /src/functest-kubernetes && \
         git fetch --tags https://gerrit.opnfv.org/gerrit/functest-kubernetes $BRANCH && \
         git checkout FETCH_HEAD) && \
-    pip3 install --no-cache-dir --src /src \
+    pip3 install --use-deprecated=legacy-resolver --no-cache-dir --src /src \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -c/src/requirements/upper-constraints.txt \
         /src/functest-kubernetes && \
