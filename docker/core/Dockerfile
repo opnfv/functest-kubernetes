@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.13
 
 ARG BRANCH=stable/leguer
 ARG OPENSTACK_TAG=stable/victoria
@@ -24,7 +24,7 @@ RUN apk -U upgrade && \
     (cd /src/functest-kubernetes && \
         git fetch --tags https://gerrit.opnfv.org/gerrit/functest-kubernetes $BRANCH && \
         git checkout FETCH_HEAD) && \
-    pip3 install --no-cache-dir --src /src \
+    pip3 install --use-deprecated=legacy-resolver --no-cache-dir --src /src \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -c/src/requirements/upper-constraints.txt \
         /src/functest-kubernetes && \
