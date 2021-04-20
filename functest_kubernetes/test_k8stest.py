@@ -32,9 +32,11 @@ class E2EUnitTesting(unittest.TestCase):
 
         self.k8stesting = k8stest.E2ETesting()
 
+    @mock.patch('os.path.exists', False)
+    @mock.patch('os.makedirs')
     @mock.patch('functest_kubernetes.k8stest.os.path.isfile',
                 return_value=False)
-    def test_run_missing_config_file(self, mock_func):
+    def test_run_missing_config_file(self, *args):
         self.k8stesting.config = 'not_file'
         with mock.patch.object(self.k8stesting,
                                '_E2ETesting__logger') as mock_logger:
@@ -42,8 +44,11 @@ class E2EUnitTesting(unittest.TestCase):
                              testcase.TestCase.EX_RUN_ERROR)
             mock_logger.error.assert_called_with(
                 "Cannot run k8s testcases. Config file not found")
-        mock_func.assert_called_with('not_file')
+        args[0].assert_called_with('not_file')
+        args[1].assert_called_with(self.k8stesting.res_dir)
 
+    @mock.patch('os.path.exists', return_value=False)
+    @mock.patch('os.makedirs')
     @mock.patch('re.search')
     @mock.patch('six.moves.builtins.open', mock.mock_open())
     @mock.patch('functest_kubernetes.k8stest.os.path.isfile')
