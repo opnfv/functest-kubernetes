@@ -19,6 +19,10 @@ RUN apk -U upgrade && \
     pip install --no-cache-dir --src /src \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
+        setuptools_scm && \
+    pip install --no-cache-dir --src /src \
+        -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
+        -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
         /src/functest-kubernetes && \
     (cd /usr/lib/python2.7/site-packages/rally && patch -p2 < /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch) && \
     (cd /usr/lib/python2.7/site-packages/xrally_kubernetes/ && \
