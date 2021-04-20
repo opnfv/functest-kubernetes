@@ -26,6 +26,10 @@ RUN apk -U upgrade && \
     pip3 install --use-deprecated=legacy-resolver --no-cache-dir --src /src \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -c/src/requirements/upper-constraints.txt \
+        setuptools_scm && \
+    pip3 install --use-deprecated=legacy-resolver --no-cache-dir --src /src \
+        -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
+        -c/src/requirements/upper-constraints.txt \
         /src/functest-kubernetes && \
     (cd /src/rally && patch -p1 < /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch) && \
     (cd /usr/lib/python3.8/site-packages/xrally_kubernetes/ && \
