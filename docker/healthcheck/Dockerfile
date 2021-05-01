@@ -1,6 +1,6 @@
 FROM opnfv/functest-kubernetes-core
 
-ARG K8S_TAG=1.21
+ARG K8S_TAG=1.22
 
 RUN apk --no-cache add --update curl libc6-compat && \
     tag=$(curl -s https://storage.googleapis.com/kubernetes-release/release/latest-$K8S_TAG.txt)  && \

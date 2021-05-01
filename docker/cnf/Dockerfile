@@ -1,6 +1,6 @@
 FROM opnfv/functest-kubernetes-core
 
-ARG K8S_TAG=1.21
+ARG K8S_TAG=1.22
 ARG CNF_CONFORMANCE_TAG=v0.9.19
 ARG HELM_TAG=v3.3.1
 
