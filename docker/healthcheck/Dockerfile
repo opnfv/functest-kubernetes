@@ -1,4 +1,4 @@
-FROM opnfv/functest-kubernetes-core
+FROM opnfv/functest-kubernetes-core:v1.21
 
 ARG K8S_TAG=1.21
 
