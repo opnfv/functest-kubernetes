@@ -28,15 +28,15 @@ tiers:
         run:
           name: helm_vims
 
-      - case_name: cnf_conformance
+      - case_name: cnf_testsuite
         project_name: functest
         criteria: 90
         blocking: false
         description: >-
           Enable interoperability of Cloud native Network
           Functions (CNFs) as proposed by
-          https://github.com/cncf/cnf-conformance
+          https://github.com/cncf/cnf-testsuite
         dependencies:
           - DEPLOY_SCENARIO: "k8-*"
         run:
-          name: cnf_conformance
+          name: cnf_testsuite
