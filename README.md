@@ -22,7 +22,8 @@ datacenters as the lowest cost (50 euros hardware and software included).
 | Jerma             | v1.17                     |
 | **Kali**          | **v1.19**                 |
 | Leguer            | v1.20                     |
-| Master            | v1.21.0-alpha.3 (rolling) |
+| v1.21             | v1.21                     |
+| Master            | v1.22.0-alpha.1 (rolling) |
 
 ## Prepare your environment
 
@@ -57,12 +58,29 @@ sudo docker run --env-file env \
 ```
 
 ```
-+---------------------------+------------------+---------------+------------------+----------------+
-|         TEST CASE         |     PROJECT      |      TIER     |     DURATION     |     RESULT     |
-+---------------------------+------------------+---------------+------------------+----------------+
-|      k8s_conformance      |     functest     |     smoke     |      76:12       |      PASS      |
-|     xrally_kubernetes     |     functest     |     smoke     |      12:22       |      PASS      |
-+---------------------------+------------------+---------------+------------------+----------------+
++----------------------------------+------------------+---------------+------------------+----------------+
+|            TEST CASE             |     PROJECT      |      TIER     |     DURATION     |     RESULT     |
++----------------------------------+------------------+---------------+------------------+----------------+
+|        xrally_kubernetes         |     functest     |     smoke     |      11:48       |      PASS      |
+|              k8s_io              |     functest     |     smoke     |      27:04       |      PASS      |
+|         k8s_conformance          |     functest     |     smoke     |      10:48       |      PASS      |
+|      k8s_conformance_serial      |     functest     |     smoke     |      13:43       |      PASS      |
+|        sig_api_machinery         |     functest     |     smoke     |      10:21       |      PASS      |
+|     sig_api_machinery_serial     |     functest     |     smoke     |      01:22       |      PASS      |
+|             sig_apps             |     functest     |     smoke     |      06:25       |      PASS      |
+|         sig_apps_serial          |     functest     |     smoke     |      00:34       |      PASS      |
+|             sig_auth             |     functest     |     smoke     |      00:13       |      PASS      |
+|             sig_cli              |     functest     |     smoke     |      03:09       |      PASS      |
+|          sig_cli_serial          |     functest     |     smoke     |      00:05       |      PASS      |
+|      sig_cluster_lifecycle       |     functest     |     smoke     |      00:37       |      PASS      |
+|       sig_instrumentation        |     functest     |     smoke     |      00:07       |      PASS      |
+|           sig_network            |     functest     |     smoke     |      02:00       |      PASS      |
+|        sig_network_serial        |     functest     |     smoke     |      11:35       |      PASS      |
+|             sig_node             |     functest     |     smoke     |      01:43       |      PASS      |
+|      sig_scheduling_serial       |     functest     |     smoke     |      07:39       |      PASS      |
+|           sig_storage            |     functest     |     smoke     |      07:23       |      PASS      |
+|        sig_storage_serial        |     functest     |     smoke     |      03:05       |      PASS      |
++----------------------------------+------------------+---------------+------------------+----------------+
 ```
 
 ## Run security suite
@@ -77,9 +95,9 @@ sudo docker run --env-file env \
 +---------------------------+------------------+------------------+------------------+----------------+
 |         TEST CASE         |     PROJECT      |       TIER       |     DURATION     |     RESULT     |
 +---------------------------+------------------+------------------+------------------+----------------+
-|        kube_hunter        |     functest     |     security     |      00:19       |      PASS      |
-|     kube_bench_master     |     functest     |     security     |      00:01       |      PASS      |
-|      kube_bench_node      |     functest     |     security     |      00:01       |      PASS      |
+|        kube_hunter        |     functest     |     security     |      02:02       |      PASS      |
+|     kube_bench_master     |     functest     |     security     |      00:15       |      PASS      |
+|      kube_bench_node      |     functest     |     security     |      00:15       |      PASS      |
 +---------------------------+------------------+------------------+------------------+----------------+
 ```
 
@@ -108,13 +126,13 @@ sudo docker run --env-file env \
 ```
 
 ```
-+-------------------------+------------------+--------------+------------------+----------------+
-|        TEST CASE        |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
-+-------------------------+------------------+--------------+------------------+----------------+
-|         k8s_vims        |     functest     |     cnf      |      09:09       |      PASS      |
-|        helm_vims        |     functest     |     cnf      |      08:01       |      PASS      |
-|     cnf_conformance     |     functest     |     cnf      |      02:15       |      PASS      |
-+-------------------------+------------------+--------------+------------------+----------------+
++-----------------------+------------------+--------------+------------------+----------------+
+|       TEST CASE       |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
++-----------------------+------------------+--------------+------------------+----------------+
+|        k8s_vims       |     functest     |     cnf      |      24:35       |      PASS      |
+|       helm_vims       |     functest     |     cnf      |      08:40       |      PASS      |
+|     cnf_testsuite     |     functest     |     cnf      |      23:30       |      PASS      |
++-----------------------+------------------+--------------+------------------+----------------+
 ```
 
 
