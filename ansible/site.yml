@@ -48,4 +48,4 @@
           tests:
             - k8s_vims
             - helm_vims
-            - cnf_conformance
+            - cnf_testsuite

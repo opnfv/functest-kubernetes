@@ -11,7 +11,7 @@
 The CNF Conformance program enables interoperability of Cloud native Network
 Functions (CNFs) from multiple vendors running on top of Kubernetes supplied by
 different vendors [1].
-[1] https://github.com/cncf/cnf-conformance
+[1] https://github.com/cncf/cnf-testsuite
 """
 
 from __future__ import division
@@ -36,7 +36,7 @@ class CNFConformance(testcase.TestCase):
     https://hackmd.io/@vulk/SkY54QnsU
     """
 
-    src_dir = '/src/cnf-conformance'
+    src_dir = '/src/cnf-testsuite'
     bin_dir = '/usr/local/bin'
     default_tag = 'workload'
 
@@ -48,10 +48,10 @@ class CNFConformance(testcase.TestCase):
         self.output_debug_log_name = 'functest-kubernetes.debug.log'
 
     def check_requirements(self):
-        """Check if cnf-conformance is in $PATH"""
-        if not os.path.exists(os.path.join(self.bin_dir, 'cnf-conformance')):
+        """Check if cnf-testsuite is in $PATH"""
+        if not os.path.exists(os.path.join(self.bin_dir, 'cnf-testsuite')):
             self.__logger.warning(
-                "cnf-conformance is not compiled for arm and arm64 for the "
+                "cnf-testsuite is not compiled for arm and arm64 for the "
                 "time being")
             self.is_skipped = True
 
@@ -70,21 +70,21 @@ class CNFConformance(testcase.TestCase):
                 os.path.join(self.src_dir, 'spec/fixtures', cfile),
                 os.path.join(self.res_dir, 'spec/fixtures', cfile))
         os.chdir(self.res_dir)
-        cmd = ['cnf-conformance', 'setup']
+        cmd = ['cnf-testsuite', 'setup']
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
-        cmd = ['cnf-conformance', 'cnf_setup',
+        cmd = ['cnf-testsuite', 'cnf_setup',
                'cnf-config=cnf-conformance.yml']
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
 
     def run_conformance(self, **kwargs):
         """Run CNF Conformance"""
-        cmd = ['cnf-conformance', kwargs.get("tag", self.default_tag)]
+        cmd = ['cnf-testsuite', kwargs.get("tag", self.default_tag)]
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
         lfiles = glob.glob(os.path.join(
-            self.res_dir, 'results', 'cnf-conformance-results-*.yml'))
+            self.res_dir, 'results', 'cnf-testsuite-results-*.yml'))
         results = max(lfiles, key=os.path.getmtime)
         with open(os.path.join(self.res_dir, 'results', results)) as yfile:
             self.details = yaml.safe_load(yfile)
@@ -112,7 +112,7 @@ class CNFConformance(testcase.TestCase):
         self.stop_time = time.time()
 
     def clean(self):
-        cmd = ['cnf-conformance', 'cnf_cleanup',
+        cmd = ['cnf-testsuite', 'cnf_cleanup',
                'cnf-config=cnf-conformance.yml']
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
