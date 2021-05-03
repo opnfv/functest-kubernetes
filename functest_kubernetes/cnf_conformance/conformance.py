@@ -84,7 +84,7 @@ class CNFConformance(testcase.TestCase):
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
         lfiles = glob.glob(os.path.join(
-            self.res_dir, 'results', 'cnf-testsuite-results-*.yml'))
+            self.res_dir, 'results', 'cnf-conformance-results-*.yml'))
         results = max(lfiles, key=os.path.getmtime)
         with open(os.path.join(self.res_dir, 'results', results)) as yfile:
             self.details = yaml.safe_load(yfile)
