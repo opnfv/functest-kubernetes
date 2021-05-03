@@ -279,6 +279,7 @@ tiers:
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Conformance\\]|load.balancer|\
                 LoadBalancer|\\[Feature:NetworkPolicy\\]|\
+                \\[Feature:Federation\\]|\
                 \\[Feature:Networking-IPv6\\]|\
                 \\[Feature:IPv6DualStackAlphaFeature\\]|\
                 \\[Feature:SCTP\\]|\\[Feature:Example\\]"
