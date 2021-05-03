@@ -28,7 +28,7 @@ tiers:
         run:
           name: e2e_testing
           args:
-            nodes: 25
+            nodes: 10
             ginkgo:
               focus: \[Conformance\]
               skip: \[Serial\]|\[Disruptive\]|NoExecuteTaintManager
@@ -61,7 +61,7 @@ tiers:
         run:
           name: e2e_testing
           args:
-            nodes: 25
+            nodes: 10
             ginkgo:
               focus: \[sig-api-machinery\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
@@ -98,7 +98,7 @@ tiers:
         run:
           name: e2e_testing
           args:
-            nodes: 25
+            nodes: 10
             ginkgo:
               focus: \[sig-apps]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
@@ -138,7 +138,7 @@ tiers:
         run:
           name: e2e_testing
           args:
-            nodes: 25
+            nodes: 10
             ginkgo:
               focus: \[sig-auth\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
@@ -157,7 +157,7 @@ tiers:
         run:
           name: e2e_testing
           args:
-            nodes: 25
+            nodes: 10
             ginkgo:
               focus: \[sig-cli]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
@@ -190,7 +190,7 @@ tiers:
         run:
           name: e2e_testing
           args:
-            nodes: 25
+            nodes: 10
             ginkgo:
               focus: \[sig-cluster-lifecycle\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
@@ -207,7 +207,7 @@ tiers:
         run:
           name: e2e_testing
           args:
-            nodes: 25
+            nodes: 10
             ginkgo:
               focus: \[sig-instrumentation\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
@@ -227,7 +227,7 @@ tiers:
         run:
           name: e2e_testing
           args:
-            nodes: 25
+            nodes: 10
             ginkgo:
               focus: \[sig-network\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
@@ -273,7 +273,7 @@ tiers:
         run:
           name: e2e_testing
           args:
-            nodes: 25
+            nodes: 10
             ginkgo:
               focus: \[sig-node]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
@@ -314,7 +314,7 @@ tiers:
         run:
           name: e2e_testing
           args:
-            nodes: 25
+            nodes: 10
             ginkgo:
               focus: \[sig-storage\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
