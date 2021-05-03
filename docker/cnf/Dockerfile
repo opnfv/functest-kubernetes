@@ -4,7 +4,7 @@ ARG K8S_TAG=1.21
 ARG CNF_TESTSUITE_TAG=v0.11.0
 ARG HELM_TAG=v3.3.1
 
-RUN apk --no-cache add --update wget curl libc6-compat && \
+RUN apk --no-cache add --update wget curl libc6-compat ncurses && \
     tag=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable-$K8S_TAG.txt)  && \
     case $(uname -m) in armv7l) arch=arm;; aarch64) arch=arm64;; x86_64) arch=amd64;; esac && \
     curl https://storage.googleapis.com/kubernetes-release/release/$tag/bin/linux/$arch/kubectl \
