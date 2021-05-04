@@ -15,14 +15,16 @@ and testing (vIMS, vRouter and vEPC) to ensure that the platforms meet Network
 Functions Virtualization requirements. Raspberry PI is also supported to verify
 datacenters as the lowest cost (50 euros hardware and software included).
 
-| Functest releases | Kubernetes releases           |
-|-------------------|-------------------------------|
-| Hunter            | v1.13                         |
-| Iruya             | v1.15                         |
-| Jerma             | v1.17                         |
-| Kali              | v1.19                         |
-| Leguer            | v1.20                         |
-| **Master**        | **v1.21.0-alpha.3 (rolling)** |
+| Functest releases | Kubernetes releases       |
+|-------------------|---------------------------|
+| Hunter            | v1.13                     |
+| Iruya             | v1.15                     |
+| Jerma             | v1.17                     |
+| Kali              | v1.19                     |
+| Leguer            | v1.20                     |
+| **v1.21**         | **v1.21**                 |
+| Master            | v1.22.0-alpha.1 (rolling) |
+
 
 ## Prepare your environment
 
@@ -57,12 +59,28 @@ sudo docker run --env-file env \
 ```
 
 ```
-+---------------------------+------------------+---------------+------------------+----------------+
-|         TEST CASE         |     PROJECT      |      TIER     |     DURATION     |     RESULT     |
-+---------------------------+------------------+---------------+------------------+----------------+
-|      k8s_conformance      |     functest     |     smoke     |      94:26       |      PASS      |
-|     xrally_kubernetes     |     functest     |     smoke     |      13:05       |      PASS      |
-+---------------------------+------------------+---------------+------------------+----------------+
++----------------------------------+------------------+---------------+------------------+----------------+
+|            TEST CASE             |     PROJECT      |      TIER     |     DURATION     |     RESULT     |
++----------------------------------+------------------+---------------+------------------+----------------+
+|        xrally_kubernetes         |     functest     |     smoke     |      12:12       |      PASS      |
+|         k8s_conformance          |     functest     |     smoke     |      13:01       |      PASS      |
+|      k8s_conformance_serial      |     functest     |     smoke     |      14:51       |      PASS      |
+|        sig_api_machinery         |     functest     |     smoke     |      05:58       |      PASS      |
+|     sig_api_machinery_serial     |     functest     |     smoke     |      01:22       |      PASS      |
+|             sig_apps             |     functest     |     smoke     |      03:25       |      PASS      |
+|         sig_apps_serial          |     functest     |     smoke     |      00:27       |      PASS      |
+|             sig_auth             |     functest     |     smoke     |      10:05       |      PASS      |
+|             sig_cli              |     functest     |     smoke     |      03:00       |      PASS      |
+|          sig_cli_serial          |     functest     |     smoke     |      00:08       |      PASS      |
+|      sig_cluster_lifecycle       |     functest     |     smoke     |      00:26       |      PASS      |
+|       sig_instrumentation        |     functest     |     smoke     |      00:10       |      PASS      |
+|           sig_network            |     functest     |     smoke     |      03:06       |      PASS      |
+|        sig_network_serial        |     functest     |     smoke     |      11:08       |      PASS      |
+|             sig_node             |     functest     |     smoke     |      27:56       |      PASS      |
+|      sig_scheduling_serial       |     functest     |     smoke     |      08:14       |      PASS      |
+|           sig_storage            |     functest     |     smoke     |      07:49       |      PASS      |
+|        sig_storage_serial        |     functest     |     smoke     |      02:44       |      PASS      |
++----------------------------------+------------------+---------------+------------------+----------------+
 ```
 
 ## Run security suite
@@ -108,13 +126,13 @@ sudo docker run --env-file env \
 ```
 
 ```
-+-------------------------+------------------+--------------+------------------+----------------+
-|        TEST CASE        |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
-+-------------------------+------------------+--------------+------------------+----------------+
-|         k8s_vims        |     functest     |     cnf      |      09:06       |      PASS      |
-|        helm_vims        |     functest     |     cnf      |      08:54       |      PASS      |
-|     cnf_conformance     |     functest     |     cnf      |      02:00       |      PASS      |
-+-------------------------+------------------+--------------+------------------+----------------+
++-----------------------+------------------+--------------+------------------+----------------+
+|       TEST CASE       |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
++-----------------------+------------------+--------------+------------------+----------------+
+|        k8s_vims       |     functest     |     cnf      |      09:06       |      PASS      |
+|       helm_vims       |     functest     |     cnf      |      08:54       |      PASS      |
+|     cnf_testsuite     |     functest     |     cnf      |      23:30       |      PASS      |
++-----------------------+------------------+--------------+------------------+----------------+
 ```
 
 
