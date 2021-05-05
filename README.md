@@ -22,7 +22,8 @@ datacenters as the lowest cost (50 euros hardware and software included).
 | Jerma             | v1.17                         |
 | Kali              | v1.19                         |
 | Leguer            | v1.20                         |
-| **Master**        | **v1.21.0-alpha.3 (rolling)** |
+| v1.21             | v1.21                         |
+| **Master**        | **v1.22.0-alpha.1 (rolling)** |
 
 ## Prepare your environment
 
@@ -57,12 +58,28 @@ sudo docker run --env-file env \
 ```
 
 ```
-+---------------------------+------------------+---------------+------------------+----------------+
-|         TEST CASE         |     PROJECT      |      TIER     |     DURATION     |     RESULT     |
-+---------------------------+------------------+---------------+------------------+----------------+
-|      k8s_conformance      |     functest     |     smoke     |      94:26       |      PASS      |
-|     xrally_kubernetes     |     functest     |     smoke     |      13:05       |      PASS      |
-+---------------------------+------------------+---------------+------------------+----------------+
++----------------------------------+------------------+---------------+------------------+----------------+
+|            TEST CASE             |     PROJECT      |      TIER     |     DURATION     |     RESULT     |
++----------------------------------+------------------+---------------+------------------+----------------+
+|        xrally_kubernetes         |     functest     |     smoke     |      13:00       |      PASS      |
+|         k8s_conformance          |     functest     |     smoke     |      16:31       |      PASS      |
+|      k8s_conformance_serial      |     functest     |     smoke     |      15:34       |      PASS      |
+|        sig_api_machinery         |     functest     |     smoke     |      09:01       |      PASS      |
+|     sig_api_machinery_serial     |     functest     |     smoke     |      01:24       |      PASS      |
+|             sig_apps             |     functest     |     smoke     |      03:45       |      PASS      |
+|         sig_apps_serial          |     functest     |     smoke     |      00:31       |      PASS      |
+|             sig_auth             |     functest     |     smoke     |      09:04       |      PASS      |
+|             sig_cli              |     functest     |     smoke     |      03:01       |      PASS      |
+|          sig_cli_serial          |     functest     |     smoke     |      00:05       |      PASS      |
+|      sig_cluster_lifecycle       |     functest     |     smoke     |      00:26       |      PASS      |
+|       sig_instrumentation        |     functest     |     smoke     |      00:03       |      PASS      |
+|           sig_network            |     functest     |     smoke     |      05:43       |      PASS      |
+|        sig_network_serial        |     functest     |     smoke     |      11:14       |      PASS      |
+|             sig_node             |     functest     |     smoke     |      28:03       |      PASS      |
+|      sig_scheduling_serial       |     functest     |     smoke     |      08:03       |      PASS      |
+|           sig_storage            |     functest     |     smoke     |      09:17       |      PASS      |
+|        sig_storage_serial        |     functest     |     smoke     |      02:40       |      PASS      |
++----------------------------------+------------------+---------------+------------------+----------------+
 ```
 
 ## Run security suite
@@ -108,13 +125,13 @@ sudo docker run --env-file env \
 ```
 
 ```
-+-------------------------+------------------+--------------+------------------+----------------+
-|        TEST CASE        |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
-+-------------------------+------------------+--------------+------------------+----------------+
-|         k8s_vims        |     functest     |     cnf      |      09:06       |      PASS      |
-|        helm_vims        |     functest     |     cnf      |      08:54       |      PASS      |
-|     cnf_conformance     |     functest     |     cnf      |      02:00       |      PASS      |
-+-------------------------+------------------+--------------+------------------+----------------+
++-----------------------+------------------+--------------+------------------+----------------+
+|       TEST CASE       |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
++-----------------------+------------------+--------------+------------------+----------------+
+|        k8s_vims       |     functest     |     cnf      |      09:06       |      PASS      |
+|       helm_vims       |     functest     |     cnf      |      08:54       |      PASS      |
+|     cnf_testsuite     |     functest     |     cnf      |      00:00       |      SKIP      |
++-----------------------+------------------+--------------+------------------+----------------+
 ```
 
 
