@@ -103,6 +103,8 @@ tiers:
               focus: \[sig-apps]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
+                \\[Feature:IndexedJob\\]|\
+                \\[Feature:SuspendJob\\]|\
                 \\[Feature:StatefulUpgrade\\]|\
                 \\[Feature:StatefulSet\\]"
       - case_name: sig_apps_serial
@@ -123,6 +125,7 @@ tiers:
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Conformance\\]|\
                 \\[Feature:StatefulUpgrade\\]|\
+                \\[Feature:DaemonSetUpdateSurge\\]|\
                 \\[Feature:StatefulSet\\]"
       - case_name: sig_auth
         project_name: functest
@@ -234,7 +237,7 @@ tiers:
                 \\[Serial\\]|\\[Conformance\\]|load.balancer|\
                 LoadBalancer|\\[Feature:NetworkPolicy\\]|\
                 \\[Feature:Networking-IPv6\\]|\
-                \\[Feature:IPv6DualStackAlphaFeature\\]|\
+                \\[Feature:IPv6DualStack\\]|\
                 \\[Feature:SCTP\\]|\\[Feature:Example\\]|\
                 Network.should.set.TCP.CLOSE_WAIT.timeout"
       - case_name: sig_network_serial
@@ -281,6 +284,7 @@ tiers:
                 \\[NodeFeature:RuntimeHandler\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
+                \\[Feature:GPUUpgrade\\]|\
                 \\[Feature:ExperimentalResourceUsageTracking\\]|\
                 RuntimeClass"
       - case_name: sig_scheduling_serial
