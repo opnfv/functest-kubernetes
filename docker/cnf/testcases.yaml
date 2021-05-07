@@ -32,6 +32,7 @@ tiers:
         project_name: functest
         criteria: 1
         blocking: false
+        enabled: false
         description: >-
           Enable interoperability of Cloud native Network
           Functions (CNFs) as proposed by
