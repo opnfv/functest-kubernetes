@@ -1,0 +1,42 @@
+--- plotperf.py.orig	2021-05-09 10:42:17.858983226 +0200
++++ plotperf.py	2021-05-09 10:43:09.410934186 +0200
+@@ -18,11 +18,13 @@
+ # Generates matplotlib line and bar charts from the netperf.csv raw data file
+ #
+ 
++from __future__ import print_function
++from builtins import range
+ try:
+   import matplotlib.pyplot as plt
+-except Exception, e:
++except Exception as e:
+   # Translate the traceback to a more friendly error message
+-  print "Exception (%s) while importing matplotlib - install with apt-get install python-matplotlib (or equivalent package manager)" % e
++  print("Exception (%s) while importing matplotlib - install with apt-get install python-matplotlib (or equivalent package manager)" % e)
+   raise
+ 
+ import numpy
+@@ -93,7 +95,7 @@
+   for ext in [ "png", "svg" ]:
+     fname = os.path.join(options.outputdir, "{0}.{1}".format(options.suffix, ext))
+     plt.savefig(fname, dpi=100)
+-    print "Saved {0}".format(fname)
++    print("Saved {0}".format(fname))
+ 
+   barlabels = []
+   barvalues = []
+@@ -105,7 +107,7 @@
+     barvalues.append(float(data[n][1]))
+ 
+   plt.clf()
+-  plt.barh(bottom=range(0, len(data)-1),
++  plt.barh(list(range(0, len(data)-1)),
+            height=0.5,
+            width=barvalues,
+            align='center')
+@@ -117,4 +119,4 @@
+   for ext in [ "png", "svg" ]:
+     fname = os.path.join(options.outputdir, "{0}.bar.{1}".format(options.suffix, ext))
+     plt.savefig(fname, dpi=100)
+-    print "Saved {0}".format(fname)
++    print("Saved {0}".format(fname))

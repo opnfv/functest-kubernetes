@@ -20,3 +20,14 @@ tiers:
             times: 10
             concurrency: 4
             namespaces_count: 3
+      - case_name: netperf
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          A standardized benchmark to measure Kubernetes networking performance
+          on multiple host platforms and network stacks.
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: netperf
