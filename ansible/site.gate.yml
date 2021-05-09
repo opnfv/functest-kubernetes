@@ -59,6 +59,7 @@
         - container: functest-kubernetes-benchmarking
           tests:
             - xrally_kubernetes_full
+            - netperf
         - container: functest-kubernetes-cnf
           tests:
             - k8s_vims
