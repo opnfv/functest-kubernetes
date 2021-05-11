@@ -15,11 +15,11 @@ RUN apk -U upgrade && \
     (cd /src/functest-kubernetes && \
         git fetch --tags https://gerrit.opnfv.org/gerrit/functest-kubernetes $BRANCH && \
         git checkout FETCH_HEAD) && \
-    pip3 install --no-cache-dir --src /src \
+    pip3 install --use-deprecated=legacy-resolver --no-cache-dir --src /src \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
         setuptools_scm && \
-    pip3 install --no-cache-dir --src /src \
+    pip3 install --use-deprecated=legacy-resolver --no-cache-dir --src /src \
         -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
         -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
         /src/functest-kubernetes && \
