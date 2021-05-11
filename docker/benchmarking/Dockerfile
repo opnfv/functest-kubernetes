@@ -1,11 +1,17 @@
 FROM opnfv/functest-kubernetes-smoke:kali
 
+ARG OPENSTACK_TAG=stable/ussuri
+ARG OPNFV_TAG=stable/kali
 ARG NETPERF_TAG=8a5a7a23f2165b29e46b4d32aad7d5f85e4b9516
 ARG PLOTPERF_TAG=2455313f4b9581795a8f642243acaad472d91804
 
 COPY plotperf.py.patch /tmp/plotperf.py.patch
-RUN apk --no-cache add --update py3-matplotlib && \
-    apk --no-cache add --virtual .build-deps --update patch go && \
+RUN apk --no-cache add py3-numpy freetype --update && \
+    apk --no-cache add --virtual .build-deps --update patch go python3-dev build-base freetype-dev && \
+    pip3 install --use-deprecated=legacy-resolver --no-cache-dir --src /src \
+        -chttps://git.opnfv.org/functest/plain/upper-constraints.txt?h=$OPNFV_TAG \
+        -chttps://opendev.org/openstack/requirements/raw/branch/$OPENSTACK_TAG/upper-constraints.txt \
+        matplotlib===3.1.3 kiwisolver===1.1.0 cycler===0.10.0 && \
     ln -s /usr/bin/python3 /usr/bin/python && \
     git clone https://github.com/kubernetes/perf-tests && \
     (cd perf-tests && git checkout $NETPERF_TAG) && \
