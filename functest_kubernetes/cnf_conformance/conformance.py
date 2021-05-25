@@ -57,24 +57,14 @@ class CNFConformance(testcase.TestCase):
 
     def setup(self):
         """Implement initialization and pre-reqs steps"""
-        if os.path.exists(self.res_dir):
-            shutil.rmtree(self.res_dir)
-        os.makedirs(self.res_dir)
-        shutil.copy2(os.path.join(self.src_dir, 'points.yml'), self.res_dir)
-        shutil.copy2(
-            os.path.join(self.src_dir, 'cnf-conformance.yml'), self.res_dir)
-        os.makedirs(os.path.join(self.res_dir, 'spec/fixtures'))
-        for cfile in ["chaos_network_loss.yml", "chaos_cpu_hog.yml",
-                      "chaos_container_kill.yml"]:
-            shutil.copy2(
-                os.path.join(self.src_dir, 'spec/fixtures', cfile),
-                os.path.join(self.res_dir, 'spec/fixtures', cfile))
-        os.chdir(self.res_dir)
+        if os.path.exists(os.path.join(self.src_dir, "results")):
+            shutil.rmtree(os.path.join(self.src_dir, "results"))
+        os.chdir(self.src_dir)
         cmd = ['cnf-testsuite', 'setup']
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
         cmd = ['cnf-testsuite', 'cnf_setup',
-               'cnf-config=cnf-conformance.yml']
+               'cnf-config=cnf-testsuite.yml']
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
 
@@ -84,9 +74,9 @@ class CNFConformance(testcase.TestCase):
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
         lfiles = glob.glob(os.path.join(
-            self.res_dir, 'results', 'cnf-conformance-results-*.yml'))
+            self.src_dir, 'results', 'cnf-testsuite-results-*.yml'))
         results = max(lfiles, key=os.path.getmtime)
-        with open(os.path.join(self.res_dir, 'results', results)) as yfile:
+        with open(os.path.join(self.src_dir, 'results', results)) as yfile:
             self.details = yaml.safe_load(yfile)
             msg = prettytable.PrettyTable(
                 header_style='upper', padding_width=5,
@@ -98,8 +88,11 @@ class CNFConformance(testcase.TestCase):
             r'Final .* score: (\d+) of (\d+)', output.decode("utf-8"))
         if grp:
             self.result = int(grp.group(1)) / int(grp.group(2)) * 100
+        if not os.path.exists(self.res_dir):
+            os.makedirs(self.res_dir)
         shutil.copy2(
-            os.path.join(self.res_dir, 'results', results), self.res_dir)
+            os.path.join(self.src_dir, 'results', results),
+            os.path.join(self.res_dir, 'cnf-testsuite-results.yml'))
 
     def run(self, **kwargs):
         """"Running the test with example CNF"""
@@ -113,10 +106,6 @@ class CNFConformance(testcase.TestCase):
 
     def clean(self):
         cmd = ['cnf-testsuite', 'cnf_cleanup',
-               'cnf-config=cnf-conformance.yml']
+               'cnf-config=cnf-testsuite.yml']
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
-        shutil.rmtree(os.path.join(self.res_dir, 'tools'), ignore_errors=True)
-        shutil.rmtree(os.path.join(self.res_dir, 'cnfs'), ignore_errors=True)
-        shutil.rmtree(
-            os.path.join(self.res_dir, 'results'), ignore_errors=True)
