@@ -1,7 +1,7 @@
 FROM opnfv/functest-kubernetes-core
 
 ARG K8S_TAG=1.22
-ARG CNF_TESTSUITE_TAG=v0.11.0
+ARG CNF_TESTSUITE_TAG=v0.11.2
 ARG HELM_TAG=v3.3.1
 
 RUN apk --no-cache add --update wget curl libc6-compat ncurses && \
@@ -21,15 +21,13 @@ RUN apk --no-cache add --update wget curl libc6-compat ncurses && \
         tar zxf /src/cnf-testsuite-$CNF_TESTSUITE_TAG.tar.gz ./cnf-testsuite -C /usr/local/bin && \
         chmod +x /usr/local/bin/cnf-testsuite && \
         mkdir /src/cnf-testsuite && \
-        curl -L https://raw.githubusercontent.com/cncf/cnf-testsuite/$CNF_TESTSUITE_TAG/example-cnfs/coredns/cnf-conformance.yml \
-            --output /src/cnf-testsuite/cnf-conformance.yml && \
-        curl -L https://raw.githubusercontent.com/cncf/cnf-testsuite/$CNF_TESTSUITE_TAG/points.yml \
-            --output /src/cnf-testsuite/points.yml && \
-        mkdir -p /src/cnf-testsuite/spec/fixtures && \
-        for yml in chaos_network_loss.yml chaos_cpu_hog.yml chaos_container_kill.yml; do \
-            curl -L https://raw.githubusercontent.com/cncf/cnf-testsuite/$CNF_TESTSUITE_TAG/spec/fixtures/$yml \
-                --output /src/cnf-testsuite/spec/fixtures/$yml; done && \
+        git init /src/cnf-testsuite && \
+        (cd /src/cnf-testsuite && \
+            git fetch --tags https://github.com/cncf/cnf-testsuite.git $CNF_TESTSUITE_TAG && \
+            git checkout FETCH_HEAD) && \
+        ln -s /src/cnf-testsuite/example-cnfs/coredns/cnf-testsuite.yml /src/cnf-testsuite/cnf-testsuite.yml && \
+        ln -s /src/cnf-testsuite/points-all.yml /src/cnf-testsuite/points.yml && \
         helm repo add stable https://cncf.gitlab.io/stable && \
-        rm /src/cnf-testsuite-$CNF_TESTSUITE_TAG.tar.gz ;; esac
+        rm -rf /src/cnf-testsuite-$CNF_TESTSUITE_TAG.tar.gz /src/cnf-testsuite/.git ;; esac
 COPY testcases.yaml /usr/lib/python3.8/site-packages/xtesting/ci/testcases.yaml
 CMD ["run_tests", "-t", "all"]
