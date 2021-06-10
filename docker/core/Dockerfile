@@ -18,6 +18,7 @@ RUN apk -U upgrade && \
         sed -i -E /^PyNaCl=/d /src/requirements/upper-constraints.txt && \
         apk add --no-cache py3-pynacl ;; esac && \
     sed -i -E /^six=/d /src/requirements/upper-constraints.txt && \
+    sed -i -E /^distlib=/d /src/requirements/upper-constraints.txt && \
     apk --no-cache add --update py3-distlib\>=0.3.1 \
         --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main && \
     git init /src/functest-kubernetes && \
