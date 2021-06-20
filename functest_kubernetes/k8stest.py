@@ -45,6 +45,15 @@ class E2ETesting(testcase.TestCase):
         self.output_log_name = 'functest-kubernetes.log'
         self.output_debug_log_name = 'functest-kubernetes.debug.log'
 
+    @staticmethod
+    def convert_ini_to_dict(value):
+        "Convert oslo.conf input to dict"
+        assert isinstance(value, str)
+        try:
+            return dict((x.rsplit(':', 1) for x in value.split(',')))
+        except ValueError:
+            return {}
+
     def run_kubetest(self, **kwargs):  # pylint: disable=too-many-branches
         """Run the test suites"""
         cmd_line = [
@@ -54,6 +63,9 @@ class E2ETesting(testcase.TestCase):
             '-provider', 'skeleton', '-report-dir', self.res_dir]
         for arg in kwargs.get("ginkgo", {}):
             cmd_line.extend(['-ginkgo.{}'.format(arg), kwargs["ginkgo"][arg]])
+        for key, value in self.convert_ini_to_dict(
+                os.environ.get("E2E_TEST_OPTS", "")).items():
+            cmd_line.extend(['-{}'.format(key), value])
         if "NON_BLOCKING_TAINTS" in os.environ:
             cmd_line.extend(
                 ['-non-blocking-taints', os.environ["NON_BLOCKING_TAINTS"]])
