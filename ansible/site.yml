@@ -18,7 +18,6 @@
             execution-type: SEQUENTIALLY
           tests:
             - xrally_kubernetes
-            - k8s_io
             - k8s_conformance
             - k8s_conformance_serial
             - sig_api_machinery
