@@ -257,7 +257,7 @@ tiers:
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:Example\\]|\
                 \\[Feature:Ingress\\]|\
-                \\[Feature:IPv6DualStack\\]|\
+                \\[Feature:IPv6DualStackAlphaFeature\\]|\
                 \\[Feature:kubemci\\]|\
                 \\[Feature:KubeProxyDaemonSetMigration\\]|\
                 \\[Feature:KubeProxyDaemonSetUpgrade\\]|\
