@@ -100,6 +100,10 @@ class CNFConformance(testcase.TestCase):
         try:
             self.setup()
             self.run_conformance(**kwargs)
+        except subprocess.CalledProcessError as exc:
+            self.__logger.exception(
+                "Can not run CNT Conformance: \n%s\n%s\n",
+                " ".join(exc.cmd), exc.output.decode("utf-8"))
         except Exception:  # pylint: disable=broad-except
             self.__logger.exception("Can not run CNF Conformance")
         self.stop_time = time.time()
