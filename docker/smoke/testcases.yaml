@@ -364,7 +364,8 @@ tiers:
                 \\[Feature:Windows\\]|\
                 \\[NodeFeature:EphemeralStorage\\]|\
                 PersistentVolumes.NFS|\
-                should provision storage with different parameters"
+                should provision storage with different parameters|\
+                should not cause race condition when used for git_repo"
       - case_name: sig_storage_serial
         project_name: functest
         criteria: 100
@@ -391,4 +392,5 @@ tiers:
                 \\[Feature:Windows\\]|\
                 \\[NodeFeature:EphemeralStorage\\]|\
                 PersistentVolumes.NFS|\
-                should provision storage with different parameters"
+                should provision storage with different parameters|\
+                should not cause race condition when used for git_repo"
