@@ -16,5 +16,5 @@ RUN apk --no-cache add --update py3-matplotlib && \
         mv plotperf.py plotperf && chmod a+x plotperf) && \
     rm -rf perf-tests /tmp/plotperf.py.patch && \
     apk del .build-deps
-COPY testcases.yaml /usr/lib/python3.8/site-packages/xtesting/ci/testcases.yaml
+COPY testcases.yaml /usr/lib/python3.9/site-packages/xtesting/ci/testcases.yaml
 CMD ["run_tests", "-t", "all"]

@@ -13,5 +13,5 @@ RUN apk --no-cache add --update curl libc6-compat && \
     mv /src/kubernetes/test/bin/e2e.test /src/kubernetes/test/bin/ginkgo /usr/local/bin/ && \
     chmod +x /usr/local/bin/kubectl /usr/local/bin/e2e.test /usr/local/bin/ginkgo && \
     rm -r /src/kubernetes /src/kubernetes-test-linux-$arch.tar.gz
-COPY testcases.yaml /usr/lib/python3.8/site-packages/xtesting/ci/testcases.yaml
+COPY testcases.yaml /usr/lib/python3.9/site-packages/xtesting/ci/testcases.yaml
 CMD ["run_tests", "-t", "all"]

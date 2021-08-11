@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.14
 
 ARG BRANCH=master
 ARG OPENSTACK_TAG=master
@@ -44,6 +44,6 @@ RUN apk -U upgrade && \
     mkdir -p /var/lib/rally/database && rally db create && \
     rm -r /src/requirements/.git /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch && \
     apk del .build-deps
-COPY logging.ini /usr/lib/python3.8/site-packages/xtesting/ci/logging.ini
-COPY logging.debug.ini /usr/lib/python3.8/site-packages/xtesting/ci/logging.debug.ini
+COPY logging.ini /usr/lib/python3.9/site-packages/xtesting/ci/logging.ini
+COPY logging.debug.ini /usr/lib/python3.9/site-packages/xtesting/ci/logging.debug.ini
 CMD ["run_tests", "-t", "all"]
