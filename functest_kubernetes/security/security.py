@@ -27,6 +27,7 @@ from kubernetes import config
 from kubernetes import watch
 import pkg_resources
 import prettytable
+
 from xtesting.core import testcase
 
 
@@ -39,7 +40,7 @@ class SecurityTesting(testcase.TestCase):
     __logger = logging.getLogger(__name__)
 
     def __init__(self, **kwargs):
-        super(SecurityTesting, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         config.load_kube_config()
         self.corev1 = client.CoreV1Api()
         self.batchv1 = client.BatchV1Api()
@@ -133,7 +134,7 @@ class KubeHunter(SecurityTesting):
     __logger = logging.getLogger(__name__)
 
     def __init__(self, **kwargs):
-        super(KubeHunter, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.job_name = "kube-hunter"
         self.ns_generate_name = "kube-hunter-"
 
@@ -181,7 +182,7 @@ class KubeHunter(SecurityTesting):
             self.__logger.info("\n\n%s\n", msg.get_string())
 
     def run(self, **kwargs):
-        super(KubeHunter, self).run(**kwargs)
+        super().run(**kwargs)
         try:
             self.process_results(**kwargs)
         except Exception:  # pylint: disable=broad-except
@@ -200,13 +201,13 @@ class KubeBench(SecurityTesting):
     __logger = logging.getLogger(__name__)
 
     def __init__(self, **kwargs):
-        super(KubeBench, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.job_name = "kube-bench"
         self.ns_generate_name = "kube-bench-"
 
     def run(self, **kwargs):
         self.job_name = "kube-bench-{}".format(kwargs.get("target", "node"))
-        super(KubeBench, self).run(**kwargs)
+        super().run(**kwargs)
         self.details["report"] = ast.literal_eval(self.pod_log)
         msg = prettytable.PrettyTable(
             header_style='upper', padding_width=5,

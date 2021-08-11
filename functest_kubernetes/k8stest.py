@@ -35,7 +35,7 @@ class E2ETesting(testcase.TestCase):
     k8s_gcr_repo = os.getenv("MIRROR_REPO", "k8s.gcr.io")
 
     def __init__(self, **kwargs):
-        super(E2ETesting, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.cmd = []
         self.dir_results = "/home/opnfv/functest/results"
         self.res_dir = os.path.join(self.dir_results, self.case_name)
@@ -74,9 +74,10 @@ class E2ETesting(testcase.TestCase):
         self.__logger.info("Starting k8s test: '%s'.", cmd_line)
         env = os.environ.copy()
         env["KUBE_TEST_REPO_LIST"] = "{}/repositories.yml".format(self.res_dir)
-        process = subprocess.Popen(cmd_line, stdout=subprocess.PIPE,
-                                   stderr=subprocess.STDOUT, env=env)
-        boutput = process.stdout.read()
+        with subprocess.Popen(
+                cmd_line, stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT, env=env) as process:
+            boutput = process.stdout.read()
         with open(os.path.join(self.res_dir, 'e2e.log'), 'wb') as foutput:
             foutput.write(boutput)
         grp = re.search(

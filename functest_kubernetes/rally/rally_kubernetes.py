@@ -36,7 +36,7 @@ class RallyKubernetes(testcase.TestCase):
     k8s_gcr_repo = os.getenv("MIRROR_REPO", "k8s.gcr.io")
 
     def __init__(self, **kwargs):
-        super(RallyKubernetes, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.dir_results = "/home/opnfv/functest/results"
         self.res_dir = os.path.join(self.dir_results, self.case_name)
         self.output_log_name = 'functest-kubernetes.log'

@@ -27,7 +27,7 @@ class Netperf(testcase.TestCase):
     __logger = logging.getLogger(__name__)
 
     def __init__(self, **kwargs):
-        super(Netperf, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.output_log_name = 'functest-kubernetes.log'
         self.output_debug_log_name = 'functest-kubernetes.debug.log'
 

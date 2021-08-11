@@ -14,9 +14,9 @@ from __future__ import division
 import abc
 import logging
 import os
-import time
-import subprocess
 import re
+import subprocess
+import time
 import yaml
 
 from jinja2 import Template
@@ -24,7 +24,6 @@ from kubernetes import client
 from kubernetes import config
 from kubernetes import watch
 import pkg_resources
-
 from xtesting.core import testcase
 
 
@@ -51,7 +50,7 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
         "homestead", "homestead-prov", "ralf", "sprout"]
 
     def __init__(self, **kwargs):
-        super(Vims, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         config.load_kube_config()
         self.corev1 = client.CoreV1Api()
         self.appsv1 = client.AppsV1Api()
@@ -260,7 +259,7 @@ class K8sVims(Vims):
                     "delete_namespaced_service: %s", api_response)
             except client.rest.ApiException:
                 pass
-        super(K8sVims, self).clean()
+        super().clean()
 
 
 class HelmVims(Vims):
@@ -293,4 +292,4 @@ class HelmVims(Vims):
         cmd = ["helm", "uninstall", "clearwater", "-n", self.namespace]
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         self.__logger.debug(output.decode("utf-8"))
-        super(HelmVims, self).clean()
+        super().clean()
