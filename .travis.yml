@@ -40,8 +40,8 @@ jobs:
       script: >
         manifest-tool push from-args \
           --platforms linux/amd64,linux/arm,linux/arm64 \
-          --template ${DOCKER_USERNAME}/functest-kubernetes-core:ARCH-latest \
-          --target ${DOCKER_USERNAME}/functest-kubernetes-core:latest
+          --template ${DOCKER_USERNAME}/functest-kubernetes-core:ARCH-v1.22 \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-core:v1.22
     - stage: build functest-kubernetes-[healthcheck,cnf,security] images
       script: bash build.sh
       env:
@@ -102,19 +102,19 @@ jobs:
         manifest-tool push from-args \
           --platforms linux/amd64,linux/arm,linux/arm64 \
           --template \
-          ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:ARCH-latest \
-          --target ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:latest
+          ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:ARCH-v1.22 \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-healthcheck:v1.22
     - script: >
         manifest-tool push from-args \
           --platforms linux/amd64,linux/arm,linux/arm64 \
-          --template ${DOCKER_USERNAME}/functest-kubernetes-cnf:ARCH-latest \
-          --target ${DOCKER_USERNAME}/functest-kubernetes-cnf:latest
+          --template ${DOCKER_USERNAME}/functest-kubernetes-cnf:ARCH-v1.22 \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-cnf:v1.22
     - script: >
         manifest-tool push from-args \
           --platforms linux/amd64,linux/arm,linux/arm64 \
           --template \
-            ${DOCKER_USERNAME}/functest-kubernetes-security:ARCH-latest \
-          --target ${DOCKER_USERNAME}/functest-kubernetes-security:latest
+            ${DOCKER_USERNAME}/functest-kubernetes-security:ARCH-v1.22 \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-security:v1.22
     - stage: build functest-kubernetes-smoke image
       script: bash build.sh
       env:
@@ -138,8 +138,8 @@ jobs:
       script: >
         manifest-tool push from-args \
           --platforms linux/amd64,linux/arm,linux/arm64 \
-          --template ${DOCKER_USERNAME}/functest-kubernetes-smoke:ARCH-latest \
-          --target ${DOCKER_USERNAME}/functest-kubernetes-smoke:latest
+          --template ${DOCKER_USERNAME}/functest-kubernetes-smoke:ARCH-v1.22 \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-smoke:v1.22
     - stage: build functest-kubernetes-benchmarking image
       script: bash build.sh
       env:
@@ -164,5 +164,5 @@ jobs:
         manifest-tool push from-args \
           --platforms linux/amd64,linux/arm,linux/arm64 \
           --template \
-        ${DOCKER_USERNAME}/functest-kubernetes-benchmarking:ARCH-latest \
-          --target ${DOCKER_USERNAME}/functest-kubernetes-benchmarking:latest
+        ${DOCKER_USERNAME}/functest-kubernetes-benchmarking:ARCH-v1.22 \
+          --target ${DOCKER_USERNAME}/functest-kubernetes-benchmarking:v1.22
