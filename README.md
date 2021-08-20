@@ -23,6 +23,7 @@ datacenters as the lowest cost (50 euros hardware and software included).
 | Kali              | v1.19                         |
 | Leguer            | v1.20                         |
 | v1.21             | v1.21                         |
+| v1.22             | v1.22                         |
 | **Master**        | **v1.22.0-alpha.1 (rolling)** |
 
 ## Prepare your environment
@@ -37,7 +38,7 @@ DEPLOY_SCENARIO=k8s-XXX
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/root/.kube/config \
-    opnfv/functest-kubernetes-healthcheck
+    opnfv/functest-kubernetes-healthcheck:v1.22
 ```
 
 ```
@@ -54,7 +55,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/root/.kube/config \
-    opnfv/functest-kubernetes-smoke
+    opnfv/functest-kubernetes-smoke:v1.22
 ```
 
 ```
@@ -87,7 +88,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/root/.kube/config \
-    opnfv/functest-kubernetes-security
+    opnfv/functest-kubernetes-security:v1.22
 ```
 
 ```
@@ -105,7 +106,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/root/.kube/config \
-    opnfv/functest-kubernetes-benchmarking
+    opnfv/functest-kubernetes-benchmarking:v1.22
 ```
 
 ```
@@ -121,7 +122,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/root/.kube/config \
-    opnfv/functest-kubernetes-cnf
+    opnfv/functest-kubernetes-cnf:v1.22
 ```
 
 ```
