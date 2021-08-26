@@ -231,37 +231,10 @@ tiers:
                 \\[Feature:NEG\\]|\
                 \\[Feature:Networking-IPv6\\]|\
                 \\[Feature:NetworkPolicy\\]|\
-                \\[Feature:SCTP\\]|\
-                \\[Feature:SCTPConnectivity\\]|
-                load.balancer|LoadBalancer|\
-                Network.should.set.TCP.CLOSE_WAIT.timeout"
-      - case_name: sig_network_serial
-        project_name: functest
-        criteria: 100
-        blocking: false
-        description: >-
-          It runs the remaining sig-network testing excluding
-          the label Conformance (part of k8s_conformance) and a few features.
-        dependencies:
-          - DEPLOY_SCENARIO: "k8-*"
-        run:
-          name: e2e_testing
-          args:
-            ginkgo:
-              focus: \[sig-network\].*\[Serial\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                \\[Conformance\\]|\
-                \\[Feature:Example\\]|\
-                \\[Feature:Ingress\\]|\
-                \\[Feature:IPv6DualStack\\]|\
-                \\[Feature:kubemci\\]|\
-                \\[Feature:KubeProxyDaemonSetMigration\\]|\
-                \\[Feature:KubeProxyDaemonSetUpgrade\\]|\
-                \\[Feature:NEG\\]|\
-                \\[Feature:Networking-IPv6\\]|\
-                \\[Feature:NetworkPolicy\\]|\
+                \\[Feature:PerformanceDNS\\]|\
                 \\[Feature:SCTP\\]|\
                 \\[Feature:SCTPConnectivity\\]|\
+                DNS configMap nameserver|\
                 load.balancer|LoadBalancer|\
                 Network.should.set.TCP.CLOSE_WAIT.timeout"
       - case_name: sig_node
