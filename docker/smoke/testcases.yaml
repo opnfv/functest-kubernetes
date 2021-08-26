@@ -148,39 +148,6 @@ tiers:
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:PodSecurityPolicy\\]|\
                 \\[Feature:BoundServiceAccountTokenVolume\\]"
-      - case_name: sig_cli
-        project_name: functest
-        criteria: 100
-        blocking: false
-        description: >-
-          It runs the remaining sig-cli testing excluding Conformance
-          (part of k8s_conformance).
-        dependencies:
-          - DEPLOY_SCENARIO: "k8-*"
-        run:
-          name: e2e_testing
-          args:
-            nodes: 10
-            ginkgo:
-              focus: \[sig-cli]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                \\[Serial\\]|\\[Conformance\\]"
-      - case_name: sig_cli_serial
-        project_name: functest
-        criteria: 100
-        blocking: false
-        description: >-
-          It runs the remaining sig-cli testing excluding Conformance
-          (part of k8s_conformance).
-        dependencies:
-          - DEPLOY_SCENARIO: "k8-*"
-        run:
-          name: e2e_testing
-          args:
-            ginkgo:
-              focus: \[sig-cli].*\[Serial\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
-                \\[Conformance\\]"
       - case_name: sig_cluster_lifecycle
         project_name: functest
         criteria: 100
