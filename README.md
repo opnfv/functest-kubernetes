@@ -70,12 +70,9 @@ sudo docker run --env-file env \
 |             sig_apps             |     functest     |     smoke     |      06:25       |      PASS      |
 |         sig_apps_serial          |     functest     |     smoke     |      00:34       |      PASS      |
 |             sig_auth             |     functest     |     smoke     |      00:13       |      PASS      |
-|             sig_cli              |     functest     |     smoke     |      03:09       |      PASS      |
-|          sig_cli_serial          |     functest     |     smoke     |      00:05       |      PASS      |
 |      sig_cluster_lifecycle       |     functest     |     smoke     |      00:37       |      PASS      |
 |       sig_instrumentation        |     functest     |     smoke     |      00:07       |      PASS      |
 |           sig_network            |     functest     |     smoke     |      02:00       |      PASS      |
-|        sig_network_serial        |     functest     |     smoke     |      11:35       |      PASS      |
 |             sig_node             |     functest     |     smoke     |      01:43       |      PASS      |
 |      sig_scheduling_serial       |     functest     |     smoke     |      07:39       |      PASS      |
 |           sig_storage            |     functest     |     smoke     |      07:23       |      PASS      |
