@@ -294,6 +294,7 @@ tiers:
               focus: \[sig-storage\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Conformance\\]|\\[Driver:.+\\]|\
+                \\[Feature:CSIStorageCapacity\\]|\
                 \\[Feature:ExpandInUsePersistentVolumes\\]|\
                 \\[Feature:Flexvolumes\\]|\
                 \\[Feature:GKELocalSSD\\]|\
