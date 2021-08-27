@@ -205,6 +205,7 @@ tiers:
                 \\[Feature:StackdriverAcceleratorMonitoring\\]|\
                 \\[Feature:StackdriverCustomMetrics\\]|\
                 \\[Feature:StackdriverExternalMetrics\\]|\
+                \\[Feature:StackdriverLogging\\]|\
                 \\[Feature:StackdriverMetadataAgent\\]|\
                 \\[Feature:StackdriverMonitoring\\]"
       - case_name: sig_network
@@ -260,6 +261,7 @@ tiers:
                 \\[Feature:GPUUpgrade\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
+                \\[Feature:SetHostnameAsFQDN\\]|\
                 \\[NodeFeature:DownwardAPIHugePages\\]|\
                 \\[NodeFeature:RuntimeHandler\\]"
       - case_name: sig_scheduling_serial
