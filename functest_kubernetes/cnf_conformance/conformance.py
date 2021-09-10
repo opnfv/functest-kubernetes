@@ -81,13 +81,21 @@ class CNFConformance(testcase.TestCase):
             msg = prettytable.PrettyTable(
                 header_style='upper', padding_width=5,
                 field_names=['name', 'status'])
+            item_criteria = 0
             for item in self.details['items']:
                 msg.add_row([item['name'], item['status']])
+                if item['status'] == "passed":
+                    item_criteria += 1
+                else:
+                    self.__logger.warning(
+                        "%s %s", item['name'], item['status'])
             self.__logger.info("\n\n%s\n", msg.get_string())
         grp = re.search(
             r'Final .* score: (\d+) of (\d+)', output.decode("utf-8"))
         if grp:
             self.result = int(grp.group(1)) / int(grp.group(2)) * 100
+        else:
+            self.result = item_criteria / len(self.details['items']) * 100
         if not os.path.exists(self.res_dir):
             os.makedirs(self.res_dir)
         shutil.copy2(
