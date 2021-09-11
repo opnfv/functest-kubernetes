@@ -76,7 +76,8 @@ class CNFConformance(testcase.TestCase):
         lfiles = glob.glob(os.path.join(
             self.src_dir, 'results', 'cnf-testsuite-results-*.yml'))
         results = max(lfiles, key=os.path.getmtime)
-        with open(os.path.join(self.src_dir, 'results', results)) as yfile:
+        with open(os.path.join(
+                self.src_dir, 'results', results), encoding='utf-8') as yfile:
             self.details = yaml.safe_load(yfile)
             msg = prettytable.PrettyTable(
                 header_style='upper', padding_width=5,
