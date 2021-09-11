@@ -66,7 +66,8 @@ class SecurityTesting(testcase.TestCase):
         self.__logger.debug("create_namespace: %s", api_response)
         with open(pkg_resources.resource_filename(
                 "functest_kubernetes",
-                "security/{}.yaml".format(self.job_name))) as yfile:
+                "security/{}.yaml".format(self.job_name)),
+                encoding='utf-8') as yfile:
             template = Template(yfile.read())
             body = yaml.safe_load(template.render(
                 dockerhub_repo=os.getenv("DOCKERHUB_REPO",
