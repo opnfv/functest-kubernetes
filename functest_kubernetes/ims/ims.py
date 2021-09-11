@@ -220,7 +220,8 @@ class K8sVims(Vims):
         for deployment in self.deployment_list:
             with open(pkg_resources.resource_filename(
                     'functest_kubernetes',
-                    'ims/{}-depl.yaml'.format(deployment))) as yfile:
+                    'ims/{}-depl.yaml'.format(deployment)),
+                    encoding='utf-8') as yfile:
                 template = Template(yfile.read())
                 body = yaml.safe_load(template.render(
                     dockerhub_repo=os.getenv(
@@ -235,7 +236,8 @@ class K8sVims(Vims):
         for service in self.deployment_list:
             with open(pkg_resources.resource_filename(
                     'functest_kubernetes',
-                    'ims/{}-svc.yaml'.format(service))) as yfile:
+                    'ims/{}-svc.yaml'.format(service)),
+                    encoding='utf-8') as yfile:
                 body = yaml.safe_load(yfile)
                 resp = self.corev1.create_namespaced_service(
                     body=body, namespace=self.namespace)

@@ -65,7 +65,8 @@ class RallyKubernetes(testcase.TestCase):
                 result['existing@kubernetes']['message'])
             return
         with open(pkg_resources.resource_filename(
-                'functest_kubernetes', 'rally/all-in-one.yaml')) as file:
+                'functest_kubernetes', 'rally/all-in-one.yaml'),
+                encoding='utf-8') as file:
             template = Template(file.read())
         task = yaml.safe_load(template.render(
             concurrency=kwargs.get("concurrency", self.concurrency),
@@ -90,7 +91,7 @@ class RallyKubernetes(testcase.TestCase):
                 self.res_dir, "{}.html".format(self.case_name)))
         if "files" in result:
             for path in result["files"]:
-                with open(path, "w+") as output:
+                with open(path, "w+", encoding='utf-8') as output:
                     output.write(result["files"][path])
         result = rapi.task.export(
             [task_instance["uuid"]], "junit-xml",
@@ -98,6 +99,6 @@ class RallyKubernetes(testcase.TestCase):
                 self.res_dir, "{}.xml".format(self.case_name)))
         if "files" in result:
             for path in result["files"]:
-                with open(path, "w+") as output:
+                with open(path, "w+", encoding='utf-8') as output:
                     output.write(result["files"][path])
         self.stop_time = time.time()

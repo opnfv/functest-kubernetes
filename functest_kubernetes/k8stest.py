@@ -78,7 +78,8 @@ class E2ETesting(testcase.TestCase):
                 cmd_line, stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT, env=env) as process:
             boutput = process.stdout.read()
-        with open(os.path.join(self.res_dir, 'e2e.log'), 'wb') as foutput:
+        with open(os.path.join(
+                self.res_dir, 'e2e.log'), 'wb', encoding='utf-8') as foutput:
             foutput.write(boutput)
         grp = re.search(
             r'^(FAIL|SUCCESS)!.* ([0-9]+) Passed \| ([0-9]+) Failed \|'
@@ -145,5 +146,6 @@ class E2ETesting(testcase.TestCase):
             "GcrReleaseRegistry":      "{}/gke-release".format(gcr_repo),
             "MicrosoftRegistry":       "mcr.microsoft.com",
         }
-        with open("{}/repositories.yml".format(self.res_dir), 'w') as file:
+        with open("{}/repositories.yml".format(
+                self.res_dir), 'w', encoding='utf-8') as file:
             yaml.dump(repo_list, file)
