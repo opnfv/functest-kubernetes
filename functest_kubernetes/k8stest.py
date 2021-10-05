@@ -60,7 +60,8 @@ class E2ETesting(testcase.TestCase):
             'ginkgo', '--nodes={}'.format(kwargs.get("nodes", 1)),
             '--noColor', '/usr/local/bin/e2e.test', '--',
             '-kubeconfig', self.config,
-            '-provider', 'skeleton', '-report-dir', self.res_dir]
+            '-provider', kwargs.get('provider', 'local'),
+            '-report-dir', self.res_dir]
         for arg in kwargs.get("ginkgo", {}):
             cmd_line.extend(['-ginkgo.{}'.format(arg), kwargs["ginkgo"][arg]])
         for key, value in self.convert_ini_to_dict(
@@ -78,7 +79,7 @@ class E2ETesting(testcase.TestCase):
                                    stderr=subprocess.STDOUT, env=env)
         boutput = process.stdout.read()
         with open(os.path.join(self.res_dir, 'e2e.log'), 'wb') as foutput:
-            foutput.write(boutput)
+            foutput.write(boutput.decode("utf-8"))
         grp = re.search(
             r'^(FAIL|SUCCESS)!.* ([0-9]+) Passed \| ([0-9]+) Failed \|'
             r' ([0-9]+) Pending \| ([0-9]+) Skipped',
