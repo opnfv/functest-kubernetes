@@ -60,7 +60,8 @@ class E2ETesting(testcase.TestCase):
             'ginkgo', '--nodes={}'.format(kwargs.get("nodes", 1)),
             '--noColor', '/usr/local/bin/e2e.test', '--',
             '-kubeconfig', self.config,
-            '-provider', 'skeleton', '-report-dir', self.res_dir]
+            '-provider', kwargs.get('provider', 'local'),
+            '-report-dir', self.res_dir]
         for arg in kwargs.get("ginkgo", {}):
             cmd_line.extend(['-ginkgo.{}'.format(arg), kwargs["ginkgo"][arg]])
         for key, value in self.convert_ini_to_dict(
