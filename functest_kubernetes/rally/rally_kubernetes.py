@@ -88,7 +88,7 @@ class RallyKubernetes(testcase.TestCase):
         result = rapi.task.export(
             [task_instance["uuid"]], "html",
             output_dest=os.path.join(
-                self.res_dir, "{}.html".format(self.case_name)))
+                self.res_dir, f"{self.case_name}.html"))
         if "files" in result:
             for path in result["files"]:
                 with open(path, "w+", encoding='utf-8') as output:
@@ -96,7 +96,7 @@ class RallyKubernetes(testcase.TestCase):
         result = rapi.task.export(
             [task_instance["uuid"]], "junit-xml",
             output_dest=os.path.join(
-                self.res_dir, "{}.xml".format(self.case_name)))
+                self.res_dir, f"{self.case_name}.xml"))
         if "files" in result:
             for path in result["files"]:
                 with open(path, "w+", encoding='utf-8') as output:

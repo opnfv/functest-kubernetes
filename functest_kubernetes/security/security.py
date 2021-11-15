@@ -66,7 +66,7 @@ class SecurityTesting(testcase.TestCase):
         self.__logger.debug("create_namespace: %s", api_response)
         with open(pkg_resources.resource_filename(
                 "functest_kubernetes",
-                "security/{}.yaml".format(self.job_name)),
+                f"security/{self.job_name}.yaml"),
                 encoding='utf-8') as yfile:
             template = Template(yfile.read())
             body = yaml.safe_load(template.render(
@@ -87,7 +87,7 @@ class SecurityTesting(testcase.TestCase):
                     time.time()-self.start_time)
                 watch_job.stop()
         pods = self.corev1.list_namespaced_pod(
-            self.namespace, label_selector='job-name={}'.format(self.job_name))
+            self.namespace, label_selector=f'job-name={self.job_name}')
         self.pod = pods.items[0].metadata.name
         self.pod_log = self.corev1.read_namespaced_pod_log(
             name=self.pod, namespace=self.namespace)
@@ -207,7 +207,7 @@ class KubeBench(SecurityTesting):
         self.ns_generate_name = "kube-bench-"
 
     def run(self, **kwargs):
-        self.job_name = "kube-bench-{}".format(kwargs.get("target", "node"))
+        self.job_name = f'kube-bench-{kwargs.get("target", "node")}'
         super().run(**kwargs)
         self.details["report"] = ast.literal_eval(self.pod_log)
         msg = prettytable.PrettyTable(

@@ -71,7 +71,7 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
                 generate_name=self.ns_generate_name)))
         self.namespace = api_response.metadata.name
         self.__logger.debug("create_namespace: %s", api_response)
-        self.zone = '{}.svc.cluster.local'.format(self.namespace)
+        self.zone = f'{self.namespace}.svc.cluster.local'
         metadata = client.V1ObjectMeta(
             name=self.metadata_name, namespace=self.namespace)
         body = client.V1ConfigMap(
@@ -127,9 +127,9 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
         assert self.zone
         container = client.V1Container(
             name=self.test_container_name, image=self.test_image_name,
-            command=["rake", "test[{}]".format(self.zone),
-                     "PROXY=bono.{}".format(self.zone),
-                     "ELLIS=ellis.{}".format(self.zone),
+            command=["rake", f"test[{self.zone}]",
+                     f"PROXY=bono.{self.zone}",
+                     f"ELLIS=ellis.{self.zone}",
                      "SIGNUP_CODE=secret", "--trace"])
         spec = client.V1PodSpec(containers=[container], restart_policy="Never")
         metadata = client.V1ObjectMeta(name=self.test_container_name)
@@ -141,8 +141,7 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
                 namespace=self.namespace, timeout_seconds=self.watch_timeout):
             self.__logger.debug(event)
             if event["object"].metadata.name == self.test_container_name:
-                if (event["object"].status.phase == 'Succeeded'
-                        or event["object"].status.phase == 'Failed'):
+                if event["object"].status.phase in ('Succeeded', 'Failed'):
                     watch_deployment.stop()
         api_response = self.corev1.read_namespaced_pod_log(
             name=self.test_container_name, namespace=self.namespace)
@@ -220,7 +219,7 @@ class K8sVims(Vims):
         for deployment in self.deployment_list:
             with open(pkg_resources.resource_filename(
                     'functest_kubernetes',
-                    'ims/{}-depl.yaml'.format(deployment)),
+                    f'ims/{deployment}-depl.yaml'),
                     encoding='utf-8') as yfile:
                 template = Template(yfile.read())
                 body = yaml.safe_load(template.render(
@@ -235,8 +234,7 @@ class K8sVims(Vims):
                     "create_namespaced_deployment: %s", resp)
         for service in self.deployment_list:
             with open(pkg_resources.resource_filename(
-                    'functest_kubernetes',
-                    'ims/{}-svc.yaml'.format(service)),
+                    'functest_kubernetes', f'ims/{service}-svc.yaml'),
                     encoding='utf-8') as yfile:
                 body = yaml.safe_load(yfile)
                 resp = self.corev1.create_namespaced_service(
@@ -284,7 +282,7 @@ class HelmVims(Vims):
         quay_repo = os.getenv("QUAY_REPO", self.quay_repo)
         cmd = [
             "helm", "install", "clearwater", "--set",
-            "repo.dockerHub={},repo.quay={}".format(dockerhub_repo, quay_repo),
+            f"repo.dockerHub={dockerhub_repo},repo.quay={quay_repo}",
             pkg_resources.resource_filename("functest_kubernetes", "ims/helm"),
             "-n", self.namespace]
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)

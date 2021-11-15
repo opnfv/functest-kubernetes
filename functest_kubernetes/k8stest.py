@@ -57,16 +57,16 @@ class E2ETesting(testcase.TestCase):
     def run_kubetest(self, **kwargs):  # pylint: disable=too-many-branches
         """Run the test suites"""
         cmd_line = [
-            'ginkgo', '--nodes={}'.format(kwargs.get("nodes", 1)),
+            'ginkgo', f'--nodes={kwargs.get("nodes", 1)}',
             '--noColor', '/usr/local/bin/e2e.test', '--',
             '-kubeconfig', self.config,
             '-provider', kwargs.get('provider', 'local'),
             '-report-dir', self.res_dir]
         for arg in kwargs.get("ginkgo", {}):
-            cmd_line.extend(['-ginkgo.{}'.format(arg), kwargs["ginkgo"][arg]])
+            cmd_line.extend([f'-ginkgo.{arg}', kwargs["ginkgo"][arg]])
         for key, value in self.convert_ini_to_dict(
                 os.environ.get("E2E_TEST_OPTS", "")).items():
-            cmd_line.extend(['-{}'.format(key), value])
+            cmd_line.extend([f'-{key}', value])
         if "NON_BLOCKING_TAINTS" in os.environ:
             cmd_line.extend(
                 ['-non-blocking-taints', os.environ["NON_BLOCKING_TAINTS"]])
@@ -74,7 +74,7 @@ class E2ETesting(testcase.TestCase):
         self._generate_repo_list_file()
         self.__logger.info("Starting k8s test: '%s'.", cmd_line)
         env = os.environ.copy()
-        env["KUBE_TEST_REPO_LIST"] = "{}/repositories.yml".format(self.res_dir)
+        env["KUBE_TEST_REPO_LIST"] = f"{self.res_dir}/repositories.yml"
         with subprocess.Popen(
                 cmd_line, stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT, env=env) as process:
@@ -130,23 +130,21 @@ class E2ETesting(testcase.TestCase):
         gcr_repo = os.getenv("GCR_REPO", self.gcr_repo)
         k8s_gcr_repo = os.getenv("K8S_GCR_REPO", self.k8s_gcr_repo)
         repo_list = {
-            "GcAuthenticatedRegistry": "{}/authenticated-image-pulling".format(
-                gcr_repo),
-            "E2eRegistry":             "{}/kubernetes-e2e-test-images".format(
-                gcr_repo),
-            "PromoterE2eRegistry":     "{}/e2e-test-images".format(
-                k8s_gcr_repo),
-            "BuildImageRegistry":      "{}/build-image".format(k8s_gcr_repo),
-            "InvalidRegistry":         "invalid.com/invalid",
-            "GcEtcdRegistry":          "{}".format(k8s_gcr_repo),
-            "GcRegistry":              "{}".format(k8s_gcr_repo),
-            "SigStorageRegistry":      "{}/sig-storage".format(k8s_gcr_repo),
-            "PrivateRegistry":         "{}/k8s-authenticated-test".format(
-                gcr_repo),
-            "SampleRegistry":          "{}/google-samples".format(gcr_repo),
-            "GcrReleaseRegistry":      "{}/gke-release".format(gcr_repo),
-            "MicrosoftRegistry":       "mcr.microsoft.com",
+            "GcAuthenticatedRegistry":
+                f"{gcr_repo}/authenticated-image-pulling",
+            "E2eRegistry": f"{gcr_repo}/kubernetes-e2e-test-images",
+            "PromoterE2eRegistry": f"{k8s_gcr_repo}/e2e-test-images",
+            "BuildImageRegistry": f"{k8s_gcr_repo}/build-image",
+            "InvalidRegistry": "invalid.com/invalid",
+            "GcEtcdRegistry": k8s_gcr_repo,
+            "GcRegistry": k8s_gcr_repo,
+            "SigStorageRegistry": f"{k8s_gcr_repo}/sig-storage",
+            "PrivateRegistry": f"{gcr_repo}/k8s-authenticated-test",
+            "SampleRegistry": f"{gcr_repo}/google-samples",
+            "GcrReleaseRegistry": f"{gcr_repo}/gke-release",
+            "MicrosoftRegistry": "mcr.microsoft.com"
         }
-        with open("{}/repositories.yml".format(
-                self.res_dir), 'w', encoding='utf-8') as file:
+        with open(
+                f"{self.res_dir}/repositories.yml", 'w',
+                encoding='utf-8') as file:
             yaml.dump(repo_list, file)
