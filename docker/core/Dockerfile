@@ -7,9 +7,11 @@ ARG OPNFV_TAG=stable/xena
 COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
 COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch
 RUN apk -U upgrade && \
-    apk --no-cache add --update python3 py3-pip py3-wheel bash git grep libffi openssl mailcap && \
+    apk --no-cache add --update python3 py3-pip py3-wheel bash git grep libffi openssl mailcap \
+        libxml2 libxslt && \
     apk --no-cache add --virtual .build-deps --update \
-        python3-dev build-base libffi-dev openssl-dev rust cargo && \
+        python3-dev build-base libffi-dev openssl-dev rust cargo \
+        libxml2-dev libxslt-dev && \
     git init /src/requirements && \
     (cd /src/requirements && \
         git fetch --tags https://review.opendev.org/openstack/requirements $OPENSTACK_TAG && \
