@@ -66,6 +66,7 @@ tiers:
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:CrossNamespacePodAffinity]|\
+                \\[Feature:CustomResourceValidationExpressions]|\
                 \\[Feature:StorageVersionAPI\\]"
       - case_name: sig_api_machinery_serial
         project_name: functest
@@ -105,6 +106,7 @@ tiers:
                 \\[Feature:DaemonSetUpdateSurge\\]|\
                 \\[Feature:IndexedJob\\]|\
                 \\[Feature:StatefulSet\\]|\
+                \\[Feature:StatefulSetAutoDeletePVC\\]|\
                 \\[Feature:StatefulUpgrade\\]|\
                 \\[Feature:SuspendJob\\]"
       - case_name: sig_apps_serial
@@ -237,6 +239,7 @@ tiers:
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:ExperimentalResourceUsageTracking\\]|\
+                \\[Feature:GRPCContainerProbe\\]|\
                 \\[Feature:GPUUpgrade\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
