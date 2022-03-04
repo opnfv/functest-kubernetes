@@ -45,6 +45,6 @@ RUN apk -U upgrade && \
     mkdir -p /var/lib/rally/database && rally db create && \
     rm -r /src/requirements/.git /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch && \
     apk del .build-deps
-COPY logging.ini /usr/lib/python3.9/site-packages/xtesting/ci/logging.ini
-COPY logging.debug.ini /usr/lib/python3.9/site-packages/xtesting/ci/logging.debug.ini
+COPY logging.ini /etc/xtesting/logging.ini
+COPY logging.debug.ini /etc/xtesting/logging.debug.ini
 CMD ["run_tests", "-t", "all"]

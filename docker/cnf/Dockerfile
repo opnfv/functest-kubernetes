@@ -27,5 +27,5 @@ RUN apk --no-cache add --update wget curl libc6-compat ncurses && \
         ln -s /src/cnf-testsuite/example-cnfs/coredns/cnf-testsuite.yml /src/cnf-testsuite/cnf-testsuite.yml && \
         ln -s /src/cnf-testsuite/points-all.yml /src/cnf-testsuite/points.yml && \
         rm -rf /src/cnf-testsuite-$CNF_TESTSUITE_TAG.tar.gz /src/cnf-testsuite/.git ;; esac
-COPY testcases.yaml /usr/lib/python3.9/site-packages/xtesting/ci/testcases.yaml
+COPY testcases.yaml /etc/xtesting/testcases.yaml
 CMD ["run_tests", "-t", "all"]
