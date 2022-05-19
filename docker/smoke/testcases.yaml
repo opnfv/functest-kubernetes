@@ -216,6 +216,7 @@ tiers:
                 \\[Feature:Networking-IPv6\\]|\
                 \\[Feature:NetworkPolicy\\]|\
                 \\[Feature:PerformanceDNS\\]|\
+                \\[Feature:ProxyTerminatingEndpoints\\]|\
                 \\[Feature:SCTP\\]|\
                 \\[Feature:SCTPConnectivity\\]|\
                 DNS configMap nameserver|\
