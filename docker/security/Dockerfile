@@ -1,3 +1,3 @@
-FROM opnfv/functest-kubernetes-core:v1.24
+FROM opnfv/functest-kubernetes-core
 
 COPY testcases.yaml /etc/xtesting/testcases.yaml

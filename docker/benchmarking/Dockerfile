@@ -1,4 +1,4 @@
-FROM opnfv/functest-kubernetes-smoke:v1.24
+FROM opnfv/functest-kubernetes-smoke
 
 ARG NETPERF_TAG=master
 ARG PLOTPERF_TAG=master

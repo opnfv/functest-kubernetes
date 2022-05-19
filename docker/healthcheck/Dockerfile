@@ -1,4 +1,4 @@
-FROM opnfv/functest-kubernetes-core:v1.24
+FROM opnfv/functest-kubernetes-core
 
 RUN apk --no-cache add --update curl libc6-compat && \
     tag=$(curl -s https://storage.googleapis.com/kubernetes-release/release/latest.txt)  && \
