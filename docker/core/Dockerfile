@@ -1,8 +1,8 @@
 FROM alpine:3.15
 
-ARG BRANCH=master
-ARG OPENSTACK_TAG=master
-ARG OPNFV_TAG=master
+ARG BRANCH=stable/v1.25
+ARG OPENSTACK_TAG=stable/yoga
+ARG OPNFV_TAG=stable/yoga
 
 COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
 COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch
