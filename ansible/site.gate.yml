@@ -10,7 +10,7 @@
           - repo: _
             dport:
             container: alpine
-            tag: 3.14
+            tag: 3.15
         steps:
           - name: build opnfv/functest-kubernetes-core
             containers:
