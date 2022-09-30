@@ -58,7 +58,7 @@ class E2ETesting(testcase.TestCase):
         """Run the test suites"""
         cmd_line = [
             'ginkgo', f'--nodes={kwargs.get("nodes", 1)}',
-            '--noColor', '/usr/local/bin/e2e.test', '--',
+            '--no-color', '/usr/local/bin/e2e.test', '--',
             '-kubeconfig', self.config,
             '-provider', kwargs.get('provider', 'local'),
             '-report-dir', self.res_dir]
