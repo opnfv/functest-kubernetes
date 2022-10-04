@@ -244,6 +244,7 @@ tiers:
                 \\[Feature:GPUUpgrade\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
+                \\[Feature:UserNamespacesStatelessPodsSupport\\]|\
                 \\[NodeFeature:DownwardAPIHugePages\\]|\
                 \\[NodeFeature:RuntimeHandler\\]"
       - case_name: sig_scheduling_serial
