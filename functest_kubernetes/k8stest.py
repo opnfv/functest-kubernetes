@@ -67,6 +67,8 @@ class E2ETesting(testcase.TestCase):
         for key, value in self.convert_ini_to_dict(
                 os.environ.get("E2E_TEST_OPTS", "")).items():
             cmd_line.extend(['-{}'.format(key), value])
+        if '-container-runtime' not in cmd_line:
+            cmd_line.extend(['-container-runtime', 'remote'])
         if "NON_BLOCKING_TAINTS" in os.environ:
             cmd_line.extend(
                 ['-non-blocking-taints', os.environ["NON_BLOCKING_TAINTS"]])
