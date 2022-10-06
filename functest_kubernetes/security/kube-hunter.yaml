@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
       - name: kube-hunter
-        image: {{ dockerhub_repo }}/aquasec/kube-hunter:0.6.8
+        image: {{ dockerhub_repo }}/aquasec/kube-hunter:latest
         command: ["kube-hunter"]
         args: ["--pod", "--report", "json", "--statistics"]
       restartPolicy: Never
