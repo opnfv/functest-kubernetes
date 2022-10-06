@@ -7,8 +7,8 @@ spec:
     spec:
       containers:
       - name: kube-hunter
-        image: {{ dockerhub_repo }}/aquasec/kube-hunter:0.3.1
-        command: ["python", "kube-hunter.py"]
+        image: {{ dockerhub_repo }}/aquasec/kube-hunter:0.6.8
+        command: ["kube-hunter"]
         args: ["--pod", "--report", "json", "--statistics"]
       restartPolicy: Never
   backoffLimit: 4
