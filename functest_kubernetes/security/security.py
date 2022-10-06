@@ -214,7 +214,7 @@ class KubeBench(SecurityTesting):
             header_style='upper', padding_width=5,
             field_names=['node_type', 'version', 'test_desc', 'pass',
                          'fail', 'warn'])
-        for details in self.details["report"]:
+        for details in self.details["report"]["Controls"]:
             for test in details['tests']:
                 msg.add_row(
                     [details['node_type'], details['version'], test['desc'],
