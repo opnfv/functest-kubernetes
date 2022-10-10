@@ -118,7 +118,9 @@ class CNFConformance(testcase.TestCase):
         self.stop_time = time.time()
 
     def clean(self):
-        cmd = ['cnf-testsuite', 'cnf_cleanup',
-               'cnf-config=cnf-testsuite.yml']
-        output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
-        self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
+        for clean_cmd in ['uninstall_cri_tools', 'uninstall_falco',
+                          'cnf_cleanup']:
+            cmd = ['cnf-testsuite', clean_cmd,
+                   'cnf-config=cnf-testsuite.yml']
+            output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+            self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
