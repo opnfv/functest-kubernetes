@@ -13,8 +13,6 @@ tiers:
           vulnerabilities
         run:
           name: kube_hunter
-          args:
-            severity: high
 
       - case_name: kube_bench_master
         project_name: functest

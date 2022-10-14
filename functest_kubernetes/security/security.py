@@ -147,7 +147,7 @@ class KubeHunter(SecurityTesting):
             msg = prettytable.PrettyTable(
                 header_style='upper', padding_width=5,
                 field_names=['category', 'vulnerability', 'severity'])
-            severity = kwargs.get("severity", "high")
+            severity = kwargs.get("severity", "none")
             if severity == "low":
                 allowed_severity = []
             elif severity == "medium":
@@ -156,16 +156,11 @@ class KubeHunter(SecurityTesting):
                 allowed_severity = ["low", "medium"]
             else:
                 self.__logger.warning(
-                    "Selecting high as default severity (%s is incorrect)",
-                    kwargs.get("severity", "high"))
-                severity = "high"
-                allowed_severity = ["low", "medium"]
+                    "Just printing all vulnerabilities as "
+                    "no severity criteria given")
+                allowed_severity = ["low", "medium", "high"]
             for vulnerability in self.details["vulnerabilities"]:
-                if vulnerability["severity"] in allowed_severity:
-                    self.__logger.warning(
-                        "Skipping %s (severity is configured as %s)",
-                        vulnerability["vulnerability"], severity)
-                else:
+                if vulnerability["severity"] not in allowed_severity:
                     self.result = 0
                 msg.add_row(
                     [vulnerability["category"], vulnerability["vulnerability"],
