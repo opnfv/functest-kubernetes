@@ -71,7 +71,8 @@ class CNFConformance(testcase.TestCase):
     def run_conformance(self, **kwargs):
         """Run CNF Conformance"""
         cmd = ['cnf-testsuite', kwargs.get("tag", self.default_tag)]
-        output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+        output = subprocess.run(
+            cmd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE).stdout
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
         lfiles = glob.glob(os.path.join(
             self.src_dir, 'results', 'cnf-testsuite-results-*.yml'))
@@ -107,15 +108,8 @@ class CNFConformance(testcase.TestCase):
     def run(self, **kwargs):
         """"Running the test with example CNF"""
         self.start_time = time.time()
-        try:
-            self.setup()
-            self.run_conformance(**kwargs)
-        except subprocess.CalledProcessError as exc:
-            self.__logger.warning(
-                "Can not run CNT Conformance: \n%s\n%s\n",
-                " ".join(exc.cmd), exc.output.decode("utf-8"))
-        except Exception:  # pylint: disable=broad-except
-            self.__logger.warning("CNF Conformance exited with errors")
+        self.setup()
+        self.run_conformance(**kwargs)
         self.stop_time = time.time()
 
     def clean(self):
