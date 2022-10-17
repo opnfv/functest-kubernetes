@@ -30,7 +30,8 @@ tiers:
 
       - case_name: cnf_testsuite
         project_name: functest
-        criteria: 1
+        # https://github.com/cncf/cnf-certification/blob/main/reviewing.md
+        criteria: 10
         blocking: false
         description: >-
           Enable interoperability of Cloud native Network
