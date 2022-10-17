@@ -38,7 +38,7 @@ class CNFConformance(testcase.TestCase):
 
     src_dir = '/src/cnf-testsuite'
     bin_dir = '/usr/local/bin'
-    default_tag = 'workload'
+    default_tag = 'cert'
 
     __logger = logging.getLogger(__name__)
 
@@ -110,15 +110,15 @@ class CNFConformance(testcase.TestCase):
             self.setup()
             self.run_conformance(**kwargs)
         except subprocess.CalledProcessError as exc:
-            self.__logger.exception(
+            self.__logger.warning(
                 "Can not run CNT Conformance: \n%s\n%s\n",
                 " ".join(exc.cmd), exc.output.decode("utf-8"))
         except Exception:  # pylint: disable=broad-except
-            self.__logger.exception("Can not run CNF Conformance")
+            self.__logger.warning("CNF Conformance exited with errors")
         self.stop_time = time.time()
 
     def clean(self):
-        for clean_cmd in ['uninstall_cri_tools', 'uninstall_falco',
+        for clean_cmd in ['uninstall_falco',
                           'cnf_cleanup']:
             cmd = ['cnf-testsuite', clean_cmd,
                    'cnf-config=cnf-testsuite.yml']
