@@ -15,16 +15,13 @@ and testing (vIMS, vRouter and vEPC) to ensure that the platforms meet Network
 Functions Virtualization requirements. Raspberry PI is also supported to verify
 datacenters as the lowest cost (50 euros hardware and software included).
 
-| Functest releases | Kubernetes releases           |
-|-------------------|-------------------------------|
-| Hunter            | v1.13                         |
-| Iruya             | v1.15                         |
-| Jerma             | v1.17                         |
-| Kali              | v1.19                         |
-| Leguer            | v1.20                         |
-| v1.21             | v1.21                         |
-| v1.22             | v1.22                         |
-| **Master**        | **v1.22.0-alpha.1 (rolling)** |
+| Functest releases | Kubernetes releases       |
+|-------------------|---------------------------|
+| **v1.22**         | **v1.22**                 |
+| v1.23             | v1.23                     |
+| v1.24             | v1.24                     |
+| v1.25             | v1.25                     |
+| Master            | v1.26.0-alpha.2 (rolling) |
 
 ## Prepare your environment
 
@@ -111,6 +108,7 @@ sudo docker run --env-file env \
 |           TEST CASE            |     PROJECT      |         TIER         |     DURATION     |     RESULT     |
 +--------------------------------+------------------+----------------------+------------------+----------------+
 |     xrally_kubernetes_full     |     functest     |     benchmarking     |      33:07       |      PASS      |
+|            netperf             |     functest     |     benchmarking     |      40:16       |      PASS      |
 +--------------------------------+------------------+----------------------+------------------+----------------+
 ```
 
@@ -128,7 +126,7 @@ sudo docker run --env-file env \
 +-----------------------+------------------+--------------+------------------+----------------+
 |        k8s_vims       |     functest     |     cnf      |      09:06       |      PASS      |
 |       helm_vims       |     functest     |     cnf      |      08:54       |      PASS      |
-|     cnf_testsuite     |     functest     |     cnf      |      00:00       |      SKIP      |
+|     cnf_testsuite     |     functest     |     cnf      |      16:47       |      PASS      |
 +-----------------------+------------------+--------------+------------------+----------------+
 ```
 
