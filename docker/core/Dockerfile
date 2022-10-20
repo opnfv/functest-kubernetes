@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.16
 
 ARG BRANCH=stable/v1.24
 ARG OPENSTACK_TAG=stable/yoga
