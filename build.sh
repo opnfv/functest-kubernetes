@@ -32,11 +32,11 @@ done
 [ ! -z "${amd64_dirs}" ] &&
     (docker rmi \
         "${repo}/functest-kubernetes-core:amd64-v1.25" \
-        alpine:3.15 || true)
+        alpine:3.16 || true)
 find . -name Dockerfile -exec git checkout {} +
 
 find . -name Dockerfile -exec sed -i \
-    -e "s|alpine:3.15|arm64v8/alpine:3.15|g" {} +
+    -e "s|alpine:3.16|arm64v8/alpine:3.16|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-core:v1.25|\
 ${repo}/functest-kubernetes-core:arm64-v1.25|g" {} +
@@ -56,11 +56,11 @@ for dir in ${arm64_dirs}; do
 done
 [ ! -z "${arm64_dirs}" ] &&
     (docker rmi "${repo}/functest-kubernetes-core:arm64-v1.25" \
-        arm64v8/alpine:3.15 || true)
+        arm64v8/alpine:3.16 || true)
 find . -name Dockerfile -exec git checkout {} +
 
 find . -name Dockerfile -exec sed -i \
-    -e "s|alpine:3.15|arm32v7/alpine:3.15|g" {} +
+    -e "s|alpine:3.16|arm32v7/alpine:3.16|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-core:v1.25|\
 ${repo}/functest-kubernetes-core:arm-v1.25|g" {} +
@@ -80,7 +80,7 @@ for dir in ${arm_dirs}; do
 done
 [ ! -z "${arm_dirs}" ] &&
     (docker rmi "${repo}/functest-kubernetes-core:arm-v1.25" \
-        arm32v7/alpine:3.15 || true)
+        arm32v7/alpine:3.16 || true)
 find . -name Dockerfile -exec git checkout {} +
 
 exit $?
