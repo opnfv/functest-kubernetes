@@ -42,6 +42,7 @@ RUN apk -U upgrade && \
     rm -r /src/requirements/.git /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch && \
     addgroup -g 1000 xtesting && adduser -u 1000 -G xtesting -D xtesting && \
     mkdir -p /etc/xtesting && chown -R xtesting: /etc/xtesting && \
+    mkdir -p /var/lib/xtesting/results && chown -R xtesting: /var/lib/xtesting && \
     apk del .build-deps
 USER xtesting
 COPY logging.ini /etc/xtesting/logging.ini
