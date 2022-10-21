@@ -14,6 +14,7 @@ Benchmarking Kubernetes Networking Performance
 import glob
 import logging
 import os
+from pathlib import Path
 import shutil
 import subprocess
 import time
@@ -44,7 +45,7 @@ class Netperf(testcase.TestCase):
             if not os.path.exists(self.res_dir):
                 os.makedirs(self.res_dir)
             cmd = ['launch', '-iterations', '1', '-kubeConfig',
-                   '~/.kube/config']
+                   f'{Path.home()}/.kube/config']
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
             self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
             lfiles = glob.glob(os.path.join(
