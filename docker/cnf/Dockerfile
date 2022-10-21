@@ -4,6 +4,7 @@ ARG K8S_TAG=1.25
 ARG CNF_TESTSUITE_TAG=v0.34.0
 ARG HELM_TAG=v3.3.1
 
+USER root
 RUN apk --no-cache add --update wget curl libc6-compat ncurses && \
     tag=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable-$K8S_TAG.txt)  && \
     case $(uname -m) in armv7l) arch=arm;; aarch64) arch=arm64;; x86_64) arch=amd64;; esac && \
@@ -29,5 +30,6 @@ RUN apk --no-cache add --update wget curl libc6-compat ncurses && \
         ln -s /src/cnf-testsuite/points-all.yml /src/cnf-testsuite/points.yml && \
         ln -s /usr/local/bin/cnf-testsuite /src/cnf-testsuite/cnf-testsuite && \
         rm -rf /src/cnf-testsuite-$CNF_TESTSUITE_TAG.tar.gz /src/cnf-testsuite/.git ;; esac
+USER xtesting
 COPY testcases.yaml /etc/xtesting/testcases.yaml
 CMD ["run_tests", "-t", "all"]
