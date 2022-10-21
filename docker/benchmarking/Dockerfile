@@ -3,6 +3,7 @@ FROM opnfv/functest-kubernetes-smoke:v1.24
 ARG NETPERF_TAG=1104ce23f6c1758796e88f3c23b050099074cf81
 ARG PLOTPERF_TAG=2455313f4b9581795a8f642243acaad472d91804
 
+USER root
 COPY plotperf.py.patch /tmp/plotperf.py.patch
 RUN apk --no-cache add --update py3-matplotlib && \
     apk --no-cache add --virtual .build-deps --update patch go && \
@@ -16,5 +17,6 @@ RUN apk --no-cache add --update py3-matplotlib && \
         mv plotperf.py plotperf && chmod a+x plotperf) && \
     rm -rf perf-tests /tmp/plotperf.py.patch && \
     apk del .build-deps
+USER xtesting
 COPY testcases.yaml /etc/xtesting/testcases.yaml
 CMD ["run_tests", "-t", "all"]

@@ -1,6 +1,7 @@
 FROM opnfv/functest-kubernetes-core:v1.24
 
 ARG K8S_TAG=1.24
+USER root
 RUN apk --no-cache add --update curl libc6-compat && \
     tag=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable-$K8S_TAG.txt)  && \
     case $(uname -m) in armv7l) arch=arm;; aarch64) arch=arm64;; x86_64) arch=amd64;; esac && \
@@ -12,5 +13,6 @@ RUN apk --no-cache add --update curl libc6-compat && \
     mv /src/kubernetes/test/bin/e2e.test /src/kubernetes/test/bin/ginkgo /usr/local/bin/ && \
     chmod +x /usr/local/bin/kubectl /usr/local/bin/e2e.test /usr/local/bin/ginkgo && \
     rm -r /src/kubernetes /src/kubernetes-test-linux-$arch.tar.gz
+USER xtesting
 COPY testcases.yaml /etc/xtesting/testcases.yaml
 CMD ["run_tests", "-t", "all"]
