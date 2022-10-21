@@ -30,7 +30,7 @@ class E2ETesting(testcase.TestCase):
 
     __logger = logging.getLogger(__name__)
 
-    config = '/root/.kube/config'
+    config = '~/.kube/config'
     gcr_repo = os.getenv("MIRROR_REPO", "gcr.io")
     k8s_gcr_repo = os.getenv("MIRROR_REPO", "k8s.gcr.io")
 
