@@ -16,6 +16,7 @@ from __future__ import division
 
 import logging
 import os
+from pathlib import Path
 import re
 import subprocess
 import time
@@ -30,7 +31,7 @@ class E2ETesting(testcase.TestCase):
 
     __logger = logging.getLogger(__name__)
 
-    config = '~/.kube/config'
+    config = f'{Path.home()}/.kube/config'
     gcr_repo = os.getenv("MIRROR_REPO", "gcr.io")
     k8s_gcr_repo = os.getenv("MIRROR_REPO", "k8s.gcr.io")
 
