@@ -34,7 +34,7 @@ DEPLOY_SCENARIO=k8s-XXX
 
 ```bash
 sudo docker run --env-file env \
-    -v $(pwd)/config:/root/.kube/config \
+    -v $(pwd)/config:/home/xtesting/.kube/config \
     opnfv/functest-kubernetes-healthcheck
 ```
 
@@ -51,7 +51,7 @@ sudo docker run --env-file env \
 
 ```bash
 sudo docker run --env-file env \
-    -v $(pwd)/config:/root/.kube/config \
+    -v $(pwd)/config:/home/xtesting/.kube/config \
     opnfv/functest-kubernetes-smoke
 ```
 
@@ -81,7 +81,7 @@ sudo docker run --env-file env \
 
 ```bash
 sudo docker run --env-file env \
-    -v $(pwd)/config:/root/.kube/config \
+    -v $(pwd)/config:/home/xtesting/.kube/config \
     opnfv/functest-kubernetes-security
 ```
 
@@ -99,7 +99,7 @@ sudo docker run --env-file env \
 
 ```bash
 sudo docker run --env-file env \
-    -v $(pwd)/config:/root/.kube/config \
+    -v $(pwd)/config:/home/xtesting/.kube/config \
     opnfv/functest-kubernetes-benchmarking
 ```
 
@@ -116,7 +116,7 @@ sudo docker run --env-file env \
 
 ```bash
 sudo docker run --env-file env \
-    -v $(pwd)/config:/root/.kube/config \
+    -v $(pwd)/config:/home/xtesting/.kube/config \
     opnfv/functest-kubernetes-cnf
 ```
 
