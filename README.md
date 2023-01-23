@@ -15,13 +15,14 @@ and testing (vIMS, vRouter and vEPC) to ensure that the platforms meet Network
 Functions Virtualization requirements. Raspberry PI is also supported to verify
 datacenters as the lowest cost (50 euros hardware and software included).
 
-| Functest releases | Kubernetes releases           |
-|-------------------|-------------------------------|
-| v1.22             | v1.22                         |
-| v1.23             | v1.23                         |
-| v1.24             | v1.24                         |
-| v1.25             | v1.25                         |
-| **Master**        | **v1.26.0-alpha.2 (rolling)** |
+| Functest releases | Kubernetes releases       |
+|-------------------|---------------------------|
+| v1.22             | v1.22                     |
+| v1.23             | v1.23                     |
+| v1.24             | v1.24                     |
+| v1.25             | v1.25                     |
+| **v1.26**         | **v1.26**                 |
+| Master            | v1.27.0-alpha.0 (rolling) |
 
 ## Prepare your environment
 
@@ -35,7 +36,7 @@ DEPLOY_SCENARIO=k8s-XXX
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/home/xtesting/.kube/config \
-    opnfv/functest-kubernetes-healthcheck
+    opnfv/functest-kubernetes-healthcheck:v1.26
 ```
 
 ```
@@ -52,7 +53,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/home/xtesting/.kube/config \
-    opnfv/functest-kubernetes-smoke
+    opnfv/functest-kubernetes-smoke:v1.26
 ```
 
 ```
@@ -82,7 +83,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/home/xtesting/.kube/config \
-    opnfv/functest-kubernetes-security
+    opnfv/functest-kubernetes-security:v1.26
 ```
 
 ```
@@ -100,7 +101,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/home/xtesting/.kube/config \
-    opnfv/functest-kubernetes-benchmarking
+    opnfv/functest-kubernetes-benchmarking:v1.26
 ```
 
 ```
@@ -117,7 +118,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/home/xtesting/.kube/config \
-    opnfv/functest-kubernetes-cnf
+    opnfv/functest-kubernetes-cnf:v1.26
 ```
 
 ```

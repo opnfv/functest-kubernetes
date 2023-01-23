@@ -1,11 +1,12 @@
-FROM opnfv/functest-kubernetes-core
+FROM opnfv/functest-kubernetes-core:v1.26
 
+ARG K8S_TAG=1.26
 ARG CNF_TESTSUITE_TAG=v0.34.0
 ARG HELM_TAG=v3.3.1
 
 USER root
 RUN apk --no-cache add --update wget curl libc6-compat ncurses && \
-    tag=$(curl -s https://storage.googleapis.com/kubernetes-release/release/latest.txt)  && \
+    tag=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable-$K8S_TAG.txt)  && \
     case $(uname -m) in armv7l) arch=arm;; aarch64) arch=arm64;; x86_64) arch=amd64;; esac && \
     curl https://storage.googleapis.com/kubernetes-release/release/$tag/bin/linux/$arch/kubectl \
         --output /usr/local/bin/kubectl && \
