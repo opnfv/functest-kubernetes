@@ -133,22 +133,22 @@ class E2ETesting(testcase.TestCase):
         gcr_repo = os.getenv("GCR_REPO", self.gcr_repo)
         k8s_gcr_repo = os.getenv("K8S_GCR_REPO", self.k8s_gcr_repo)
         repo_list = {
-            "GcAuthenticatedRegistry": "{}/authenticated-image-pulling".format(
+            "gcAuthenticatedRegistry": "{}/authenticated-image-pulling".format(
                 gcr_repo),
-            "E2eRegistry":             "{}/kubernetes-e2e-test-images".format(
+            "e2eRegistry":             "{}/kubernetes-e2e-test-images".format(
                 gcr_repo),
-            "PromoterE2eRegistry":     "{}/e2e-test-images".format(
+            "promoterE2eRegistry":     "{}/e2e-test-images".format(
                 k8s_gcr_repo),
-            "BuildImageRegistry":      "{}/build-image".format(k8s_gcr_repo),
-            "InvalidRegistry":         "invalid.com/invalid",
-            "GcEtcdRegistry":          "{}".format(k8s_gcr_repo),
-            "GcRegistry":              "{}".format(k8s_gcr_repo),
-            "SigStorageRegistry":      "{}/sig-storage".format(k8s_gcr_repo),
-            "PrivateRegistry":         "{}/k8s-authenticated-test".format(
+            "buildImageRegistry":      "{}/build-image".format(k8s_gcr_repo),
+            "invalidRegistry":         "invalid.com/invalid",
+            "gcEtcdRegistry":          "{}".format(k8s_gcr_repo),
+            "gcRegistry":              "{}".format(k8s_gcr_repo),
+            "sigStorageRegistry":      "{}/sig-storage".format(k8s_gcr_repo),
+            "privateRegistry":         "{}/k8s-authenticated-test".format(
                 gcr_repo),
-            "SampleRegistry":          "{}/google-samples".format(gcr_repo),
-            "GcrReleaseRegistry":      "{}/gke-release".format(gcr_repo),
-            "MicrosoftRegistry":       "mcr.microsoft.com",
+            "sampleRegistry":          "{}/google-samples".format(gcr_repo),
+            "gcrReleaseRegistry":      "{}/gke-release".format(gcr_repo),
+            "microsoftRegistry":       "mcr.microsoft.com",
         }
         with open("{}/repositories.yml".format(
                 self.res_dir), 'w', encoding='utf-8') as file:
