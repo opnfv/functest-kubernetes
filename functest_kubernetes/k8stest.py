@@ -131,19 +131,19 @@ class E2ETesting(testcase.TestCase):
         gcr_repo = os.getenv("GCR_REPO", self.gcr_repo)
         k8s_gcr_repo = os.getenv("K8S_GCR_REPO", self.k8s_gcr_repo)
         repo_list = {
-            "GcAuthenticatedRegistry":
+            "gcAuthenticatedRegistry":
                 f"{gcr_repo}/authenticated-image-pulling",
-            "E2eRegistry": f"{gcr_repo}/kubernetes-e2e-test-images",
-            "PromoterE2eRegistry": f"{k8s_gcr_repo}/e2e-test-images",
-            "BuildImageRegistry": f"{k8s_gcr_repo}/build-image",
-            "InvalidRegistry": "invalid.com/invalid",
-            "GcEtcdRegistry": k8s_gcr_repo,
-            "GcRegistry": k8s_gcr_repo,
-            "SigStorageRegistry": f"{k8s_gcr_repo}/sig-storage",
-            "PrivateRegistry": f"{gcr_repo}/k8s-authenticated-test",
-            "SampleRegistry": f"{gcr_repo}/google-samples",
-            "GcrReleaseRegistry": f"{gcr_repo}/gke-release",
-            "MicrosoftRegistry": "mcr.microsoft.com"
+            "e2eRegistry": f"{gcr_repo}/kubernetes-e2e-test-images",
+            "promoterE2eRegistry": f"{k8s_gcr_repo}/e2e-test-images",
+            "buildImageRegistry": f"{k8s_gcr_repo}/build-image",
+            "invalidRegistry": "invalid.com/invalid",
+            "gcEtcdRegistry": k8s_gcr_repo,
+            "gcRegistry": k8s_gcr_repo,
+            "sigStorageRegistry": f"{k8s_gcr_repo}/sig-storage",
+            "privateRegistry": f"{gcr_repo}/k8s-authenticated-test",
+            "sampleRegistry": f"{gcr_repo}/google-samples",
+            "gcrReleaseRegistry": f"{gcr_repo}/gke-release",
+            "microsoftRegistry": "mcr.microsoft.com"
         }
         with open(
                 f"{self.res_dir}/repositories.yml", 'w',
