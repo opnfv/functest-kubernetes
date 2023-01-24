@@ -20,6 +20,9 @@ ${repo}/functest-kubernetes-core:amd64-latest|g" {} +
 find . -name Dockerfile -exec sed -i \
     -e "s|opnfv/functest-kubernetes-healthcheck|\
 ${repo}/functest-kubernetes-healthcheck:amd64-latest|g" {} +
+find . -name Dockerfile -exec sed -i \
+    -e "s|opnfv/functest-kubernetes-smoke|\
+${repo}/functest-kubernetes-smoke:amd64-latest|g" {} +
 for dir in ${amd64_dirs}; do
     (cd "${dir}" &&
         docker build "${build_opts[@]}" \
