@@ -150,7 +150,7 @@ There's two ways for providing the repository mirrors:
   - `QUAY_REPO` for Quay repository (`quay.io`)
 
 All needed images are given in
-[functest-kubernetes/ci/images.txt](functest-kubernetes/ci/images.txt)
+[functest_kubernetes/ci/images.txt](functest_kubernetes/ci/images.txt)
 
 For e2e tests, `docker.io` is hardcoded. it does mean that you'll have to set up
 a mirror on docker. An example on how to set it up on docker daemon is provided
