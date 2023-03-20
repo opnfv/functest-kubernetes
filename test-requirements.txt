@@ -12,3 +12,4 @@ yamllint
 ansible-lint
 bashate # Apache-2.0
 bandit
+pre-commit
