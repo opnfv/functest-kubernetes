@@ -1,0 +1,14 @@
+#!/bin/bash
+
+download-frozen-image-v2.sh /data/docker/functest-kubernetes \
+  opnfv/functest-kubernetes-healthcheck:v1.26 \
+  opnfv/functest-kubernetes-smoke:v1.26 \
+  opnfv/functest-kubernetes-benchmarking:v1.26 \
+  opnfv/functest-kubernetes-security:v1.26 \
+  opnfv/functest-kubernetes-cnf:v1.26
+(cd /home/debian/functest-kubernetes && \
+  git fetch --tags https://git.opnfv.org/functest-kubernetes stable/v1.26 && \
+  git checkout FETCH_HEAD) && \
+chown -R 1000:1000 /home/debian/functest-kubernetes
+
+exit 0
