@@ -1,0 +1,11 @@
+#!/bin/bash
+
+./download-frozen-image-v2.sh /data/docker \
+  opnfv/functest-kubernetes-healthcheck:latest \
+  opnfv/functest-kubernetes-smoke:latest \
+  opnfv/functest-kubernetes-benchmarking:latest \
+  opnfv/functest-kubernetes-security:latest \
+  opnfv/functest-kubernetes-cnf:latest
+git clone https://git.opnfv.org/functest-kubernetes
+
+exit 0
