@@ -16,6 +16,7 @@ RUN apk -U upgrade && \
         git fetch --tags https://review.opendev.org/openstack/requirements $OPENSTACK_TAG && \
         git checkout FETCH_HEAD) && \
     sed -i -E /^packaging==+.*$/d /src/requirements/upper-constraints.txt && \
+    sed -i -E /^PyYAML==+.*$/d /src/requirements/upper-constraints.txt && \
     case $(uname -m) in aarch*|arm*) \
         sed -i -E /^PyNaCl=/d /src/requirements/upper-constraints.txt && \
         apk add --no-cache py3-pynacl ;; esac && \
