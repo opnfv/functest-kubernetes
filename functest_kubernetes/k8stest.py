@@ -71,7 +71,7 @@ class E2ETesting(testcase.TestCase):
         if "NON_BLOCKING_TAINTS" in os.environ:
             cmd_line.extend(
                 ['-non-blocking-taints', os.environ["NON_BLOCKING_TAINTS"]])
-        cmd_line.extend(['-disable-log-dump', 'true'])
+        cmd_line.extend(['-disable-log-dump'])
         self._generate_repo_list_file()
         self.__logger.info("Starting k8s test: '%s'.", cmd_line)
         env = os.environ.copy()
