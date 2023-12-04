@@ -7,3 +7,4 @@ rally
 xrally-kubernetes
 kubernetes # Apache-2.0
 Jinja2 # BSD License (3 clause)
+fixtures # Apache-2.0/BSD
