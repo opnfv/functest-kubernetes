@@ -33,7 +33,7 @@ class E2ETesting(testcase.TestCase):
 
     config = f'{Path.home()}/.kube/config'
     gcr_repo = os.getenv("MIRROR_REPO", "gcr.io")
-    k8s_gcr_repo = os.getenv("MIRROR_REPO", "k8s.gcr.io")
+    k8s_gcr_repo = os.getenv("MIRROR_REPO", "registry.k8s.io")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
