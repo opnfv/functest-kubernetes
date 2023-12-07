@@ -44,18 +44,19 @@ class Netperf(testcase.TestCase):
         try:
             if not os.path.exists(self.res_dir):
                 os.makedirs(self.res_dir)
+            os.chdir(self.res_dir)
             cmd = ['launch', '-iterations', '1', '-kubeConfig',
-                   f'{Path.home()}/.kube/config']
-            output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+                   f'{Path.home()}/.kube/config', '-v', '3']
+            output = subprocess.check_output(
+                cmd, stderr=subprocess.STDOUT, timeout=3600)
             self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
             lfiles = glob.glob(os.path.join(
                 'results_netperf-latest', 'netperf-latest*.csv'))
             results = max(lfiles, key=os.path.getmtime)
-            shutil.move(results, os.path.join(self.res_dir, 'netperf.csv'))
-            cmd = ['plotperf', '-c',
-                   os.path.join(self.res_dir, 'netperf.csv'),
+            cmd = ['plotperf', '-c', results,
                    '-o', self.res_dir, '-s', 'netperf']
-            output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+            output = subprocess.check_output(
+                cmd, stderr=subprocess.STDOUT, timeout=60)
             self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
             self.result = 100
             status = testcase.TestCase.EX_OK
