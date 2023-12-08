@@ -25,6 +25,7 @@ RUN apk --no-cache add --update wget curl libc6-compat ncurses && \
         (cd /src/cnf-testsuite && \
             git fetch --tags https://github.com/cncf/cnf-testsuite.git $CNF_TESTSUITE_TAG && \
             git checkout FETCH_HEAD) && \
+        chown -R xtesting: /src/cnf-testsuite && \
         ln -s /src/cnf-testsuite/example-cnfs/coredns/cnf-testsuite.yml /src/cnf-testsuite/cnf-testsuite.yml && \
         ln -s /src/cnf-testsuite/points-all.yml /src/cnf-testsuite/points.yml && \
         ln -s /usr/local/bin/cnf-testsuite /src/cnf-testsuite/cnf-testsuite && \
