@@ -243,6 +243,7 @@ tiers:
                 \\[Feature:ExperimentalResourceUsageTracking\\]|\
                 \\[Feature:GRPCContainerProbe\\]|\
                 \\[Feature:GPUUpgrade\\]|\
+                \\[Feature:InPlacePodVerticalScaling\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
                 \\[Feature:UserNamespacesStatelessPodsSupport\\]|\
