@@ -246,6 +246,7 @@ tiers:
                 \\[Feature:InPlacePodVerticalScaling\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
+                \\[Feature:SELinux\\]|\
                 \\[Feature:UserNamespacesStatelessPodsSupport\\]|\
                 \\[NodeFeature:DownwardAPIHugePages\\]|\
                 \\[NodeFeature:RuntimeHandler\\]"
