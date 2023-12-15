@@ -246,7 +246,6 @@ tiers:
                 \\[Feature:InPlacePodVerticalScaling\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
-                \\[Feature:SELinux\\]|\
                 \\[Feature:UserNamespacesStatelessPodsSupport\\]|\
                 \\[NodeFeature:DownwardAPIHugePages\\]|\
                 \\[NodeFeature:RuntimeHandler\\]"
@@ -289,6 +288,8 @@ tiers:
                 \\[Feature:GKELocalSSD\\]|\
                 \\[Feature:VolumeSnapshotDataSource\\]|\
                 \\[Feature:Flexvolumes\\]|\
+                \\[Feature:RecoverVolumeExpansionFailure\\]|\
+                \\[Feature:SELinux\\]|\
                 \\[Feature:vsphere\\]|\
                 \\[Feature:Volumes\\]|\
                 \\[Feature:Windows\\]|\
@@ -317,6 +318,8 @@ tiers:
                 \\[Feature:GKELocalSSD\\]|\
                 \\[Feature:VolumeSnapshotDataSource\\]|\
                 \\[Feature:Flexvolumes\\]|\
+                \\[Feature:RecoverVolumeExpansionFailure\\]|\
+                \\[Feature:SELinux\\]|\
                 \\[Feature:vsphere\\]|\
                 \\[Feature:Volumes\\]|\
                 \\[Feature:Windows\\]|\
