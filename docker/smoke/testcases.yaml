@@ -222,6 +222,7 @@ tiers:
                 \\[Feature:ProxyTerminatingEndpoints\\]|\
                 \\[Feature:SCTP\\]|\
                 \\[Feature:SCTPConnectivity\\]|\
+                \\[Feature:ServiceCIDRs\\]|\
                 DNS configMap nameserver|\
                 load.balancer|LoadBalancer|\
                 Network.should.set.TCP.CLOSE_WAIT.timeout"
