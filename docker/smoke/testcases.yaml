@@ -151,7 +151,8 @@ tiers:
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:PodSecurityPolicy\\]|\
-                \\[Feature:BoundServiceAccountTokenVolume\\]"
+                \\[Feature:BoundServiceAccountTokenVolume\\]|\
+                \\[Feature:APISelfSubjectReview\\]"
       - case_name: sig_cluster_lifecycle
         project_name: functest
         criteria: 100
