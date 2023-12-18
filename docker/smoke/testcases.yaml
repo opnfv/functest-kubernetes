@@ -251,6 +251,7 @@ tiers:
                 \\[Feature:KubeletCredentialProviders\\]|\
                 \\[Feature:NodeLogQuery\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
+                \\[Feature:PodLifecycleSleepAction\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
                 \\[Feature:SidecarContainers\\]|\
                 \\[Feature:UserNamespacesSupport\\]|\
