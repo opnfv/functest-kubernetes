@@ -67,7 +67,8 @@ tiers:
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:CrossNamespacePodAffinity]|\
                 \\[Feature:CustomResourceValidationExpressions]|\
-                \\[Feature:StorageVersionAPI\\]"
+                \\[Feature:StorageVersionAPI\\]|\
+                should contain OpenAPI V3 for Aggregated APIServer"
       - case_name: sig_api_machinery_serial
         project_name: functest
         criteria: 100
@@ -85,7 +86,8 @@ tiers:
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Conformance\\]|\
                 \\[Feature:CrossNamespacePodAffinity]|\
-                \\[Feature:StorageVersionAPI\\]"
+                \\[Feature:StorageVersionAPI\\]|\
+                should contain OpenAPI V3 for Aggregated APIServer"
       - case_name: sig_apps
         project_name: functest
         criteria: 100
