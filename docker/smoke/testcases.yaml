@@ -244,6 +244,7 @@ tiers:
                 \\[Feature:GRPCContainerProbe\\]|\
                 \\[Feature:GPUUpgrade\\]|\
                 \\[Feature:InPlacePodVerticalScaling\\]|\
+                \\[Feature:NodeLogQuery\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
                 \\[Feature:SidecarContainers\\]|\
