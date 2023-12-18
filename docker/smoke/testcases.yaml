@@ -68,7 +68,8 @@ tiers:
                 \\[Feature:CrossNamespacePodAffinity]|\
                 \\[Feature:CustomResourceValidationExpressions]|\
                 \\[Feature:StorageVersionAPI\\]|\
-                \\[Feature:WatchList\\]"
+                \\[Feature:WatchList\\]|\
+                should contain OpenAPI V3 for Aggregated APIServer"
       - case_name: sig_api_machinery_serial
         project_name: functest
         criteria: 100
@@ -87,7 +88,8 @@ tiers:
                 \\[Conformance\\]|\
                 \\[Feature:CrossNamespacePodAffinity]|\
                 \\[Feature:StorageVersionAPI\\]|\
-                \\[Feature:WatchList\\]"
+                \\[Feature:WatchList\\]|\
+                should contain OpenAPI V3 for Aggregated APIServer"
       - case_name: sig_apps
         project_name: functest
         criteria: 100
