@@ -239,6 +239,7 @@ tiers:
               focus: \[sig-node]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
+                \\[Feature:add node log viewer\\]|\
                 \\[Feature:DynamicResourceAllocation\\]|\
                 \\[Feature:ExperimentalResourceUsageTracking\\]|\
                 \\[Feature:GRPCContainerProbe\\]|\
