@@ -250,6 +250,7 @@ tiers:
                 \\[Feature:GRPCContainerProbe\\]|\
                 \\[Feature:GPUUpgrade\\]|\
                 \\[Feature:InPlacePodVerticalScaling\\]|\
+                \\[Feature:KubeletCredentialProviders\\]|\
                 \\[Feature:NodeLogQuery\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
