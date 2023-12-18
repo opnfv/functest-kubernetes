@@ -108,7 +108,8 @@ tiers:
                 \\[Feature:StatefulSet\\]|\
                 \\[Feature:StatefulSetAutoDeletePVC\\]|\
                 \\[Feature:StatefulUpgrade\\]|\
-                \\[Feature:SuspendJob\\]"
+                \\[Feature:SuspendJob\\]|\
+                should perform canary updates and phased rolling updates of template modifications for partiton1 and delete pod-0 with failing container"
       - case_name: sig_apps_serial
         project_name: functest
         criteria: 100
@@ -129,7 +130,8 @@ tiers:
                 \\[Feature:IndexedJob\\]|\
                 \\[Feature:StatefulSet\\]|\
                 \\[Feature:StatefulUpgrade\\]|\
-                \\[Feature:SuspendJob\\]"
+                \\[Feature:SuspendJob\\]|\
+                should perform canary updates and phased rolling updates of template modifications for partiton1 and delete pod-0 with failing container"
       - case_name: sig_auth
         project_name: functest
         criteria: 100
