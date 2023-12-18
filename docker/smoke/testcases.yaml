@@ -248,6 +248,7 @@ tiers:
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
                 \\[Feature:SidecarContainers\\]|\
+                \\[Feature:UserNamespacesSupport\\]|\
                 \\[Feature:UserNamespacesStatelessPodsSupport\\]|\
                 \\[NodeFeature:DownwardAPIHugePages\\]|\
                 \\[NodeFeature:RuntimeHandler\\]"
