@@ -60,17 +60,33 @@ class CNFConformance(testcase.TestCase):
         if os.path.exists(os.path.join(self.src_dir, "results")):
             shutil.rmtree(os.path.join(self.src_dir, "results"))
         os.chdir(self.src_dir)
-        cmd = ['cnf-testsuite', 'setup']
-        output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+        cmd = ['cnf-testsuite', 'setup', '-l DEBUG']
+        try:
+            output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError as exc:
+            self.__logger.exception(
+                "Cannot run %s:\n%s", ' '.join(exc.cmd),
+                exc.output.decode("utf-8"))
+            self.result = 0
+            return False
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
         cmd = ['cnf-testsuite', 'cnf_setup',
-               'cnf-config=cnf-testsuite.yml']
-        output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+               'cnf-config=cnf-testsuite.yml', '-l DEBUG']
+        try:
+            output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError as exc:
+            self.__logger.exception(
+                "Cannot run %s:\n%s", ' '.join(exc.cmd),
+                exc.output.decode("utf-8"))
+            self.result = 0
+            return False
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
+        return True
 
     def run_conformance(self, **kwargs):
         """Run CNF Conformance"""
-        cmd = ['cnf-testsuite', kwargs.get("tag", self.default_tag)]
+        cmd = ['cnf-testsuite', kwargs.get("tag", self.default_tag),
+               '-l DEBUG']
         output = subprocess.run(
             cmd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE,
             check=False).stdout
@@ -109,8 +125,8 @@ class CNFConformance(testcase.TestCase):
     def run(self, **kwargs):
         """"Running the test with example CNF"""
         self.start_time = time.time()
-        self.setup()
-        self.run_conformance(**kwargs)
+        if self.setup():
+            self.run_conformance(**kwargs)
         self.stop_time = time.time()
 
     def clean(self):
