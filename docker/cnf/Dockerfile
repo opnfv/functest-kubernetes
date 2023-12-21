@@ -1,7 +1,7 @@
 FROM opnfv/functest-kubernetes-core
 
 ARG CNF_TESTSUITE_TAG=v0.45.0
-ARG HELM_TAG=v3.3.1
+ARG HELM_TAG=v3.13.3
 
 USER root
 RUN apk --no-cache add --update wget curl libc6-compat ncurses && \
@@ -31,5 +31,6 @@ RUN apk --no-cache add --update wget curl libc6-compat ncurses && \
         ln -s /usr/local/bin/cnf-testsuite /src/cnf-testsuite/cnf-testsuite && \
         rm -rf /src/cnf-testsuite-$CNF_TESTSUITE_TAG.tar.gz /src/cnf-testsuite/.git ;; esac
 USER xtesting
+RUN helm repo add stable https://cncf.gitlab.io/stable
 COPY testcases.yaml /etc/xtesting/testcases.yaml
 CMD ["run_tests", "-t", "all"]
