@@ -88,7 +88,13 @@ class E2ETesting(testcase.TestCase):
             r' ([0-9]+) Pending \| ([0-9]+) Skipped',
             boutput.decode("utf-8", errors="ignore"),
             re.MULTILINE | re.DOTALL)
-        assert grp
+        try:
+            assert grp
+        except AssertionError:
+            self.__logger.exception(
+                "Can not find the overall result in \n%s",
+                boutput.decode("utf-8", errors="ignore"))
+            return False
         self.details['passed'] = int(grp.group(2))
         self.details['failed'] = int(grp.group(3))
         self.details['pending'] = int(grp.group(4))
@@ -105,8 +111,10 @@ class E2ETesting(testcase.TestCase):
                 re.MULTILINE | re.DOTALL)
             if grp2:
                 self.__logger.error(grp2.group(1))
+        return True
 
     def run(self, **kwargs):
+        res = self.EX_RUN_ERROR
         if not os.path.exists(self.res_dir):
             os.makedirs(self.res_dir)
         if not os.path.isfile(self.config):
@@ -115,11 +123,10 @@ class E2ETesting(testcase.TestCase):
             return self.EX_RUN_ERROR
         self.start_time = time.time()
         try:
-            self.run_kubetest(**kwargs)
-            res = self.EX_OK
+            if self.run_kubetest(**kwargs):
+                res = self.EX_OK
         except Exception:  # pylint: disable=broad-except
             self.__logger.exception("Error with running kubetest:")
-            res = self.EX_RUN_ERROR
         self.stop_time = time.time()
         return res
 
