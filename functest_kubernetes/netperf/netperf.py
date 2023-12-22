@@ -60,8 +60,10 @@ class Netperf(testcase.TestCase):
             self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
             self.result = 100
             status = testcase.TestCase.EX_OK
-        except Exception:  # pylint: disable=broad-except
-            self.__logger.exception("Can not run Netperf")
+        except subprocess.SubprocessError as exc:
+            self.__logger.exception(
+                "Cannot run Netperf:\n%s", ' '.join(exc.cmd),
+                exc.output.decode("utf-8"))
             self.result = 0
             status = testcase.TestCase.EX_RUN_ERROR
         self.stop_time = time.time()
