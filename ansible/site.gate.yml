@@ -6,7 +6,7 @@
       db_project: functest
       use_gerrit: true
       gerrit_project: functest-kubernetes
-      git_url: https://gerrit.opnfv.org/gerrit/functest-xtesting
+      git_url: https://gerrit.opnfv.org/gerrit/functest-kubernetes
       docker_tags:
         - v1.26:
             branch: stable/v1.26
