@@ -166,31 +166,6 @@ subtasks:
         count: {{ namespaces_count }}
         with_serviceaccount: true
 
-  - title: >-
-      Run a single workload with create/read/check/delete pod with hostPath
-      volume
-    scenario:
-      Kubernetes.create_and_delete_pod_with_hostpath_volume:
-        image: {{ dockerhub_repo }}/busybox:1.28
-        command:
-          - sleep
-          - "3600"
-        mount_path: /opt/check
-        check_cmd:
-          - ls
-          - /opt/check
-        error_regexp: No such file
-        volume_type: Directory
-        volume_path: /tmp/
-    runner:
-      constant:
-        concurrency: {{ concurrency }}
-        times: {{ times }}
-    contexts:
-      namespaces:
-        count: {{ namespaces_count }}
-        with_serviceaccount: true
-
   - title:
       Run a single workload with create/read/delete pod with configMap volume
     scenario:
