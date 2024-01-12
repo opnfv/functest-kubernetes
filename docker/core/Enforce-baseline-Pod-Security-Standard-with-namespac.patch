@@ -1,0 +1,39 @@
+From cf7998dc92bd9d0bcc99ee2c9a21b6c41d1b2750 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?C=C3=A9dric=20Ollivier?= <cedric.ollivier@orange.com>
+Date: Fri, 12 Jan 2024 21:16:54 +0100
+Subject: [PATCH] Enforce baseline Pod Security Standard with namespace labels
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+It allows running the xrally_kubernetes testcases vs clusters where
+PodSecurityConfiguration enforces "restricted" [1].
+
+Please note that Kubernetes.create_and_delete_pod_with_hostpath_volume
+even requests for privileged [2].
+
+[1] https://kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/
+[2] https://kubernetes.io/docs/concepts/storage/volumes/#hostpath
+
+Signed-off-by: Cédric Ollivier <cedric.ollivier@orange.com>
+---
+ xrally_kubernetes/service.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/xrally_kubernetes/service.py b/xrally_kubernetes/service.py
+index d38f84b..4f97550 100644
+--- a/xrally_kubernetes/service.py
++++ b/xrally_kubernetes/service.py
+@@ -238,7 +238,8 @@ class Kubernetes(service.Service):
+             "metadata": {
+                 "name": name,
+                 "labels": {
+-                    "role": name
++                    "role": name,
++                    "pod-security.kubernetes.io/enforce": "baseline"
+                 }
+             }
+         }
+-- 
+2.43.0
+
