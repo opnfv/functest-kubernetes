@@ -68,7 +68,8 @@ class Vims(testcase.TestCase):  # pylint: disable=too-many-instance-attributes
         """
         api_response = self.corev1.create_namespace(
             client.V1Namespace(metadata=client.V1ObjectMeta(
-                generate_name=self.ns_generate_name)))
+                generate_name=self.ns_generate_name,
+                labels={"pod-security.kubernetes.io/enforce": "baseline"})))
         self.namespace = api_response.metadata.name
         self.__logger.debug("create_namespace: %s", api_response)
         self.zone = f'{self.namespace}.svc.cluster.local'
