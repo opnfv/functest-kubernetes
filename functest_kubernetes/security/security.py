@@ -51,6 +51,7 @@ class SecurityTesting(testcase.TestCase):
         self.output_debug_log_name = 'functest-kubernetes.debug.log'
         self.namespace = ""
         self.ns_generate_name = "security-"
+        self.pss = "baseline"
 
     def deploy_job(self):
         """Run Security job
@@ -62,7 +63,7 @@ class SecurityTesting(testcase.TestCase):
         api_response = self.corev1.create_namespace(
             client.V1Namespace(metadata=client.V1ObjectMeta(
                 generate_name=self.ns_generate_name,
-                labels={"pod-security.kubernetes.io/enforce": "baseline"})))
+                labels={"pod-security.kubernetes.io/enforce": self.pss})))
         self.namespace = api_response.metadata.name
         self.__logger.debug("create_namespace: %s", api_response)
         with open(pkg_resources.resource_filename(
@@ -201,6 +202,7 @@ class KubeBench(SecurityTesting):
         super().__init__(**kwargs)
         self.job_name = "kube-bench"
         self.ns_generate_name = "kube-bench-"
+        self.pss = "privileged"
 
     def run(self, **kwargs):
         self.job_name = f'kube-bench-{kwargs.get("target", "node")}'
