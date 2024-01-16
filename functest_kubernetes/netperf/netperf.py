@@ -25,6 +25,7 @@ from xtesting.core import testcase
 
 
 class Netperf(testcase.TestCase):
+    # pylint: disable=too-many-instance-attributes
     """Run Benchmarking Kubernetes Networking Performance"""
 
     ns_generate_name = "netperf-"
@@ -36,6 +37,7 @@ class Netperf(testcase.TestCase):
         self.corev1 = client.CoreV1Api()
         self.output_log_name = 'functest-kubernetes.log'
         self.output_debug_log_name = 'functest-kubernetes.debug.log'
+        self.namespace = ''
 
     def check_requirements(self):
         """Check if launch is in $PATH"""
@@ -87,7 +89,7 @@ class Netperf(testcase.TestCase):
     def clean(self):
         if self.namespace:
             try:
-                api_response = self.corev1.delete_namespace(self.namespace)
+                self.corev1.delete_namespace(self.namespace)
                 self.__logger.debug("delete_namespace: %s", self.namespace)
             except client.rest.ApiException:
                 pass
