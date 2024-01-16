@@ -25,12 +25,14 @@ import subprocess
 import time
 import yaml
 
+from kubernetes import client
+from kubernetes import config
 import prettytable
-
 from xtesting.core import testcase
 
 
 class CNFConformance(testcase.TestCase):
+    # pylint: disable=too-many-instance-attributes
     """ Implement CNF Conformance driver.
 
     https://hackmd.io/@vulk/SkY54QnsU
@@ -44,6 +46,8 @@ class CNFConformance(testcase.TestCase):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        config.load_kube_config()
+        self.corev1 = client.CoreV1Api()
         self.output_log_name = 'functest-kubernetes.log'
         self.output_debug_log_name = 'functest-kubernetes.debug.log'
 
@@ -59,6 +63,13 @@ class CNFConformance(testcase.TestCase):
         """Implement initialization and pre-reqs steps"""
         if os.path.exists(os.path.join(self.src_dir, "results")):
             shutil.rmtree(os.path.join(self.src_dir, "results"))
+        for namespace in ["cnf-testsuite", "default", "litmus"]:
+            api_response = self.corev1.create_namespace(
+                client.V1Namespace(metadata=client.V1ObjectMeta(
+                    generate_name=namespace, labels={
+                        "pod-security.kubernetes.io/enforce": "baseline"})))
+            self.__logger.debug(
+                "create_namespace: %s", api_response.metadata.name)
         os.chdir(self.src_dir)
         cmd = ['cnf-testsuite', 'setup', '-l', 'debug']
         try:
@@ -136,3 +147,9 @@ class CNFConformance(testcase.TestCase):
                    'cnf-config=cnf-testsuite.yml']
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
             self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
+        try:
+            for namespace in ["cnf-testsuite", "default", "litmus"]:
+                self.corev1.delete_namespace(namespace)
+                self.__logger.debug("delete_namespace: %s", namespace)
+        except client.rest.ApiException:
+            pass
