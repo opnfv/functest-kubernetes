@@ -53,4 +53,5 @@ RUN apk -U upgrade && \
 USER xtesting
 COPY logging.ini /etc/xtesting/logging.ini
 COPY logging.debug.ini /etc/xtesting/logging.debug.ini
+WORKDIR /var/lib/xtesting/results
 CMD ["run_tests", "-t", "all"]
