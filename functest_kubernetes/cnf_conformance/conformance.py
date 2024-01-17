@@ -63,13 +63,27 @@ class CNFConformance(testcase.TestCase):
         """Implement initialization and pre-reqs steps"""
         if os.path.exists(os.path.join(self.src_dir, "results")):
             shutil.rmtree(os.path.join(self.src_dir, "results"))
+        api_response = self.corev1.list_namespace()
         for namespace in ["cnf-testsuite", "default", "litmus"]:
-            api_response = self.corev1.create_namespace(
-                client.V1Namespace(metadata=client.V1ObjectMeta(
-                    generate_name=namespace, labels={
-                        "pod-security.kubernetes.io/enforce": "baseline"})))
-            self.__logger.debug(
-                "create_namespace: %s", api_response.metadata.name)
+            for ns in api_response.items:
+                if ns.metadata.name == namespace:
+                    self.corev1.patch_namespace(
+                        namespace,
+                        client.V1Namespace(metadata=client.V1ObjectMeta(
+                            labels={
+                                "pod-security.kubernetes.io/enforce":
+                                    "baseline"})))
+                    self.__logger.debug(
+                        "patch_namespace: %s", namespace)
+                    break
+            else:
+                self.corev1.create_namespace(
+                    client.V1Namespace(metadata=client.V1ObjectMeta(
+                        name=namespace, labels={
+                            "pod-security.kubernetes.io/enforce":
+                                "baseline"})))
+                self.__logger.debug(
+                    "create_namespace: %s", namespace)
         os.chdir(self.src_dir)
         cmd = ['cnf-testsuite', 'setup', '-l', 'debug']
         try:
