@@ -4,6 +4,9 @@
     - role: collivier.xtesting
       project: functest-kubernetes
       db_project: functest
+      docker_tags:
+        - v1.29:
+            branch: stable/v1.29
       suites:
         - container: functest-kubernetes-healthcheck
           tests:
