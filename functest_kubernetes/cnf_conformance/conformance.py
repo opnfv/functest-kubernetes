@@ -65,8 +65,8 @@ class CNFConformance(testcase.TestCase):
             shutil.rmtree(os.path.join(self.src_dir, "results"))
         api_response = self.corev1.list_namespace()
         for namespace in ["cnf-testsuite", "default", "litmus"]:
-            for ns in api_response.items:
-                if ns.metadata.name == namespace:
+            for item in api_response.items:
+                if item.metadata.name == namespace:
                     self.corev1.patch_namespace(
                         namespace,
                         client.V1Namespace(metadata=client.V1ObjectMeta(
