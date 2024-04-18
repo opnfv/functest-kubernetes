@@ -1,7 +1,7 @@
 FROM opnfv/functest-kubernetes-core:v1.29
 
 ARG K8S_TAG=1.29
-ARG CNF_TESTSUITE_TAG=v0.45.0
+ARG CNF_TESTSUITE_TAG=v1.0.0
 ARG HELM_TAG=v3.3.1
 
 USER root
@@ -17,14 +17,14 @@ RUN apk --no-cache add --update wget curl libc6-compat ncurses && \
     chmod +x /usr/local/bin/kubectl /usr/local/bin/helm && \
     rm -r /src/helm-$HELM_TAG-linux-$arch.tar.gz /src/linux-$arch && \
     case $(uname -m) in x86_64) \
-        curl https://github.com/cncf/cnf-testsuite/releases/download/$CNF_TESTSUITE_TAG/cnf-testsuite-$CNF_TESTSUITE_TAG.tar.gz \
+        curl https://github.com/cnti-testcatalog/testsuite/releases/download/$CNF_TESTSUITE_TAG/cnf-testsuite-$CNF_TESTSUITE_TAG.tar.gz \
             -L --output /src/cnf-testsuite-$CNF_TESTSUITE_TAG.tar.gz && \
-        tar zxf /src/cnf-testsuite-$CNF_TESTSUITE_TAG.tar.gz ./cnf-testsuite -C /usr/local/bin && \
+        tar zxf /src/cnf-testsuite-$CNF_TESTSUITE_TAG.tar.gz cnf-testsuite -C /usr/local/bin && \
         chmod +x /usr/local/bin/cnf-testsuite && \
         mkdir /src/cnf-testsuite && \
         git init /src/cnf-testsuite && \
         (cd /src/cnf-testsuite && \
-            git fetch --tags https://github.com/cncf/cnf-testsuite.git $CNF_TESTSUITE_TAG && \
+            git fetch --tags https://github.com/cnti-testcatalog/testsuite.git $CNF_TESTSUITE_TAG && \
             git checkout FETCH_HEAD) && \
         chown -R xtesting: /src/cnf-testsuite && \
         ln -s /src/cnf-testsuite/example-cnfs/coredns/cnf-testsuite.yml /src/cnf-testsuite/cnf-testsuite.yml && \
