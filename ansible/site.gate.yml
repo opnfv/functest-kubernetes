@@ -10,7 +10,7 @@
       docker_tags:
         - latest:
             branch: master
-            dependency: '3.16'
+            dependency: '3.20'
       builds:
         dependency:
           repo: _
