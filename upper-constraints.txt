@@ -1,5 +1,6 @@
 xtesting===1.0.0
 bandit===1.7.9
+-e git+https://opendev.org/openstack/rally.git#egg=rally
 git+https://github.com/xrally/xrally-kubernetes.git#egg=xrally-kubernetes
 pylint===3.2.7
 flake8===7.1.1
