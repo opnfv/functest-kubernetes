@@ -65,8 +65,9 @@ tiers:
               focus: \[sig-api-machinery\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
-                \\[Feature:CrossNamespacePodAffinity]|\
-                \\[Feature:CustomResourceValidationExpressions]|\
+                \\[Feature:CrossNamespacePodAffinity\\]|\
+                \\[Feature:CustomResourceValidationExpressions\\]|\
+                \\[Feature:DynamicResourceAllocation\\]|\
                 \\[Feature:StorageVersionAPI\\]|\
                 \\[Feature:WatchList\\]"
       - case_name: sig_api_machinery_serial
@@ -86,6 +87,8 @@ tiers:
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Conformance\\]|\
                 \\[Feature:CrossNamespacePodAffinity]|\
+                \\[Feature:CustomResourceValidationExpressions\\]|\
+                \\[Feature:DynamicResourceAllocation\\]|\
                 \\[Feature:StorageVersionAPI\\]|\
                 \\[Feature:WatchList\\]"
       - case_name: sig_apps
