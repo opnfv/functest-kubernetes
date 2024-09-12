@@ -1,7 +1,7 @@
 FROM alpine:3.16
 
 ARG BRANCH=stable/v1.28
-ARG OPENSTACK_TAG=stable/zed
+ARG OPENSTACK_TAG=unmaintained/zed
 ARG OPNFV_TAG=stable/zed
 
 COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
