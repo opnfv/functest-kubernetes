@@ -255,6 +255,7 @@ tiers:
                 \\[Feature:PodLifecycleSleepAction\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
                 \\[Feature:SidecarContainers\\]|\
+                \\[Feature:UserNamespacesPodSecurityStandards\\]|\
                 \\[Feature:UserNamespacesSupport\\]|\
                 \\[Feature:UserNamespacesStatelessPodsSupport\\]|\
                 \\[NodeFeature:DownwardAPIHugePages\\]|\
