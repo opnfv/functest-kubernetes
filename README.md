@@ -39,11 +39,11 @@ sudo docker run --env-file env \
 ```
 
 ```
-+-------------------+------------------+---------------------+------------------+----------------+
+-------------------+------------------+---------------------+------------------+----------------+
 |     TEST CASE     |     PROJECT      |         TIER        |     DURATION     |     RESULT     |
 +-------------------+------------------+---------------------+------------------+----------------+
-|     k8s_quick     |     functest     |     healthcheck     |      00:18       |      PASS      |
-|     k8s_smoke     |     functest     |     healthcheck     |      01:14       |      PASS      |
+|     k8s_quick     |     functest     |     healthcheck     |      00:06       |      PASS      |
+|     k8s_smoke     |     functest     |     healthcheck     |      00:14       |      PASS      |
 +-------------------+------------------+---------------------+------------------+----------------+
 ```
 
@@ -59,21 +59,21 @@ sudo docker run --env-file env \
 +----------------------------------+------------------+---------------+------------------+----------------+
 |            TEST CASE             |     PROJECT      |      TIER     |     DURATION     |     RESULT     |
 +----------------------------------+------------------+---------------+------------------+----------------+
-|        xrally_kubernetes         |     functest     |     smoke     |      13:00       |      PASS      |
-|         k8s_conformance          |     functest     |     smoke     |      16:31       |      PASS      |
-|      k8s_conformance_serial      |     functest     |     smoke     |      15:34       |      PASS      |
-|        sig_api_machinery         |     functest     |     smoke     |      09:01       |      PASS      |
-|     sig_api_machinery_serial     |     functest     |     smoke     |      01:24       |      PASS      |
-|             sig_apps             |     functest     |     smoke     |      03:45       |      PASS      |
-|         sig_apps_serial          |     functest     |     smoke     |      00:31       |      PASS      |
-|             sig_auth             |     functest     |     smoke     |      09:04       |      PASS      |
-|      sig_cluster_lifecycle       |     functest     |     smoke     |      00:26       |      PASS      |
-|       sig_instrumentation        |     functest     |     smoke     |      00:03       |      PASS      |
-|           sig_network            |     functest     |     smoke     |      05:43       |      PASS      |
-|             sig_node             |     functest     |     smoke     |      28:03       |      PASS      |
-|      sig_scheduling_serial       |     functest     |     smoke     |      08:03       |      PASS      |
-|           sig_storage            |     functest     |     smoke     |      09:17       |      PASS      |
-|        sig_storage_serial        |     functest     |     smoke     |      02:40       |      PASS      |
+|        xrally_kubernetes         |     functest     |     smoke     |      09:30       |      PASS      |
+|         k8s_conformance          |     functest     |     smoke     |      11:34       |      PASS      |
+|      k8s_conformance_serial      |     functest     |     smoke     |      11:11       |      PASS      |
+|        sig_api_machinery         |     functest     |     smoke     |      02:01       |      PASS      |
+|     sig_api_machinery_serial     |     functest     |     smoke     |      01:33       |      PASS      |
+|             sig_apps             |     functest     |     smoke     |      03:35       |      PASS      |
+|         sig_apps_serial          |     functest     |     smoke     |      03:31       |      PASS      |
+|             sig_auth             |     functest     |     smoke     |      10:04       |      PASS      |
+|      sig_cluster_lifecycle       |     functest     |     smoke     |      00:23       |      PASS      |
+|       sig_instrumentation        |     functest     |     smoke     |      00:04       |      PASS      |
+|           sig_network            |     functest     |     smoke     |      04:20       |      PASS      |
+|             sig_node             |     functest     |     smoke     |      27:14       |      PASS      |
+|      sig_scheduling_serial       |     functest     |     smoke     |      06:52       |      PASS      |
+|           sig_storage            |     functest     |     smoke     |      18:16       |      PASS      |
+|        sig_storage_serial        |     functest     |     smoke     |      01:08       |      PASS      |
 +----------------------------------+------------------+---------------+------------------+----------------+
 ```
 
@@ -89,9 +89,9 @@ sudo docker run --env-file env \
 +---------------------------+------------------+------------------+------------------+----------------+
 |         TEST CASE         |     PROJECT      |       TIER       |     DURATION     |     RESULT     |
 +---------------------------+------------------+------------------+------------------+----------------+
-|        kube_hunter        |     functest     |     security     |      00:19       |      PASS      |
-|     kube_bench_master     |     functest     |     security     |      00:02       |      PASS      |
-|      kube_bench_node      |     functest     |     security     |      00:01       |      PASS      |
+|        kube_hunter        |     functest     |     security     |      00:37       |      PASS      |
+|     kube_bench_master     |     functest     |     security     |      00:07       |      PASS      |
+|      kube_bench_node      |     functest     |     security     |      00:07       |      PASS      |
 +---------------------------+------------------+------------------+------------------+----------------+
 ```
 
@@ -107,8 +107,8 @@ sudo docker run --env-file env \
 +--------------------------------+------------------+----------------------+------------------+----------------+
 |           TEST CASE            |     PROJECT      |         TIER         |     DURATION     |     RESULT     |
 +--------------------------------+------------------+----------------------+------------------+----------------+
-|     xrally_kubernetes_full     |     functest     |     benchmarking     |      33:07       |      PASS      |
-|            netperf             |     functest     |     benchmarking     |      40:16       |      PASS      |
+|     xrally_kubernetes_full     |     functest     |     benchmarking     |      25:20       |      PASS      |
+|            netperf             |     functest     |     benchmarking     |      41:15       |      PASS      |
 +--------------------------------+------------------+----------------------+------------------+----------------+
 ```
 
@@ -124,9 +124,9 @@ sudo docker run --env-file env \
 +-----------------------+------------------+--------------+------------------+----------------+
 |       TEST CASE       |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
 +-----------------------+------------------+--------------+------------------+----------------+
-|        k8s_vims       |     functest     |     cnf      |      09:06       |      PASS      |
-|       helm_vims       |     functest     |     cnf      |      08:54       |      PASS      |
-|     cnf_testsuite     |     functest     |     cnf      |      16:47       |      PASS      |
+|        k8s_vims       |     functest     |     cnf      |      08:43       |      PASS      |
+|       helm_vims       |     functest     |     cnf      |      08:49       |      PASS      |
+|     cnf_testsuite     |     functest     |     cnf      |      18:41       |      PASS      |
 +-----------------------+------------------+--------------+------------------+----------------+
 ```
 
