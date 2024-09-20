@@ -72,7 +72,7 @@ class CNFConformance(testcase.TestCase):
                         client.V1Namespace(metadata=client.V1ObjectMeta(
                             labels={
                                 "pod-security.kubernetes.io/enforce":
-                                    "baseline"})))
+                                    "privileged"})))
                     self.__logger.debug(
                         "patch_namespace: %s", namespace)
                     break
@@ -155,8 +155,7 @@ class CNFConformance(testcase.TestCase):
         self.stop_time = time.time()
 
     def clean(self):
-        for clean_cmd in ['uninstall_falco',
-                          'cnf_cleanup']:
+        for clean_cmd in ['cnf_cleanup']:
             cmd = ['cnf-testsuite', clean_cmd,
                    'cnf-config=cnf-testsuite.yml']
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
