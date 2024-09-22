@@ -81,7 +81,7 @@ class CNFConformance(testcase.TestCase):
                     client.V1Namespace(metadata=client.V1ObjectMeta(
                         name=namespace, labels={
                             "pod-security.kubernetes.io/enforce":
-                                "baseline"})))
+                                "privileged"})))
                 self.__logger.debug(
                     "create_namespace: %s", namespace)
         os.chdir(self.src_dir)
