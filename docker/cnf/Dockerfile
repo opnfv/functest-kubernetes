@@ -26,9 +26,7 @@ RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
         (cd /src/cnf-testsuite && \
             git fetch --tags https://github.com/cnti-testcatalog/testsuite.git $CNF_TESTSUITE_TAG && \
             git checkout FETCH_HEAD && \
-            wget https://patch-diff.githubusercontent.com/raw/cnti-testcatalog/testsuite/pull/2156.diff && \
-            patch -p1 < 2156.diff && rm 2156.diff && \
-            shards install && \
+            shards install --without-development && \
             crystal build --static src/cnf-testsuite.cr && \
             cp cnf-testsuite  /usr/local/bin/cnf-testsuite && rm -r lib) && \
         chown -R xtesting: /src/cnf-testsuite && \
