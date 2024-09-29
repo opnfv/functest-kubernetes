@@ -64,7 +64,7 @@ class CNFConformance(testcase.TestCase):
         if os.path.exists(os.path.join(self.src_dir, "results")):
             shutil.rmtree(os.path.join(self.src_dir, "results"))
         api_response = self.corev1.list_namespace()
-        for namespace in ["cnf-testsuite", "default", "litmus"]:
+        for namespace in ["cnf-testsuite", "cnf-default", "litmus"]:
             for item in api_response.items:
                 if item.metadata.name == namespace:
                     self.corev1.patch_namespace(
@@ -161,7 +161,7 @@ class CNFConformance(testcase.TestCase):
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
             self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
         try:
-            for namespace in ["cnf-testsuite", "litmus"]:
+            for namespace in ["cnf-testsuite", "cnf-default", "litmus"]:
                 self.corev1.delete_namespace(namespace)
                 self.__logger.debug("delete_namespace: %s", namespace)
         except client.rest.ApiException:
