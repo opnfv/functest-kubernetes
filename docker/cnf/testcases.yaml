@@ -30,13 +30,12 @@ tiers:
 
       - case_name: cnf_testsuite
         project_name: functest
-        # https://github.com/cncf/cnf-certification/blob/main/reviewing.md
-        criteria: 10
+        criteria: 15
         blocking: false
         description: >-
           Enable interoperability of Cloud native Network
           Functions (CNFs) as proposed by
-          https://github.com/cncf/cnf-testsuite
+          https://github.com/cnti-testcatalog/testsuite
         dependencies:
           - DEPLOY_SCENARIO: "k8-*"
         run:
