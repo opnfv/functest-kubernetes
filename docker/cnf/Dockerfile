@@ -2,7 +2,7 @@ FROM opnfv/functest-kubernetes-core:v1.31
 
 ARG K8S_TAG=1.31
 ARG CNF_TESTSUITE_TAG=v1.3.3
-ARG HELM_TAG=v3.3.1
+ARG HELM_TAG=v3.6.0
 
 USER root
 RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
