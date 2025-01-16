@@ -8,8 +8,8 @@
       gerrit_project: functest-kubernetes
       git_url: https://gerrit.opnfv.org/gerrit/functest-kubernetes
       docker_tags:
-        - latest:
-            branch: master
+        - v1.32:
+            branch: stable/v1.32
             dependency: '3.20'
       builds:
         dependency:
