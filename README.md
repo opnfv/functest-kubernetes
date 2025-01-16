@@ -21,7 +21,8 @@ datacenters as the lowest cost (50 euros hardware and software included).
 | v1.29             | v1.29               |
 | v1.30             | v1.30               |
 | v1.31             | v1.31               |
-| **Master**        | **latest**          |
+| **v1.32**         | **v1.32**           |
+| Master            | latest              |
 
 ## Prepare your environment
 
@@ -35,7 +36,7 @@ DEPLOY_SCENARIO=k8s-XXX
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/home/xtesting/.kube/config \
-    opnfv/functest-kubernetes-healthcheck
+    opnfv/functest-kubernetes-healthcheck:v1.32
 ```
 
 ```
@@ -52,7 +53,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/home/xtesting/.kube/config \
-    opnfv/functest-kubernetes-smoke
+    opnfv/functest-kubernetes-smoke:v1.32
 ```
 
 ```
@@ -82,7 +83,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/home/xtesting/.kube/config \
-    opnfv/functest-kubernetes-security
+    opnfv/functest-kubernetes-security:v1.32
 ```
 
 ```
@@ -100,7 +101,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/home/xtesting/.kube/config \
-    opnfv/functest-kubernetes-benchmarking
+    opnfv/functest-kubernetes-benchmarking:v1.32
 ```
 
 ```
@@ -117,7 +118,7 @@ sudo docker run --env-file env \
 ```bash
 sudo docker run --env-file env \
     -v $(pwd)/config:/home/xtesting/.kube/config \
-    opnfv/functest-kubernetes-cnf
+    opnfv/functest-kubernetes-cnf:v1.32
 ```
 
 ```
