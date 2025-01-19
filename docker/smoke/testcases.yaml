@@ -223,6 +223,7 @@ tiers:
                 \\[Feature:NetworkPolicy\\]|\
                 \\[Feature:PerformanceDNS\\]|\
                 \\[Feature:ProxyTerminatingEndpoints\\]|\
+                \\[Feature:RelaxedDNSSearchValidation\\]|\
                 \\[Feature:SCTP\\]|\
                 \\[Feature:SCTPConnectivity\\]|\
                 \\[Feature:ServiceCIDRs\\]|\
@@ -256,6 +257,8 @@ tiers:
                 \\[Feature:NodeLogQuery\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:PodLifecycleSleepAction\\]|\
+                \\[Feature:PodLifecycleSleepActionAllowZero\\]|\
+                \\[Feature:PodLogsQuerySplitStreams\\]|\
                 \\[Feature:RegularResourceUsageTracking\\]|\
                 \\[Feature:SidecarContainers\\]|\
                 \\[Feature:UserNamespacesPodSecurityStandards\\]|\
@@ -279,7 +282,9 @@ tiers:
               focus: \[sig-scheduling\].*\[Serial\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Conformance\\]|\
-                \\[Feature:GPUDevicePlugin\\]|\\[Feature:Recreate\\]"
+                \\[Feature:GPUDevicePlugin\\]|\
+                \\[Feature:Recreate\\]|\
+                \\[Feature:SchedulerAsyncPreemption\\]"
       - case_name: sig_storage
         project_name: functest
         criteria: 100
@@ -297,6 +302,7 @@ tiers:
               focus: \[sig-storage\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Conformance\\]|\\[Driver:.+\\]|\
+                \\[Feature:CSIVolumeHealth\\]|\
                 \\[Feature:ExpandInUsePersistentVolumes\\]|\
                 \\[Feature:Flexvolumes\\]|\
                 \\[Feature:GKELocalSSD\\]|\
@@ -328,6 +334,7 @@ tiers:
               focus: \[sig-storage\].*\[Serial\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
                 \\[Conformance\\]|\\[Driver:.+\\]|\
+                \\[Feature:CSIVolumeHealth\\]|\
                 \\[Feature:ExpandInUsePersistentVolumes\\]|\
                 \\[Feature:Flexvolumes\\]|\
                 \\[Feature:GKELocalSSD\\]|\
