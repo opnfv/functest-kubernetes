@@ -6,9 +6,9 @@ ARG HELM_TAG=v3.6.0
 USER root
 RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
     apk --no-cache add --virtual .build-deps --update crystal shards make yaml-dev openssl-dev zlib-dev patch openssl-libs-static yaml-static zlib-static && \
-    tag=$(curl -s https://storage.googleapis.com/kubernetes-release/release/latest.txt)  && \
+    tag=$(curl -Ls https://dl.k8s.io/release/latest.txt)
     case $(uname -m) in armv7l) arch=arm;; aarch64) arch=arm64;; x86_64) arch=amd64;; esac && \
-    curl https://storage.googleapis.com/kubernetes-release/release/$tag/bin/linux/$arch/kubectl \
+    curl -Ls https://dl.k8s.io/release/$tag/bin/linux/$arch/kubectl \
         --output /usr/local/bin/kubectl && \
     curl https://get.helm.sh/helm-$HELM_TAG-linux-$arch.tar.gz \
         --output /src/helm-$HELM_TAG-linux-$arch.tar.gz && \
