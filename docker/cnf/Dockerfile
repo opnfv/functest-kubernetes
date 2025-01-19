@@ -6,7 +6,7 @@ ARG HELM_TAG=v3.6.0
 USER root
 RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
     apk --no-cache add --virtual .build-deps --update crystal shards make yaml-dev openssl-dev zlib-dev patch openssl-libs-static yaml-static zlib-static && \
-    tag=$(curl -Ls https://dl.k8s.io/release/latest.txt)
+    tag=$(curl -Ls https://dl.k8s.io/release/latest.txt) && \
     case $(uname -m) in armv7l) arch=arm;; aarch64) arch=arm64;; x86_64) arch=amd64;; esac && \
     curl -Ls https://dl.k8s.io/release/$tag/bin/linux/$arch/kubectl \
         --output /usr/local/bin/kubectl && \
