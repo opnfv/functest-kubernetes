@@ -95,7 +95,7 @@ class CNFConformance(testcase.TestCase):
             self.result = 0
             return False
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
-        cmd = ['cnf-testsuite', 'cnf_setup',
+        cmd = ['cnf-testsuite', 'cnf_install',
                'cnf-config=cnf-testsuite.yml', '-l', 'debug']
         try:
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
@@ -155,7 +155,7 @@ class CNFConformance(testcase.TestCase):
         self.stop_time = time.time()
 
     def clean(self):
-        for clean_cmd in ['cnf_cleanup']:
+        for clean_cmd in ['cnf_uninstall']:
             cmd = ['cnf-testsuite', clean_cmd,
                    'cnf-config=cnf-testsuite.yml']
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
