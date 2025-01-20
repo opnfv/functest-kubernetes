@@ -6,7 +6,10 @@ download-frozen-image-v2.sh /data/docker/functest-kubernetes \
   opnfv/functest-kubernetes-benchmarking:v1.31 \
   opnfv/functest-kubernetes-security:v1.31 \
   opnfv/functest-kubernetes-cnf:v1.31
-git clone https://git.opnfv.org/functest-kubernetes /home/debian/functest-kubernetes
+git init /home/debian/functest-kubernetes && \
+(cd /home/debian/functest-kubernetes && \
+  git fetch --tags https://git.opnfv.org/functest-kubernetes stable/v1.31 && \
+  git checkout FETCH_HEAD) && \
 chown -R 1000:1000 /home/debian/functest-kubernetes
 
 exit 0
