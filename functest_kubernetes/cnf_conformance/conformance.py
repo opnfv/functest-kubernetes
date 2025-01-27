@@ -64,26 +64,6 @@ class CNFConformance(testcase.TestCase):
         if os.path.exists(os.path.join(self.src_dir, "results")):
             shutil.rmtree(os.path.join(self.src_dir, "results"))
         api_response = self.corev1.list_namespace()
-        for namespace in ["cnf-testsuite", "cnf-default", "litmus"]:
-            for item in api_response.items:
-                if item.metadata.name == namespace:
-                    self.corev1.patch_namespace(
-                        namespace,
-                        client.V1Namespace(metadata=client.V1ObjectMeta(
-                            labels={
-                                "pod-security.kubernetes.io/enforce":
-                                    "privileged"})))
-                    self.__logger.debug(
-                        "patch_namespace: %s", namespace)
-                    break
-            else:
-                self.corev1.create_namespace(
-                    client.V1Namespace(metadata=client.V1ObjectMeta(
-                        name=namespace, labels={
-                            "pod-security.kubernetes.io/enforce":
-                                "privileged"})))
-                self.__logger.debug(
-                    "create_namespace: %s", namespace)
         os.chdir(self.src_dir)
         cmd = ['cnf-testsuite', 'setup', '-l', 'debug']
         try:
@@ -155,14 +135,8 @@ class CNFConformance(testcase.TestCase):
         self.stop_time = time.time()
 
     def clean(self):
-        for clean_cmd in ['cnf_uninstall']:
+        for clean_cmd in ['cnf_uninstall', 'uninstall_all']:
             cmd = ['cnf-testsuite', clean_cmd,
                    'cnf-config=cnf-testsuite.yml']
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
             self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
-        try:
-            for namespace in ["cnf-testsuite", "cnf-default", "litmus"]:
-                self.corev1.delete_namespace(namespace)
-                self.__logger.debug("delete_namespace: %s", namespace)
-        except client.rest.ApiException:
-            pass
