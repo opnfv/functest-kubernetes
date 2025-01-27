@@ -60,7 +60,7 @@ class Netperf(testcase.TestCase):
             self.namespace = api_response.metadata.name
             self.__logger.debug("create_namespace: %s", api_response)
             cmd = ['launch', '-iterations', '1', '-kubeConfig',
-                   f'{Path.home()}/.kube/config',
+                   f'{Path.home()}/.kube/config', '-v', '3',
                    '-namespace', self.namespace]
             output = subprocess.check_output(
                 cmd, stderr=subprocess.STDOUT, timeout=3600)
