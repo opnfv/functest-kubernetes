@@ -63,7 +63,6 @@ class CNFConformance(testcase.TestCase):
         """Implement initialization and pre-reqs steps"""
         if os.path.exists(os.path.join(self.src_dir, "results")):
             shutil.rmtree(os.path.join(self.src_dir, "results"))
-        api_response = self.corev1.list_namespace()
         os.chdir(self.src_dir)
         cmd = ['cnf-testsuite', 'setup', '-l', 'debug']
         try:
