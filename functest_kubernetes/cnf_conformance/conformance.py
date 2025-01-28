@@ -136,13 +136,21 @@ class CNFConformance(testcase.TestCase):
                     self.__logger.warning(
                         "%s %s", item['name'], item['status'])
             self.__logger.info("\n\n%s\n", msg.get_string())
-        grp = re.search(
-            r'(\d+) of (\d+) essential tests passed', output.decode("utf-8"))
-        if grp:
-            # https://github.com/cncf/cnf-certification/blob/main/reviewing.md
-            self.result = int(grp.group(1))
+        if kwargs.get("tag", self.default_tag) == 'cert':
+            grp = re.search(
+                r'(\d+) of (\d+) essential tests passed',
+                output.decode("utf-8"))
+            if grp:
+                self.result = int(grp.group(1))
+            else:
+                self.result = 0
         else:
-            self.result = 0
+            grp = re.search(
+                r'Final .* score: (\d+) of (\d+)', output.decode("utf-8"))
+            if grp:
+                self.result = int(grp.group(1)) / int(grp.group(2)) * 100
+            else:
+                self.result = item_criteria / len(self.details['items']) * 100
         if not os.path.exists(self.res_dir):
             os.makedirs(self.res_dir)
         shutil.copy2(
