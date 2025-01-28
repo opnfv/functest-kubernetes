@@ -40,3 +40,6 @@ tiers:
           - DEPLOY_SCENARIO: "k8-*"
         run:
           name: cnf_testsuite
+          args:
+            cnf-config: example-cnfs/coredns/cnf-testsuite.yml
+            tag: cert
