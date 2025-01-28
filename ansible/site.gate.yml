@@ -10,7 +10,7 @@
       docker_tags:
         - v1.32:
             branch: stable/v1.32
-            dependency: '3.20'
+            dependency: '3.21'
       builds:
         dependency:
           repo: _
