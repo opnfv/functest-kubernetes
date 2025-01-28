@@ -30,6 +30,9 @@ tiers:
 
       - case_name: cnf_testsuite
         project_name: functest
+        # https://github.com/lfn-cnti/certification/blob/main/docs/CNTiCertification-2.0-beta.md
+        # V2.0-beta certification requires passing at least 15 of
+        # the 19 total Essential tests.
         criteria: 15
         blocking: false
         description: >-
@@ -43,3 +46,18 @@ tiers:
           args:
             cnf-config: example-cnfs/coredns/cnf-testsuite.yml
             tag: cert
+      - case_name: cnf_testsuite_workload
+        project_name: functest
+        criteria: 50
+        blocking: false
+        description: >-
+          Enable interoperability of Cloud native Network
+          Functions (CNFs) as proposed by
+          https://github.com/cnti-testcatalog/testsuite
+        dependencies:
+          - DEPLOY_SCENARIO: "k8-*"
+        run:
+          name: cnf_testsuite
+          args:
+            cnf-config: example-cnfs/coredns/cnf-testsuite.yml
+            tag: workload
