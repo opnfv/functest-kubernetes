@@ -122,15 +122,15 @@ sudo docker run --env-file env \
 ```
 
 ```
-+-----------------------+------------------+--------------+------------------+----------------+
-|       TEST CASE       |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
-+-----------------------+------------------+--------------+------------------+----------------+
-|        k8s_vims       |     functest     |     cnf      |      10:02       |      PASS      |
-|       helm_vims       |     functest     |     cnf      |      08:10       |      PASS      |
-|     cnf_testsuite     |     functest     |     cnf      |      18:29       |      PASS      |
-+-----------------------+------------------+--------------+------------------+----------------+
++--------------------------------+------------------+--------------+------------------+----------------+
+|           TEST CASE            |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
++--------------------------------+------------------+--------------+------------------+----------------+
+|            k8s_vims            |     functest     |     cnf      |      10:02       |      PASS      |
+|           helm_vims            |     functest     |     cnf      |      07:20       |      PASS      |
+|         cnf_testsuite          |     functest     |     cnf      |      06:31       |      PASS      |
+|     cnf_testsuite_workload     |     functest     |     cnf      |      16:01       |      PASS      |
++--------------------------------+------------------+--------------+------------------+----------------+
 ```
-
 
 ## Use on air gap environments (no access to Internet)
 
@@ -157,3 +157,73 @@ a mirror on docker. An example on how to set it up on docker daemon is provided
 here:
 [daemon-configuration-file](
 https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file)
+
+
+## Check how cloud native your CNFs are
+
+Functest Kubernetes integrates the CNTi Test Catalog which is an open source
+and vendor neutral tool that can be used to validate a telco application's
+adherence to cloud native principles and best practices.
+
+Both cnf_testsuite and cnf_testsuite_workload leverages CoreDNS as the target
+CNF but you're free to validate your own CNFs as the following example.
+
+Download cnf-testsuite.yml and the helm dir to test Envoy
+```bash
+git clone https://github.com/cnti-testcatalog/testsuite.git
+mv testsuite/example-cnfs/envoy .
+rm -rf testsuite
+```
+
+Write testcases.yaml
+```bash
+cat << EOF > testcases.yaml
+---
+tiers:
+  - name: cnf
+    testcases:
+      - case_name: cnf_testsuite
+        project_name: functest
+        blocking: false
+        criteria: 15
+        run:
+          name: cnf_testsuite
+          args:
+            cnf-config: /src/envoy/cnf-testsuite.yml
+            tag: cert
+      - case_name: cnf_testsuite_workload
+        project_name: functest
+        blocking: false
+        criteria: 50
+        run:
+          name: cnf_testsuite
+          args:
+            cnf-config: /src/envoy/cnf-testsuite.yml
+            tag: workload
+EOF
+```
+
+Run the CNTi certification and the CNTi workload suite
+```bash
+sudo docker run \
+    -v $(pwd)/config:/home/xtesting/.kube/config \
+    -v $(pwd)/envoy:/src/envoy \
+    -v $(pwd)/testcases.yaml:/etc/xtesting/testcases.yaml \
+    opnfv/functest-kubernetes-cnf:v1.32
+```
+
+```
++--------------------------------+------------------+--------------+------------------+----------------+
+|           TEST CASE            |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
++--------------------------------+------------------+--------------+------------------+----------------+
+|         cnf_testsuite          |     functest     |     cnf      |      08:11       |      FAIL      |
+|     cnf_testsuite_workload     |     functest     |     cnf      |      16:14       |      PASS      |
++--------------------------------+------------------+--------------+------------------+----------------+
+```
+
+Please note that Envoy as proposed as example fails the
+[CNTi  certification](https://github.com/lfn-cnti/certification/blob/main/docs/CNTiCertification-2.0-beta.md)
+which requires passing at least 15 of the 19 total Essential tests.
+It scores 70% on workload gouping the following
+[test categories](https://github.com/cnti-testcatalog/testsuite/blob/main/docs/TEST_DOCUMENTATION.md):
+compatibility, state, security, configuration, observability, microservice and resilience.
