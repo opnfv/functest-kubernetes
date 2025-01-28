@@ -156,3 +156,8 @@ class CNFConformance(testcase.TestCase):
                 self.__logger.debug("delete_namespace: %s", namespace)
         except client.rest.ApiException:
             pass
+        # cnf-testsuite cleanup does not wait for removing reources
+        # use time.sleep(60) till
+        # https://github.com/cnti-testcatalog/testsuite/issues/2194
+        # is fixed
+        time.sleep(60)
