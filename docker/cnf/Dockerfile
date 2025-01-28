@@ -28,13 +28,10 @@ RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
             git checkout FETCH_HEAD && \
             shards install --without-development && \
             crystal build --static src/cnf-testsuite.cr && \
-            cp cnf-testsuite  /usr/local/bin/cnf-testsuite && rm -r lib) && \
+            mv cnf-testsuite /usr/local/bin/cnf-testsuite && rm -r lib) && \
         chown -R xtesting: /src/cnf-testsuite && \
-        ln -s /src/cnf-testsuite/example-cnfs/coredns/cnf-testsuite.yml /src/cnf-testsuite/cnf-testsuite.yml && \
-        ln -s /src/cnf-testsuite/points-all.yml /src/cnf-testsuite/points.yml && \
         rm -rf /src/cnf-testsuite/.git ;; esac && \
         apk del .build-deps
 USER xtesting
-RUN helm repo add stable https://cncf.gitlab.io/stable
 COPY testcases.yaml /etc/xtesting/testcases.yaml
 CMD ["run_tests", "-t", "all"]
