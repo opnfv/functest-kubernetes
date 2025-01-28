@@ -41,6 +41,7 @@ class CNFConformance(testcase.TestCase):
     src_dir = '/src/cnf-testsuite'
     bin_dir = '/usr/local/bin'
     default_tag = 'cert'
+    default_cnf_config = 'example-cnfs/coredns/cnf-testsuite.yml'
 
     __logger = logging.getLogger(__name__)
 
@@ -50,6 +51,7 @@ class CNFConformance(testcase.TestCase):
         self.corev1 = client.CoreV1Api()
         self.output_log_name = 'functest-kubernetes.log'
         self.output_debug_log_name = 'functest-kubernetes.debug.log'
+        self.cnf_config = ''
 
     def check_requirements(self):
         """Check if cnf-testsuite is in $PATH"""
@@ -96,7 +98,7 @@ class CNFConformance(testcase.TestCase):
             return False
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
         cmd = ['cnf-testsuite', 'cnf_install',
-               'cnf-config=cnf-testsuite.yml', '-l', 'debug']
+               f'cnf-config={self.cnf_config}', '-l', 'debug']
         try:
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as exc:
@@ -150,6 +152,7 @@ class CNFConformance(testcase.TestCase):
     def run(self, **kwargs):
         """"Running the test with example CNF"""
         self.start_time = time.time()
+        self.cnf_config = kwargs.get("cnf-config", self.default_cnf_config)
         if self.setup():
             self.run_conformance(**kwargs)
         self.stop_time = time.time()
@@ -157,7 +160,7 @@ class CNFConformance(testcase.TestCase):
     def clean(self):
         for clean_cmd in ['cnf_uninstall']:
             cmd = ['cnf-testsuite', clean_cmd,
-                   'cnf-config=cnf-testsuite.yml']
+                   f'cnf-config={self.cnf_config}']
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
             self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
         try:
