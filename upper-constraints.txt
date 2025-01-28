@@ -1,10 +1,10 @@
 xtesting===1.0.0
-bandit===1.7.9
+bandit===1.8.2
 -e git+https://opendev.org/openstack/rally.git#egg=rally
 git+https://github.com/xrally/xrally-kubernetes.git#egg=xrally-kubernetes
-pylint===3.2.7
+pylint===3.3.3
 flake8===7.1.1
-pytest===8.3.2
-pytest-cov===5.0.0
+pytest===8.3.4
+pytest-cov===6.0.0
 pytest-html===4.1.1
-pre-commit===3.8.0
+pre-commit===4.1.0
