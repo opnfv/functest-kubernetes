@@ -1,0 +1,188 @@
+---
+tiers:
+    -
+        name: simple
+        order: 0
+        description: ''
+        testcases:
+            -
+                case_name: validateAll
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        # mandatory argument is test
+                        test: validateAll
+                        #
+                        # optional arguments are
+                        #   debug: to get more details of running test case
+                        #   label: to run only on labeled nodes vs whole k8s
+                        #     cluster as listed in  kubectl get no -o json |
+                        #     jq -r ".items[].metadata.labels"
+                        #   node: to run on single worker node vs whole k8s
+                        #     cluster, as listed by  kubectl get no -o json |
+                        #     jq -r ".items[].metadata.name"
+                        debug: true
+                        # label:
+                        #   anuket.io/profile: network-intensive
+                        # node: workernodename
+            -
+                case_name: validateLinuxDistribution
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateLinuxDistribution
+                        debug: true
+            -
+                case_name: validateKubernetesAPIs
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateKubernetesAPIs
+                        debug: true
+            -
+                case_name: validateLinuxKernelVersion
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateLinuxKernelVersion
+                        debug: true
+            -
+                case_name: validateAnuketProfileLabels
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateAnuketProfileLabels
+                        debug: true
+            -
+                case_name: validateSMT
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateSMT
+                        debug: true
+            -
+                case_name: validatePhysicalStorage
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validatePhysicalStorage
+                        debug: true
+            -
+                case_name: validateStorageQuantity
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateStorageQuantity
+                        debug: true
+            -
+                case_name: validateVcpuQuantity
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateVcpuQuantity
+                        debug: true
+            -
+                case_name: validateCPUPinning
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateCPUPinning
+                        debug: true
+            -
+                case_name: validateNFD
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateNFD
+                        debug: true
+            -
+                case_name: validateSystemResourceReservation
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateSystemResourceReservation
+                        debug: true
+            -
+                case_name: validateHugepages
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateHugepages
+                        debug: true
+            -
+                case_name: validateRT
+                project_name: validate
+                criteria: 1
+                blocking: true
+                clean_flag: false
+                description: ''
+                run:
+                    name: validate
+                    args:
+                        test: validateRT
+                        debug: true
