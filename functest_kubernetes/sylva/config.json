@@ -1,0 +1,201 @@
+{
+  "comment1": "Copyright (C) 2023 Intel Corporation",
+  "comment2": "SPDX-License-Identifier: Apache-2.0",
+  "script": {
+    "show": {
+      "description": true,
+      "ra2Spec": true,
+      "timeStamps": true
+    },
+    "debug": true,
+    "namespacePause": 2,
+    "podPause": 10,
+    "podNamespace": "stack-validation",
+    "deployFiles": {
+      "directory": "k8s",
+      "namespace": "ns",
+      "configmap_run_sh": "run-sh",
+      "multi": "multi",
+      "huge2mi": "huge2mi",
+      "huge1gi": "huge1gi",
+      "reserve": "reserve",
+      "tunedrt": "tunedrt"
+    },
+    "netPolicyPause": 5
+  },
+  "testCases": [
+    {
+      "name": "validateAnuketProfileLabels",
+      "description": "Validate Anuket profile labels",
+      "ra2Spec": "ra2.k8s.011",
+      "skipFromAll": false,
+      "anuketProfileLabelKey": "anuket.io/profile",
+      "anuketProfileLabelValues": [
+        "basic",
+        "network-intensive"
+      ]
+    },
+    {
+      "name": "validateSMT",
+      "description": "Validate SMT",
+      "ra2Spec": "ra2.ch.004",
+      "skipFromAll": false
+    },
+    {
+      "name": "validateVcpuQuantity",
+      "description": "Validate vCPU quantity",
+      "ra2Spec": "ra2.ch.011",
+      "skipFromAll": false,
+      "limit": 16
+    },
+    {
+      "name": "validateNFD",
+      "description": "Validate NFD labels",
+      "ra2Spec": "ra2.ch.018",
+      "skipFromAll": false,
+      "nFDLabelPrefix": "feature.node.kubernetes.io/",
+      "limit": 20
+    },
+    {
+      "name": "validateSystemResourceReservation",
+      "description": "Validate system resource reservation",
+      "ra2Spec": "ra2.k8s.008",
+      "skipFromAll": false,
+      "checks": [
+        {
+          "process": "/usr/bin/kubelet",
+          "flag": "reserved-cpus"
+        },
+        {
+          "process": "/usr/local/bin/kubelet",
+          "flag": "reserved-cpus"
+        },
+        {
+          "process": "/usr/local/bin/k3s",
+          "flag": "kubelet-arg reserved-cpus"
+        }
+      ]
+    },
+    {
+      "name": "validateCPUPinning",
+      "description": "Validate CPU Manager",
+      "ra2Spec": "ra2.k8s.009",
+      "skipFromAll": false
+    },
+    {
+      "name": "validatePhysicalStorage",
+      "description": "Validate physical storage with SSD",
+      "ra2Spec": "ra2.ch.009",
+      "skipFromAll": false
+    },
+    {
+      "name": "validateStorageQuantity",
+      "description": "Validate storage quantity",
+      "ra2Spec": "ra2.ch.010",
+      "skipFromAll": false,
+      "limit": 320
+    },
+    {
+      "name": "validateLinuxDistribution",
+      "description": "Validate Linux distribution for deb/rpm",
+      "ra2Spec": "ra2.os.001",
+      "skipFromAll": false,
+      "comment": "needs more testing to confirm mapping",
+      "distroNames": [
+        {
+          "name": "Red Hat"
+        },
+        {
+          "name": "CentOS"
+        },
+        {
+          "name": "Ubuntu"
+        },
+        {
+          "name": "Amazon"
+        },
+        {
+          "name": "Rocky"
+        }
+      ]
+    },
+    {
+      "name": "validateKubernetesAPIs",
+      "description": "Validate k8s APIs without alpha+beta or is exception",
+      "ra2Spec": "ra2.k8s.012",
+      "skipFromAll": false,
+      "comment1": "needs more testing to confirm mapping",
+      "comment2": "monitoring.coreos.com/v1alpha1, opentelemetry.io/v1alpha1, policy.sigstore.dev/v1alpha1, policy.sigstore.dev/v1beta1  when running Intel BMRA Access profile",
+      "comment2": "traefik.containo.us/v1alpha1  when running on k3s",
+      "comment3": "metrics.k8s.io/v1beta1  when running on k3s or after installing Metrics API",
+      "comment4": "vpcresources.k8s.aws/v1beta1, crd.k8s.amazonaws.com/v1alpha1  when running on EKS",
+      "exceptions": [
+        {
+          "name": "nfd.k8s-sigs.io/v1alpha1"
+        },
+        {
+          "name": "flowcontrol.apiserver.k8s.io/v1beta",
+          "comment": "will catch v1beta*"
+        },
+        {
+          "name": "policy/v1beta1"
+        },
+        {
+          "name": "storage.k8s.io/v1beta1"
+        }
+      ]
+    },
+    {
+      "name": "validateLinuxKernelVersion",
+      "description": "Validate Linux kernel version",
+      "ra2Spec": "ra2.os.002",
+      "skipFromAll": false,
+      "minMajor": 4,
+      "minMinor": 0
+    },
+    {
+      "name": "validateHugepages",
+      "description": "Validate huge pages",
+      "ra2Spec": "ra2.ch.001",
+      "skipFromAll": false,
+      "types": [
+        {
+          "name": "2Mi"
+        },
+        {
+          "name": "1Gi"
+        }
+      ]
+    },
+    {
+      "name": "validateRT",
+      "description": "Validate Real-Time versions and/or configurations in BIOS, kernel and OS services",
+      "ra2Spec": "ra2.ch.026",
+      "skipFromAll": false,
+      "kernelNames": [
+        {
+          "name": "rt"
+        },
+        {
+          "name": "realtime"
+        }
+      ],
+      "preemptName": "PREEMPT_RT"
+    },
+    {
+      "comment": "not implemented in validate.py, some code is in validate.sh",
+      "name": "validateSecurityGroups",
+      "description": "Validate security groups with NetworkPolicy",
+      "ra2Spec": "ra2.k8s.014",
+      "skipFromAll": true
+    },
+    {
+      "comment": "not ready yet because of ethtool -T working over PF and not VF",
+      "name": "validateTSN",
+      "description": "Validate timing accuracy with PTP Hardware Clock",
+      "ra2Spec": "ra2.ntw.027",
+      "skipFromAll": true,
+      "dev": "eth0"
+    }
+  ]
+}
