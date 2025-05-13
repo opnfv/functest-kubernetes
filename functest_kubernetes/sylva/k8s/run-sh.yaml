@@ -1,0 +1,169 @@
+# Copyright (C) 2025 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+#
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: run-sh
+  namespace: stack-validation
+data:
+  run.sh: |
+    #!/bin/sh
+    set -e
+
+    if [[ "${MULTI}" == "True" ]]; then
+        vcpus=$(grep -c '^processor' /proc/cpuinfo)
+
+        if [ -f /sys/devices/system/cpu/cpu0/topology/thread_siblings_list ]; then
+            threadspercore=$(cat /sys/devices/system/cpu/cpu0/topology/thread_siblings_list | tr ',' '\n' | wc -l)
+        else
+            threadspercore=1
+        fi
+
+        if [ -f /sys/devices/system/cpu/cpu0/topology/core_siblings_list ]; then
+            corespersocket=$(cat /sys/devices/system/cpu/cpu0/topology/core_siblings_list | tr ',' '\n' | wc -l)
+        else
+            corespersocket=1
+        fi
+
+        if [ "$threadspercore" -gt 0 ] && [ "$corespersocket" -gt 0 ]; then
+            sockets=$(( vcpus / (threadspercore * corespersocket) ))
+        else
+            sockets=1
+        fi
+
+        echo -n "vcpus="
+        echo "${vcpus}"
+        echo -n "threadspercore="
+        echo "${threadspercore}"
+        echo -n "corespersocket="
+        echo "${corespersocket}"
+        echo -n "sockets="
+        echo "${sockets}"
+
+        cpuinfocpus=` cat /proc/cpuinfo | grep -c ^processor `
+        allrange=` echo "0-"\` expr $cpuinfocpus - 1 \` `
+        if [ -e /sys/fs/cgroup/cpuset/cpuset.cpus ]; then
+            cpusetcpus=` cat /sys/fs/cgroup/cpuset/cpuset.cpus `
+        else
+            cpusetcpus=` cat /sys/fs/cgroup/cpuset.cpus.effective `
+        fi
+        if [ "$cpusetcpus" = "$allrange" ]; then
+            cpusetlimited=0
+        else
+            cpusetlimited=1
+        fi
+        echo "allrange=${allrange}"
+        echo "cpusetcpus=${cpusetcpus}"
+        echo "cpusetlimited=${cpusetlimited}"
+
+        # lspci with pci.ids
+        if [[ -e "/pciids" ]]; then
+            PCI_IDS_FILE="/pciids/pci.ids"
+            if [ ! -f "$PCI_IDS_FILE" ]; then
+                wget -q -O "$PCI_IDS_FILE" http://pci-ids.ucw.cz/v2.2/pci.ids || true
+            fi
+            lspci -m 2>/dev/null | sort | sed "s/\"//g" | awk -v db="$PCI_IDS_FILE" '
+                BEGIN {
+                    vvvv="";
+                    cc1="";
+                    while (getline < db) {
+                    if ($0 ~ /^[^\t #]/ && length($1) == 4) {
+                        vvvv=$1;
+                        $1="";
+                        gsub(/^ +| +$/, "", $0);
+                        vendor[vvvv]=$0;
+                    }
+                    if (vvvv != "") {
+                        if ($1 ~ /^[^\t #]/ && length($1) == 4) {
+                        dddd=$1;
+                        $1="";
+                        gsub(/^ +| +$/, "", $0);
+                        device[vvvv ":" dddd]=$0;
+                        }
+                    }
+                    if ($1=="C")
+                        cc1=$2;
+                    if (cc1!="" && $1!="C") {
+                        cc2=$1;
+                        $1="";
+                        gsub(/^ +| +$/, "", $0);  # trim
+                        if (class[cc1 cc2]=="")
+                        class[cc1 cc2]=$0;
+                    }
+                    }
+                }
+                {
+                    if (device[$4 ":" $5] == "")
+                    print $1 " " class[$3] ": " vendor[$4] " Device " $5;
+                    else
+                    print $1 " " class[$3] ": " vendor[$4] " " device[$4 ":" $5];
+                }
+            '
+        fi
+
+        echo -n "unamerv="
+        uname -rv
+        echo -n "syskernelrealtime="
+        if [ -e /sys/kernel/realtime ]; then
+            cat /sys/kernel/realtime
+        else
+            echo "-1"
+        fi
+        echo -n "proccmdline="
+        cat /proc/cmdline
+    fi
+
+    # huge
+    if [[ "${HUGE}" == "True" ]]; then
+        r1=$( cat /proc/sys/vm/nr_hugepages )
+        echo "nr_hugepages=${r1}"
+        r2=$( awk ' $1=="HugePages_Free:" { f=$2 } END { print f } ' /proc/meminfo )
+        echo "meminfo_HugePages_Free=${r2}"
+        if mount | grep -q /dev/hugepages; then
+            r3=$( mount | grep -c /dev/hugepages )
+        else
+            r3=0
+        fi
+        echo "mount_dev_hugepages=${r3}"
+        if [ "${r1}" -gt 0 ] && [ "${r2}" -gt 0 ] && [ "${r3}" -eq 1 ]; then
+            echo "hugepages=1"
+        else
+            echo "hugepages=0"
+        fi
+    fi
+
+    # reserve
+    if [[ "${RESERVE}" == "True" ]]; then
+        ps w | awk ' { printf("ps-ef=%s\n",$0); } '
+    fi
+
+    # tunedrt
+    if [[ "${TUNEDRT}" == "True" ]]; then
+        if [ -e /var/log/tuned/tuned.log ]; then
+            cd /var/log/tuned
+            p=$( grep "static tuning from profile" tuned.log | tail -1 )
+            if echo "${p}" | grep -q "realtime"; then
+                echo "tunedlogrealtime=1"
+            else
+                echo "tunedlogrealtime=0"
+            fi
+        else
+            echo "tunedlogrealtime=-1"
+            p=""
+        fi
+        echo "tunedlogstatictuning=${p}"
+
+        # vCPUs on same frequency
+        echo -n "cpussamehwfreq="
+        freqs=$( grep "cpu MHz" /proc/cpuinfo 2>/dev/null | \
+            awk -vFS=":" ' { print $2 } ' | sed 's/ //g' | sort -u | wc -l )
+        if [ "${freqs}" -eq 1 ]; then
+            echo 1
+        else
+            echo 0
+        fi
+    fi
+
+    sleep infinity
