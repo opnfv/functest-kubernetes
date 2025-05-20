@@ -216,12 +216,12 @@ sudo docker run \
 +--------------------------------+------------------+--------------+------------------+----------------+
 |           TEST CASE            |     PROJECT      |     TIER     |     DURATION     |     RESULT     |
 +--------------------------------+------------------+--------------+------------------+----------------+
-|         cnf_testsuite          |     functest     |     cnf      |      08:11       |      FAIL      |
+|         cnf_testsuite          |     functest     |     cnf      |      08:11       |      PASS      |
 |     cnf_testsuite_workload     |     functest     |     cnf      |      16:14       |      PASS      |
 +--------------------------------+------------------+--------------+------------------+----------------+
 ```
 
-Please note that Envoy as proposed as example fails the
+Please note that Envoy as proposed as example passes the
 [CNTi  certification](https://github.com/lfn-cnti/certification/blob/main/docs/CNTiCertification-2.0-beta.md)
 which requires passing at least 15 of the 19 total Essential tests.
 It scores 70% on workload gouping the following
