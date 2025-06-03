@@ -1,7 +1,7 @@
-FROM alpine:3.21
+FROM alpine:3.22
 
-ARG BRANCH=master
-ARG OPENSTACK_TAG=master
+ARG BRANCH=stable/v1.33
+ARG OPENSTACK_TAG=stable/2025.1
 
 COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
 COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch
@@ -28,6 +28,10 @@ RUN apk -U upgrade && \
         -c/src/functest-kubernetes/upper-constraints.txt \
         -c/src/requirements/upper-constraints.txt \
         setuptools_scm && \
+    CFLAGS="-Wno-int-conversion -Wno-sign-compare" pip3 install --break-system-packages --use-deprecated=legacy-resolver --no-cache-dir --src /src \
+        -c/src/functest-kubernetes/upper-constraints.txt \
+        -c/src/requirements/upper-constraints.txt \
+        netifaces && \
     pip3 install --break-system-packages --use-deprecated=legacy-resolver --no-cache-dir --src /src \
         -c/src/functest-kubernetes/upper-constraints.txt \
         -c/src/requirements/upper-constraints.txt \
