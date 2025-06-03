@@ -21,6 +21,8 @@ datacenters as the lowest cost (50 euros hardware and software included).
 | v1.29             | v1.29               |
 | v1.30             | v1.30               |
 | v1.31             | v1.31               |
+| v1.32             | v1.32               |
+| v1.33             | v1.33               |
 | **Master**        | **latest**          |
 
 ## Prepare your environment
