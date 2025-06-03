@@ -1,4 +1,4 @@
-FROM opnfv/functest-kubernetes-smoke
+FROM opnfv/functest-kubernetes-smoke:v1.33
 
 ARG NETPERF_TAG=1104ce23f6c1758796e88f3c23b050099074cf81
 ARG PLOTPERF_TAG=2455313f4b9581795a8f642243acaad472d91804
