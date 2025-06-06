@@ -63,7 +63,7 @@ tiers:
             nodes: 10
             ginkgo:
               focus: \[sig-api-machinery\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:CrossNamespacePodAffinity\\]|\
                 \\[Feature:CustomResourceValidationExpressions\\]|\
@@ -84,7 +84,7 @@ tiers:
           args:
             ginkgo:
               focus: \[sig-api-machinery\].*\[Serial\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Conformance\\]|\
                 \\[Feature:CrossNamespacePodAffinity]|\
                 \\[Feature:CustomResourceValidationExpressions\\]|\
@@ -106,7 +106,7 @@ tiers:
             nodes: 10
             ginkgo:
               focus: \[sig-apps]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:DaemonSetUpdateSurge\\]|\
                 \\[Feature:IndexedJob\\]|\
@@ -128,7 +128,7 @@ tiers:
           args:
             ginkgo:
               focus: \[sig-apps].*\[Serial\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Conformance\\]|\
                 \\[Feature:DaemonSetUpdateSurge\\]|\
                 \\[Feature:IndexedJob\\]|\
@@ -151,7 +151,7 @@ tiers:
             nodes: 10
             ginkgo:
               focus: \[sig-auth\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:ClusterTrustBundle\\]|\
                 \\[Feature:PodSecurityPolicy\\]|\
@@ -171,7 +171,7 @@ tiers:
             nodes: 10
             ginkgo:
               focus: \[sig-cluster-lifecycle\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]"
       - case_name: sig_instrumentation
         project_name: functest
@@ -188,7 +188,7 @@ tiers:
             nodes: 10
             ginkgo:
               focus: \[sig-instrumentation\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\\[Feature:Elasticsearch\\]|\
                 \\[Feature:StackdriverAcceleratorMonitoring\\]|\
                 \\[Feature:StackdriverCustomMetrics\\]|\
@@ -210,7 +210,7 @@ tiers:
             nodes: 10
             ginkgo:
               focus: \[sig-network\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:Example\\]|\
                 \\[Feature:Ingress\\]|\
@@ -245,7 +245,7 @@ tiers:
             nodes: 10
             ginkgo:
               focus: \[sig-node]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:DynamicResourceAllocation\\]|\
                 \\[Feature:ExperimentalResourceUsageTracking\\]|\
@@ -280,7 +280,7 @@ tiers:
           args:
             ginkgo:
               focus: \[sig-scheduling\].*\[Serial\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Conformance\\]|\
                 \\[Feature:GPUDevicePlugin\\]|\
                 \\[Feature:Recreate\\]|\
@@ -300,7 +300,7 @@ tiers:
             nodes: 10
             ginkgo:
               focus: \[sig-storage\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Conformance\\]|\\[Driver:.+\\]|\
                 \\[Feature:CSIVolumeHealth\\]|\
                 \\[Feature:ExpandInUsePersistentVolumes\\]|\
@@ -332,7 +332,7 @@ tiers:
           args:
             ginkgo:
               focus: \[sig-storage\].*\[Serial\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[alpha\\]|\
+              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Conformance\\]|\\[Driver:.+\\]|\
                 \\[Feature:CSIVolumeHealth\\]|\
                 \\[Feature:ExpandInUsePersistentVolumes\\]|\
