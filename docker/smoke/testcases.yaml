@@ -65,11 +65,14 @@ tiers:
               focus: \[sig-api-machinery\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
+                \\[Feature:CoordinatedLeaderElection\\]|\
                 \\[Feature:CrossNamespacePodAffinity\\]|\
                 \\[Feature:CustomResourceValidationExpressions\\]|\
                 \\[Feature:DynamicResourceAllocation\\]|\
                 \\[Feature:StorageVersionAPI\\]|\
-                \\[Feature:WatchList\\]"
+                \\[Feature:WatchList\\]|\
+                \\[FeatureGate:VolumeAttributesClass\\]|\
+                \\[FeatureGate:WatchList\\]"
       - case_name: sig_api_machinery_serial
         project_name: functest
         criteria: 100
@@ -86,11 +89,14 @@ tiers:
               focus: \[sig-api-machinery\].*\[Serial\]
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Conformance\\]|\
+                \\[Feature:CoordinatedLeaderElection\\]|\
                 \\[Feature:CrossNamespacePodAffinity]|\
                 \\[Feature:CustomResourceValidationExpressions\\]|\
                 \\[Feature:DynamicResourceAllocation\\]|\
                 \\[Feature:StorageVersionAPI\\]|\
-                \\[Feature:WatchList\\]"
+                \\[Feature:WatchList\\]|\
+                \\[FeatureGate:VolumeAttributesClass\\]|\
+                \\[FeatureGate:WatchList\\]"
       - case_name: sig_apps
         project_name: functest
         criteria: 100
@@ -155,7 +161,8 @@ tiers:
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:ClusterTrustBundle\\]|\
                 \\[Feature:PodSecurityPolicy\\]|\
-                \\[Feature:BoundServiceAccountTokenVolume\\]"
+                \\[Feature:BoundServiceAccountTokenVolume\\]|\
+                \\[FeatureGate:ClusterTrustBundle\\]"
       - case_name: sig_cluster_lifecycle
         project_name: functest
         criteria: 100
@@ -254,6 +261,7 @@ tiers:
                 \\[Feature:GPUUpgrade\\]|\
                 \\[Feature:InPlacePodVerticalScaling\\]|\
                 \\[Feature:KubeletCredentialProviders\\]|\
+                \\[Feature:KubeletFineGrainedAuthz\\]|\
                 \\[Feature:NodeLogQuery\\]|\
                 \\[Feature:PodGarbageCollector\\]|\
                 \\[Feature:PodLifecycleSleepAction\\]|\
@@ -314,6 +322,7 @@ tiers:
                 \\[Feature:vsphere\\]|\
                 \\[Feature:Volumes\\]|\
                 \\[Feature:Windows\\]|\
+                \\[FeatureGate:VolumeAttributesClass\\]|\
                 \\[NodeFeature:EphemeralStorage\\]|\
                 PersistentVolumes.NFS|\
                 should provision storage with different parameters|\
@@ -346,6 +355,7 @@ tiers:
                 \\[Feature:vsphere\\]|\
                 \\[Feature:Volumes\\]|\
                 \\[Feature:Windows\\]|\
+                \\[FeatureGate:VolumeAttributesClass\\]|\
                 \\[NodeFeature:EphemeralStorage\\]|\
                 PersistentVolumes.NFS|\
                 should provision storage with different parameters|\
