@@ -14,7 +14,9 @@ spec:
         instance-type: etcd-pod
     spec:
       containers:
-      - args:
+      - command:
+        - /usr/local/bin/etcd
+        args:
         - --name
         - $(MY_POD_NAME)
         - --advertise-client-urls
@@ -45,7 +47,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: {{ quay_repo }}/coreos/etcd:v2.2.5
+        image: {{ quay_repo }}/coreos/etcd:v3.2.32
         name: etcd
         ports:
         - containerPort: 2379
