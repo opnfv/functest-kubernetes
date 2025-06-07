@@ -322,6 +322,7 @@ tiers:
                 \\[Feature:vsphere\\]|\
                 \\[Feature:Volumes\\]|\
                 \\[Feature:Windows\\]|\
+                \\[FeatureGate:CSIVolumeHealth\\]|\
                 \\[FeatureGate:VolumeAttributesClass\\]|\
                 \\[NodeFeature:EphemeralStorage\\]|\
                 PersistentVolumes.NFS|\
@@ -355,6 +356,7 @@ tiers:
                 \\[Feature:vsphere\\]|\
                 \\[Feature:Volumes\\]|\
                 \\[Feature:Windows\\]|\
+                \\[FeatureGate:CSIVolumeHealth\\]|\
                 \\[FeatureGate:VolumeAttributesClass\\]|\
                 \\[NodeFeature:EphemeralStorage\\]|\
                 PersistentVolumes.NFS|\
