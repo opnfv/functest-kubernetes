@@ -68,6 +68,7 @@ tiers:
                 \\[Feature:CrossNamespacePodAffinity\\]|\
                 \\[Feature:CustomResourceValidationExpressions\\]|\
                 \\[Feature:DynamicResourceAllocation\\]|\
+                \\[Feature:OrderedNamespaceDeletion\\]|\
                 \\[Feature:StorageVersionAPI\\]|\
                 \\[Feature:WatchList\\]"
       - case_name: sig_api_machinery_serial
@@ -89,6 +90,7 @@ tiers:
                 \\[Feature:CrossNamespacePodAffinity]|\
                 \\[Feature:CustomResourceValidationExpressions\\]|\
                 \\[Feature:DynamicResourceAllocation\\]|\
+                \\[Feature:OrderedNamespaceDeletion\\]|\
                 \\[Feature:StorageVersionAPI\\]|\
                 \\[Feature:WatchList\\]"
       - case_name: sig_apps
