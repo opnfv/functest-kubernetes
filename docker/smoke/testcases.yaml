@@ -69,6 +69,7 @@ tiers:
                 \\[Feature:CrossNamespacePodAffinity\\]|\
                 \\[Feature:CustomResourceValidationExpressions\\]|\
                 \\[Feature:DynamicResourceAllocation\\]|\
+                \\[Feature:MutatingAdmissionPolicy\\]|\
                 \\[Feature:StorageVersionAPI\\]|\
                 \\[Feature:WatchList\\]|\
                 \\[FeatureGate:VolumeAttributesClass\\]|\
