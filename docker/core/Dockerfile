@@ -1,7 +1,7 @@
 FROM alpine:3.21
 
-ARG BRANCH=master
-ARG OPENSTACK_TAG=master
+ARG BRANCH=stable/v1.34
+ARG OPENSTACK_TAG=stable/2025.1
 
 COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
 COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch

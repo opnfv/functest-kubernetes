@@ -1,8 +1,9 @@
-FROM opnfv/functest-kubernetes-core
+FROM opnfv/functest-kubernetes-core:v1.34
 
+ARG K8S_TAG=1.34
 USER root
 RUN apk --no-cache add --update curl libc6-compat && \
-    tag=$(curl -Ls https://dl.k8s.io/release/latest.txt) && \
+    tag=$(curl -Ls https://dl.k8s.io/release/stable-$K8S_TAG.txt) && \
     case $(uname -m) in armv7l) arch=arm;; aarch64) arch=arm64;; x86_64) arch=amd64;; esac && \
     curl -Ls https://dl.k8s.io/release/$tag/bin/linux/$arch/kubectl \
         --output /usr/local/bin/kubectl && \
