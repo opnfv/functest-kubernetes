@@ -325,6 +325,7 @@ tiers:
                 \\[Feature:Volumes\\]|\
                 \\[Feature:Windows\\]|\
                 \\[FeatureGate:CSIVolumeHealth\\]|\
+                \\[FeatureGate:MutableCSINodeAllocatableCount\\]|\
                 \\[FeatureGate:VolumeAttributesClass\\]|\
                 \\[NodeFeature:EphemeralStorage\\]|\
                 PersistentVolumes.NFS|\
@@ -359,6 +360,7 @@ tiers:
                 \\[Feature:Volumes\\]|\
                 \\[Feature:Windows\\]|\
                 \\[FeatureGate:CSIVolumeHealth\\]|\
+                \\[FeatureGate:MutableCSINodeAllocatableCount\\]|\
                 \\[FeatureGate:VolumeAttributesClass\\]|\
                 \\[NodeFeature:EphemeralStorage\\]|\
                 PersistentVolumes.NFS|\
