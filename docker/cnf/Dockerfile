@@ -1,11 +1,12 @@
 FROM opnfv/functest-kubernetes-core
 
-ARG CNF_TESTSUITE_TAG=v1.4.6
-ARG HELM_TAG=v3.17.0
+ARG CNF_TESTSUITE_TAG=v1.4.7
+ARG HELM_TAG=v3.19.0
 
 USER root
 RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
-    apk --no-cache add --virtual .build-deps --update crystal shards make yaml-dev openssl-dev zlib-dev patch openssl-libs-static yaml-static zlib-static && \
+    apk --no-cache add --virtual .build-deps --update crystal shards make yaml-dev \
+        openssl-dev zlib-dev patch openssl-libs-static yaml-static zlib-static libxml2-static xz-static && \
     tag=$(curl -Ls https://dl.k8s.io/release/latest.txt) && \
     case $(uname -m) in armv7l) arch=arm;; aarch64) arch=arm64;; x86_64) arch=amd64;; esac && \
     curl -Ls https://dl.k8s.io/release/$tag/bin/linux/$arch/kubectl \
@@ -26,7 +27,7 @@ RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
             git fetch --tags https://github.com/cnti-testcatalog/testsuite.git $CNF_TESTSUITE_TAG && \
             git checkout FETCH_HEAD && \
             shards install --without-development && \
-            crystal build --static src/cnf-testsuite.cr && \
+            crystal build --static src/cnf-testsuite.cr --link-flags "-lxml2 -llzma" && \
             mv cnf-testsuite /usr/local/bin/cnf-testsuite && rm -r lib) && \
         chown -R xtesting: /src/cnf-testsuite && \
         rm -rf /src/cnf-testsuite/.git ;; esac && \
