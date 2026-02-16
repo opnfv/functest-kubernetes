@@ -1,0 +1,12 @@
+---
+tiers:
+  - name: sylva
+    testcases:
+      - case_name: cni_smoke
+        project_name: functest
+        dependencies:
+          - DEPLOY_SCENARIO: "k8s-*"
+        run:
+          name: cniinstallation
+          args:
+            cni_ds: multus
