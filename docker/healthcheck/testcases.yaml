@@ -33,3 +33,14 @@ tiers:
           args:
             ginkgo:
               focus: Kubectl client Guestbook application
+      - case_name: cni_smoke
+        project_name: functest
+        criteria: 100
+        blocking: false
+        description: >-
+          Sylva Validation Center's smoke tests, which check if the
+          expected CNIs are installed in the cluster.
+        dependencies:
+          - DEPLOY_SCENARIO: "k8s-*"
+        run:
+          name: cni_smoke
