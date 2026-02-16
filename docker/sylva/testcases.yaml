@@ -1,0 +1,123 @@
+---
+tiers:
+  - name: Sylva Validation Center - Platform Smoke Tests
+    description: Currently, testing Platform Telco features installation
+    testcases:
+      - case_name: Multus CNI Installation
+        project_name: Platform Smoke Tests
+        criteria: 100
+        blocking: false
+        clean_flag: false
+        description: Check if Multus CNI is installed in the cluster
+        dependencies:
+          - DEPLOY_SCENARIO: "k8s-sylva-*"
+          - CNI_PLUGINS: ".*multus.*"
+        run:
+          name: cniinstallation
+          args:
+            cni_ds: multus
+      - case_name: Multus NAD CRD Creation
+        project_name: Platform Smoke Tests
+        criteria: 100
+        blocking: false
+        clean_flag: false
+        description: Check if Multus NAD CRD is created in the cluster
+        dependencies:
+          - DEPLOY_SCENARIO: "k8s-sylva-*"
+          - CNI_PLUGINS: ".*multus.*"
+        run:
+          name: crdreation
+          args:
+            crd_name: network-attachment-definitions.k8s.cni.cncf.io
+      - case_name: SR-IOV Network Operator Installation
+        project_name: Platform Smoke Tests
+        criteria: 100
+        blocking: false
+        clean_flag: false
+        description: >-
+          Check if SR-IOV Network Operator is installed in the cluster
+        dependencies:
+          - DEPLOY_SCENARIO: "k8s-sylva-*"
+          - CNI_PLUGINS: ".*sriov-network-config-daemon.*"
+        run:
+          name: cniinstallation
+          args:
+            cni_ds: sriov-network-config-daemon
+      - case_name: WhereAbouts CNI Installation
+        project_name: Platform Smoke Tests
+        criteria: 100
+        blocking: false
+        clean_flag: false
+        description: Check if WhereAbouts CNI is installed in the cluster
+        dependencies:
+          - DEPLOY_SCENARIO: "k8s-sylva-*"
+          - CNI_PLUGINS: ".*multus-rke2-whereabouts.*"
+        run:
+          name: cniinstallation
+          args:
+            cni_ds: multus-rke2-whereabouts
+      - case_name: Calico CNI Installation
+        project_name: Platform Smoke Tests
+        criteria: 100
+        blocking: false
+        clean_flag: false
+        description: Check if Calico CNI is installed in the cluster
+        dependencies:
+          - DEPLOY_SCENARIO: "k8s-sylva-*"
+          - CNI_PLUGINS: ".*calico.*"
+        run:
+          name: cniinstallation
+          args:
+            cni_ds: calico
+      - case_name: Flannel CNI Installation
+        project_name: Platform Smoke Tests
+        criteria: 100
+        blocking: false
+        clean_flag: false
+        description: Check if Flannel CNI is installed in the cluster
+        dependencies:
+          - DEPLOY_SCENARIO: "k8s-sylva-*"
+          - CNI_PLUGINS: ".*flannel.*"
+        run:
+          name: cniinstallation
+          args:
+            cni_ds: flannel
+      - case_name: Cilium CNI Installation
+        project_name: Platform Smoke Tests
+        criteria: 100
+        blocking: false
+        clean_flag: false
+        description: Check if Cilium CNI is installed in the cluster
+        dependencies:
+          - DEPLOY_SCENARIO: "k8s-sylva-*"
+          - CNI_PLUGINS: ".*cilium.*"
+        run:
+          name: cniinstallation
+          args:
+            cni_ds: cilium
+      - case_name: WeaveNet CNI Installation
+        project_name: Platform Smoke Tests
+        criteria: 100
+        blocking: false
+        clean_flag: false
+        description: Check if WeaveNet CNI is installed in the cluster
+        dependencies:
+          - DEPLOY_SCENARIO: "k8s-sylva-*"
+          - CNI_PLUGINS: ".*weave-net.*"
+        run:
+          name: cniinstallation
+          args:
+            cni_ds: weave-net
+      - case_name: Kindnet CNI Installation
+        project_name: Platform Smoke Tests
+        criteria: 100
+        blocking: false
+        clean_flag: false
+        description: Check if Kindnet CNI is installed in the cluster
+        dependencies:
+          - DEPLOY_SCENARIO: "k8s-sylva-*"
+          - CNI_PLUGINS: ".*kindnet.*"
+        run:
+          name: cniinstallation
+          args:
+            cni_ds: kindnet
