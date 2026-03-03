@@ -11,7 +11,7 @@ from kubernetes import config
 from xtesting.core import testcase
 
 
-class CniInstallation(testcase.TestCase):
+class CniSmoke(testcase.TestCase):
 
     __logger = logging.getLogger(__name__)
 
