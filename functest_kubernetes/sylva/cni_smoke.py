@@ -17,6 +17,8 @@ class CniSmoke(testcase.TestCase):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.output_log_name = 'functest-kubernetes.log'
+        self.output_debug_log_name = 'functest-kubernetes.debug.log'
         config.load_kube_config()
         self.appsv1 = client.AppsV1Api()
         self.apiv1ext = client.ApiextensionsV1Api()
