@@ -41,6 +41,6 @@ tiers:
           Sylva Validation Center's smoke tests, which check if the
           expected CNIs are installed in the cluster.
         dependencies:
-          - DEPLOY_SCENARIO: "k8s-*"
+          - DEPLOY_SCENARIO: "k8-*"
         run:
           name: cni_smoke
