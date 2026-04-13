@@ -32,7 +32,7 @@ RUN apk -U upgrade && \
         -c/src/functest-kubernetes/upper-constraints.txt \
         -c/src/requirements/upper-constraints.txt \
         /src/functest-kubernetes && \
-    (cd /src/rally && patch -p1 < /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch) && \
+    (cd /usr/lib/python3.12/site-packages/rally && patch -p1 < /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch) && \
     (cd /usr/lib/python3.12/site-packages/xrally_kubernetes/ && \
         patch -p2 < /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch) && \
     rm -rf /src/functest-kubernetes /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch && \
