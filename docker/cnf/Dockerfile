@@ -1,6 +1,6 @@
 FROM opnfv/functest-kubernetes-core
 
-ARG CNF_TESTSUITE_TAG=v1.4.7
+ARG CNF_TESTSUITE_TAG=v1.5.1
 ARG HELM_TAG=v3.19.0
 
 USER root
