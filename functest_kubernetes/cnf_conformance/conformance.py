@@ -66,7 +66,7 @@ class CNFConformance(testcase.TestCase):
         if os.path.exists(os.path.join(self.src_dir, "results")):
             shutil.rmtree(os.path.join(self.src_dir, "results"))
         os.chdir(self.src_dir)
-        cmd = ['cnf-testsuite', 'setup', '-l', 'debug']
+        cmd = ['cnf-testsuite', 'setup', '-l']
         try:
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as exc:
@@ -77,7 +77,7 @@ class CNFConformance(testcase.TestCase):
             return False
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
         cmd = ['cnf-testsuite', 'cnf_install',
-               f'cnf-config={self.cnf_config}', '-l', 'debug']
+               f'cnf-config={self.cnf_config}']
         try:
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as exc:
@@ -91,8 +91,7 @@ class CNFConformance(testcase.TestCase):
 
     def run_conformance(self, **kwargs):
         """Run CNF Conformance"""
-        cmd = ['cnf-testsuite', kwargs.get("tag", self.default_tag),
-               '-l', 'debug']
+        cmd = ['cnf-testsuite', kwargs.get("tag", self.default_tag)]
         output = subprocess.run(
             cmd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE,
             check=False).stdout
