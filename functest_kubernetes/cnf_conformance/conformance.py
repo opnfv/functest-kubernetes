@@ -66,7 +66,7 @@ class CNFConformance(testcase.TestCase):
         if os.path.exists(os.path.join(self.src_dir, "results")):
             shutil.rmtree(os.path.join(self.src_dir, "results"))
         os.chdir(self.src_dir)
-        cmd = ['cnf-testsuite', 'setup', '-l']
+        cmd = ['cnf-testsuite', 'setup']
         try:
             output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as exc:
