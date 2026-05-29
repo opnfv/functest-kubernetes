@@ -26,6 +26,7 @@ RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
         (cd /src/cnf-testsuite && \
             git fetch --tags https://github.com/cnti-testcatalog/testsuite.git $CNF_TESTSUITE_TAG && \
             git checkout FETCH_HEAD && \
+            git submodule update --init && \
             shards install --without-development && \
             crystal build --static src/cnf-testsuite.cr --link-flags "-lxml2 -llzma" && \
             mv cnf-testsuite /usr/local/bin/cnf-testsuite && rm -r lib) && \
