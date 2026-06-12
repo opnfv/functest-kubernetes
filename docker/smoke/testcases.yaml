@@ -260,7 +260,6 @@ tiers:
                 \\[Feature:RelaxedEnvironmentVariableValidation\\]|\
                 \\[Feature:GRPCContainerProbe\\]|\
                 \\[Feature:GPUUpgrade\\]|\
-                \\[Feature:InPlacePodVerticalScaling\\]|\
                 \\[Feature:KubeletCredentialProviders\\]|\
                 \\[Feature:KubeletFineGrainedAuthz\\]|\
                 \\[Feature:NodeLogQuery\\]|\
@@ -273,6 +272,7 @@ tiers:
                 \\[Feature:UserNamespacesPodSecurityStandards\\]|\
                 \\[Feature:UserNamespacesSupport\\]|\
                 \\[Feature:UserNamespacesStatelessPodsSupport\\]|\
+                \\[FeatureGate:InPlacePodVerticalScaling\\]|\
                 \\[NodeFeature:DownwardAPIHugePages\\]|\
                 \\[NodeFeature:RuntimeHandler\\]"
       - case_name: sig_scheduling_serial
