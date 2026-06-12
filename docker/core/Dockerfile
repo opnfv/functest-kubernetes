@@ -1,4 +1,4 @@
-FROM alpine:3.21
+FROM alpine:edge
 
 ARG BRANCH=master
 ARG OPENSTACK_TAG=master
@@ -32,8 +32,8 @@ RUN apk -U upgrade && \
         -c/src/functest-kubernetes/upper-constraints.txt \
         -c/src/requirements/upper-constraints.txt \
         /src/functest-kubernetes && \
-    (cd /usr/lib/python3.12/site-packages/rally && patch -p2 < /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch) && \
-    (cd /usr/lib/python3.12/site-packages/xrally_kubernetes/ && \
+    (cd /usr/lib/python3.14/site-packages/rally && patch -p2 < /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch) && \
+    (cd /usr/lib/python3.14/site-packages/xrally_kubernetes/ && \
         patch -p2 < /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch) && \
     rm -rf /src/functest-kubernetes /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch && \
     bash -c "mkdir -p /var/lib/xtesting /home/opnfv" && \
