@@ -1,6 +1,6 @@
 FROM opnfv/functest-kubernetes-core:v1.35
 
-ARG K8S_TAG=1.34
+ARG K8S_TAG=1.35
 USER root
 RUN apk --no-cache add --update curl libc6-compat && \
     tag=$(curl -Ls https://dl.k8s.io/release/stable-$K8S_TAG.txt) && \
