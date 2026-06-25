@@ -61,7 +61,6 @@ sudo docker run --env-file env \
 +----------------------------------+------------------+---------------+------------------+----------------+
 |        xrally_kubernetes         |     functest     |     smoke     |      09:32       |      PASS      |
 |         k8s_conformance          |     functest     |     smoke     |      13:08       |      PASS      |
-|      k8s_conformance_serial      |     functest     |     smoke     |      12:14       |      PASS      |
 |        sig_api_machinery         |     functest     |     smoke     |      02:14       |      PASS      |
 |     sig_api_machinery_serial     |     functest     |     smoke     |      01:41       |      PASS      |
 |             sig_apps             |     functest     |     smoke     |      03:33       |      PASS      |

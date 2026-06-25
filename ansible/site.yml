@@ -16,7 +16,6 @@
           tests:
             - xrally_kubernetes
             - k8s_conformance
-            - k8s_conformance_serial
             - sig_api_machinery
             - sig_api_machinery_serial
             - sig_apps
