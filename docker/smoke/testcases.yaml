@@ -56,6 +56,7 @@ tiers:
                 \\[Feature:MutatingAdmissionPolicy\\]|\
                 \\[Feature:StorageVersionAPI\\]|\
                 \\[Feature:WatchList\\]|\
+                \\[FeatureGate:StorageVersionMigrator\\]|\
                 \\[FeatureGate:VolumeAttributesClass\\]|\
                 \\[FeatureGate:WatchList\\]"
       - case_name: sig_api_machinery_serial
@@ -80,6 +81,7 @@ tiers:
                 \\[Feature:DynamicResourceAllocation\\]|\
                 \\[Feature:StorageVersionAPI\\]|\
                 \\[Feature:WatchList\\]|\
+                \\[FeatureGate:StorageVersionMigrator\\]|\
                 \\[FeatureGate:VolumeAttributesClass\\]|\
                 \\[FeatureGate:WatchList\\]"
       - case_name: sig_apps
@@ -256,6 +258,7 @@ tiers:
                 \\[Feature:UserNamespacesPodSecurityStandards\\]|\
                 \\[Feature:UserNamespacesSupport\\]|\
                 \\[Feature:UserNamespacesStatelessPodsSupport\\]|\
+                \\[FeatureGate:DRADeviceTaints\\]|\
                 \\[FeatureGate:InPlacePodVerticalScaling\\]|\
                 \\[NodeFeature:DownwardAPIHugePages\\]|\
                 \\[NodeFeature:RuntimeHandler\\]"
