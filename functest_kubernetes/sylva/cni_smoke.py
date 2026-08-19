@@ -10,10 +10,12 @@ from kubernetes import client
 from kubernetes import config
 from xtesting.core import testcase
 
-
 class CniSmoke(testcase.TestCase):
 
     __logger = logging.getLogger(__name__)
+
+    default_cni_daemon_sets = os.getenv("CNI_DAEMON_SETS", "")
+    default_cni_crds = os.getenv("CNI_CRDS", "")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -24,10 +26,10 @@ class CniSmoke(testcase.TestCase):
         self.apiv1ext = client.ApiextensionsV1Api()
 
     def check_requirements(self):
-        if (not os.getenv("CNI_DAEMON_SETS") and not os.getenv("CNI_CRDS")):
-            self.is_skipped = True
-            self.__logger.warning(
-                "Please set CNI_DAEMON_SETS or CNI_CRDS in env")
+        if not self.default_cni_daemon_sets and not self.default_cni_crds:
+            self.__logger.info(
+                "CNI_DAEMON_SETS/CNI_CRDS env vars not set; "
+                "using cni_daemon_sets/cni_crds from testcases.yaml")
 
     def search_cni(self, cluster_daemon_sets, cni_ds):
         self.__logger.info(
@@ -65,18 +67,24 @@ class CniSmoke(testcase.TestCase):
         self.result = 0
         total = 0
         passed = 0
+        cni_daemon_sets = kwargs.get(
+            'cni_daemon_sets', self.default_cni_daemon_sets)
+        cni_crds = kwargs.get(
+            'cni_crds', self.default_cni_crds)
+        if not cni_daemon_sets and not cni_crds:
+            self.__logger.error("No CNI daemon sets or CRDs configured")
+            self.stop_time = time.time()
+            return
         try:
             daemon_sets = self.appsv1.list_daemon_set_for_all_namespaces()
-            if os.getenv("CNI_DAEMON_SETS"):
-                for cni_ds in list(
-                        os.getenv("CNI_DAEMON_SETS", "").split(',')):
+            if cni_daemon_sets:
+                for cni_ds in cni_daemon_sets.split(','):
                     total = total + 1
                     if self.search_cni(daemon_sets, cni_ds):
                         passed = passed + 1
             crds = self.apiv1ext.list_custom_resource_definition()
-            if os.getenv("CNI_CRDS"):
-                for crd_name in list(
-                        os.getenv("CNI_CRDS", "").split(',')):
+            if cni_crds:
+                for crd_name in cni_crds.split(','):
                     total = total + 1
                     if self.search_crd(crds, crd_name):
                         passed = passed + 1
@@ -88,3 +96,4 @@ class CniSmoke(testcase.TestCase):
         except Exception:  # pylint: disable=broad-except
             self.__logger.exception("Error with checking CNIs:")
         self.stop_time = time.time()
+
