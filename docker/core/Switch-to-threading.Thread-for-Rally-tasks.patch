@@ -16,34 +16,29 @@ It looks similar to gsutil release notes [2].
 Change-Id: I582933832e23d188c7fa5999e713dd5d7e82d2da
 Signed-off-by: Cédric Ollivier <cedric.ollivier@orange.com>
 ---
- rally/task/runner.py | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ rally/task/runner.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/rally/task/runner.py b/rally/task/runner.py
-index 3397e1193..5edebb406 100644
+index 61842f1..7d6e2bb 100644
 --- a/rally/task/runner.py
 +++ b/rally/task/runner.py
-@@ -17,6 +17,7 @@ import abc
+@@ -19,6 +19,7 @@ import abc
  import collections
  import copy
  import multiprocessing
 +import threading
  import time
+ import typing as t
  
- from rally.common import logging
-@@ -186,9 +187,9 @@ class ScenarioRunner(plugin.Plugin, validation.ValidatablePluginMixin,
-         for i in range(processes_to_start):
-             kwrgs = {"processes_to_start": processes_to_start,
-                      "processes_counter": i}
--            process = multiprocessing.Process(target=worker_process,
--                                              args=next(worker_args_gen),
--                                              kwargs={"info": kwrgs})
-+            process = threading.Thread(target=worker_process,
-+                                       args=next(worker_args_gen),
-+                                       kwargs={"info": kwrgs})
-             process.start()
-             process_pool.append(process)
- 
+@@ -264,7 +265,7 @@ class ScenarioRunner(
+                 "processes_to_start": processes_to_start,
+                 "processes_counter": i,
+             }
+-            process = multiprocessing.Process(
++            process = threading.Thread(
+                 target=worker_process,
+                 args=next(worker_args_gen),
+                 kwargs={"info": kwrgs},
 -- 
 2.26.2
-
