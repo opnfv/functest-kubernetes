@@ -153,6 +153,6 @@ class CNFConformance(testcase.TestCase):
             pass
         # cnti-testsuite cleanup does not wait for removing reources
         # use time.sleep(60) till
-        # https://github.com/cnti-testcatalog/testsuite/issues/2194
+        # https://github.com/lfn-cnti/testsuite/issues/2194
         # is fixed
         time.sleep(60)
