@@ -1,7 +1,7 @@
 FROM opnfv/functest-kubernetes-core:v1.36
 
 ARG K8S_TAG=1.36
-ARG CNF_TESTSUITE_TAG=v1.5.2
+ARG CNF_TESTSUITE_TAG=v2.0.0b1
 ARG HELM_TAG=v3.19.0
 
 USER root
@@ -23,17 +23,17 @@ RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
       wget https://patch-diff.githubusercontent.com/raw/crystal-lang/crystal/pull/13063.diff && \
       patch -p2 < 13063.diff && rm 13063.diff) && \
     case $(uname -m) in x86_64) \
-        mkdir /src/cnf-testsuite && \
-        git init /src/cnf-testsuite && \
-        (cd /src/cnf-testsuite && \
+        mkdir /src/cnti-testsuite && \
+        git init /src/cnti-testsuite && \
+        (cd /src/cnti-testsuite && \
             git fetch --tags https://github.com/cnti-testcatalog/testsuite.git $CNF_TESTSUITE_TAG && \
             git checkout FETCH_HEAD && \
             git submodule update --init && \
             shards install --without-development && \
-            crystal build --static src/cnf-testsuite.cr --link-flags "-lxml2 -llzma" && \
-            mv cnf-testsuite /usr/local/bin/cnf-testsuite && rm -r lib) && \
-        chown -R xtesting: /src/cnf-testsuite && \
-        rm -rf /src/cnf-testsuite/.git ;; esac && \
+            crystal build --static src/cnti-testsuite.cr --link-flags "-lxml2 -llzma" && \
+            mv cnti-testsuite /usr/local/bin/cnti-testsuite && rm -r lib) && \
+        chown -R xtesting: /src/cnti-testsuite && \
+        rm -rf /src/cnti-testsuite/.git ;; esac && \
         apk del .build-deps
 USER xtesting
 COPY testcases.yaml /etc/xtesting/testcases.yaml
