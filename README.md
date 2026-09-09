@@ -168,7 +168,7 @@ adherence to cloud native principles and best practices.
 Both cnf_testsuite and cnf_testsuite_workload leverages CoreDNS as the target
 CNF but you're free to validate your own CNFs as the following example.
 
-Download cnf-testsuite.yml and the helm dir to test Envoy
+Download cnti-testsuite.yaml and the helm dir to test Envoy
 ```bash
 git clone https://github.com/cnti-testcatalog/testsuite.git
 mv testsuite/example-cnfs/envoy .
@@ -189,7 +189,7 @@ tiers:
         run:
           name: cnf_testsuite
           args:
-            cnf-config: /src/envoy/cnf-testsuite.yml
+            cnf-config: /src/envoy/cnti-testsuite.yaml
             tag: cert
       - case_name: cnf_testsuite_workload
         project_name: functest
@@ -198,7 +198,7 @@ tiers:
         run:
           name: cnf_testsuite
           args:
-            cnf-config: /src/envoy/cnf-testsuite.yml
+            cnf-config: /src/envoy/cnti-testsuite.yaml
             tag: workload
 EOF
 ```
