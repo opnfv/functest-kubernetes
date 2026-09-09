@@ -26,7 +26,7 @@ RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
         mkdir /src/cnti-testsuite && \
         git init /src/cnti-testsuite && \
         (cd /src/cnti-testsuite && \
-            git fetch --tags https://github.com/cnti-testcatalog/testsuite.git $CNF_TESTSUITE_TAG && \
+            git fetch --tags https://github.com/lfn-cnti/testsuite.git $CNF_TESTSUITE_TAG && \
             git checkout FETCH_HEAD && \
             git submodule update --init && \
             shards install --without-development && \
