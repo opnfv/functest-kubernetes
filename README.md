@@ -222,6 +222,6 @@ sudo docker run \
 Please note that Envoy as proposed as example passes the
 [CNTi  certification](https://github.com/lfn-cnti/certification/blob/main/docs/CNTiCertification-2.0-beta.md)
 which requires passing at least 15 of the 19 total Essential tests.
-It scores 70% on workload gouping the following
+It scores 70% on workload grouping the following
 [test categories](https://github.com/lfn-cnti/testsuite/blob/main/docs/TEST_DOCUMENTATION.md):
 compatibility, state, security, configuration, observability, microservice and resilience.
