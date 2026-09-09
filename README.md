@@ -170,7 +170,7 @@ CNF but you're free to validate your own CNFs as the following example.
 
 Download cnti-testsuite.yaml and the helm dir to test Envoy
 ```bash
-git clone https://github.com/cnti-testcatalog/testsuite.git
+git clone https://github.com/lfn-cnti/testsuite.git
 mv testsuite/example-cnfs/envoy .
 rm -rf testsuite
 ```
@@ -225,5 +225,5 @@ Please note that Envoy as proposed as example passes the
 [CNTi  certification](https://github.com/lfn-cnti/certification/blob/main/docs/CNTiCertification-2.0-beta.md)
 which requires passing at least 15 of the 19 total Essential tests.
 It scores 70% on workload gouping the following
-[test categories](https://github.com/cnti-testcatalog/testsuite/blob/main/docs/TEST_DOCUMENTATION.md):
+[test categories](https://github.com/lfn-cnti/testsuite/blob/main/docs/TEST_DOCUMENTATION.md):
 compatibility, state, security, configuration, observability, microservice and resilience.
