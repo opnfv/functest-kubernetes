@@ -18,7 +18,6 @@ from __future__ import division
 
 import logging
 import os
-import re
 import shutil
 import subprocess
 import time
@@ -39,6 +38,7 @@ class CNFConformance(testcase.TestCase):
 
     src_dir = '/src/cnti-testsuite'
     bin_dir = '/usr/local/bin'
+    results_file = 'cnti/results/latest.yml'
     default_tag = 'cert'
     default_cnf_config = 'example-cnfs/coredns/cnti-testsuite.yaml'
 
@@ -88,47 +88,75 @@ class CNFConformance(testcase.TestCase):
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
         return True
 
+    def load_results(self):
+        """Read the results the test suite wrote for this run
+
+        Returns False when the suite left no results file behind, which
+        means it never got far enough to report anything.
+        """
+        results = os.path.join(self.src_dir, self.results_file)
+        if not os.path.exists(results):
+            self.__logger.error(
+                "cnti-testsuite wrote no results file at %s", results)
+            self.details = {}
+            return False
+        with open(results, encoding='utf-8') as yfile:
+            self.details = yaml.safe_load(yfile)
+        return True
+
+    def get_score(self, tag, item_criteria):
+        """Score the run from the summary block of the results file
+
+        The test suite records every aggregate it prints on stdout in that
+        block, so read the numbers from there rather than parsing the
+        human-readable output. Fall back to counting the items when the
+        block is missing.
+        """
+        status = self.details.get('status')
+        if status == 'running':
+            # The file reads 'running' until the suite reaches the end of
+            # the run, so a run that died part-way leaves no verdict
+            # behind: a partial tally must not be mistaken for one.
+            self.__logger.error(
+                "cnti-testsuite did not complete the run, its results "
+                "still read '%s'", status)
+            return 0
+        summary = self.details.get('summary') or {}
+        if tag == 'cert':
+            return summary.get('essential_passed', item_criteria)
+        max_points = summary.get('maximum_points')
+        if max_points:
+            return summary.get('points', 0) / max_points * 100
+        items = self.details.get('items') or []
+        return item_criteria / len(items) * 100 if items else 0
+
     def run_conformance(self, **kwargs):
         """Run CNF Conformance"""
-        cmd = ['cnti-testsuite', kwargs.get("tag", self.default_tag)]
+        tag = kwargs.get("tag", self.default_tag)
+        cmd = ['cnti-testsuite', tag]
         output = subprocess.run(
             cmd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE,
             check=False).stdout
         self.__logger.info("%s\n%s", " ".join(cmd), output.decode("utf-8"))
-        results = os.path.join(self.src_dir, 'cnti', 'results', 'latest.yml')
-        with open(results, encoding='utf-8') as yfile:
-            self.details = yaml.safe_load(yfile)
-            msg = prettytable.PrettyTable(
-                header_style='upper', padding_width=5,
-                field_names=['name', 'status'])
-            item_criteria = 0
-            for item in self.details['items']:
-                msg.add_row([item['name'], item['status']])
-                if item['status'] == "passed":
-                    item_criteria += 1
-                elif item['status'] == "failed":
-                    self.__logger.warning(
-                        "%s %s", item['name'], item['status'])
-            self.__logger.info("\n\n%s\n", msg.get_string())
-        if kwargs.get("tag", self.default_tag) == 'cert':
-            grp = re.search(
-                r'(\d+) of (\d+) essential tests passed',
-                output.decode("utf-8"))
-            if grp:
-                self.result = int(grp.group(1))
-            else:
-                self.result = 0
-        else:
-            grp = re.search(
-                r'Final .* score: (\d+) of (\d+)', output.decode("utf-8"))
-            if grp:
-                self.result = int(grp.group(1)) / int(grp.group(2)) * 100
-            else:
-                self.result = item_criteria / len(self.details['items']) * 100
+        if not self.load_results():
+            self.result = 0
+            return
+        msg = prettytable.PrettyTable(
+            header_style='upper', padding_width=5,
+            field_names=['name', 'status'])
+        item_criteria = 0
+        for item in self.details['items']:
+            msg.add_row([item['name'], item['status']])
+            if item['status'] == "passed":
+                item_criteria += 1
+            elif item['status'] == "failed":
+                self.__logger.warning("%s %s", item['name'], item['status'])
+        self.__logger.info("\n\n%s\n", msg.get_string())
+        self.result = self.get_score(tag, item_criteria)
         if not os.path.exists(self.res_dir):
             os.makedirs(self.res_dir)
         shutil.copy2(
-            results,
+            os.path.join(self.src_dir, self.results_file),
             os.path.join(self.res_dir, 'cnti-testsuite-results.yml'))
 
     def run(self, **kwargs):
