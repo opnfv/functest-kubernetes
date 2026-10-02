@@ -38,7 +38,7 @@ tiers:
         description: >-
           Enable interoperability of Cloud native Network
           Functions (CNFs) as proposed by
-          https://github.com/cnti-testcatalog/testsuite
+          https://github.com/lfn-cnti/testsuite
         dependencies:
           - DEPLOY_SCENARIO: "k8-*"
         run:
@@ -53,7 +53,7 @@ tiers:
         description: >-
           Enable interoperability of Cloud native Network
           Functions (CNFs) as proposed by
-          https://github.com/cnti-testcatalog/testsuite
+          https://github.com/lfn-cnti/testsuite
         dependencies:
           - DEPLOY_SCENARIO: "k8-*"
         run:
