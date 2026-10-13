@@ -20,6 +20,7 @@ RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
     rm -r /src/helm-$HELM_TAG-linux-$arch.tar.gz /src/linux-$arch && \
     (cd /usr/lib/crystal/core/ && \
       wget https://patch-diff.githubusercontent.com/raw/crystal-lang/crystal/pull/13063.diff && \
+      sed -i 's/hostname: @host\.rchop/hostname: hostname.rchop/' 13063.diff && \
       patch -p2 < 13063.diff && rm 13063.diff) && \
     case $(uname -m) in x86_64) \
         mkdir /src/cnti-testsuite && \
