@@ -10,7 +10,7 @@ ARG OPENSTACK_TAG=stable/2025.1
 COPY Try-a-quick-fix-vs-asynchronuous-issues.patch /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch
 COPY Switch-to-threading.Thread-for-Rally-tasks.patch /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch
 RUN apk -U upgrade && \
-    apk --no-cache add --update python3 py3-pip py3-wheel bash git grep libffi openssl mailcap \
+    apk --no-cache add --update python3 py3-pip py3-wheel py3-rpds-py bash git grep libffi openssl mailcap \
         libxml2 libxslt gcompat && \
     ln -sf /lib/libgcompat.so.0 /lib/libresolv.so.2 && \
     apk --no-cache add --virtual .build-deps --update \
@@ -21,6 +21,7 @@ RUN apk -U upgrade && \
         git checkout FETCH_HEAD) && \
     sed -i -E /^packaging==+.*$/d /src/requirements/upper-constraints.txt && \
     sed -i -E /^PyYAML==+.*$/d /src/requirements/upper-constraints.txt && \
+    sed -i -E /^rpds-py==+.*$/d /src/requirements/upper-constraints.txt && \
     case $(uname -m) in aarch*|arm*) \
         sed -i -E /^PyNaCl=/d /src/requirements/upper-constraints.txt && \
         apk add --no-cache py3-pynacl ;; esac && \
@@ -36,8 +37,8 @@ RUN apk -U upgrade && \
         -c/src/functest-kubernetes/upper-constraints.txt \
         -c/src/requirements/upper-constraints.txt \
         /src/functest-kubernetes && \
-    (cd /usr/lib/python3.12/site-packages/rally && patch -p2 < /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch) && \
-    (cd /usr/lib/python3.12/site-packages/xrally_kubernetes/ && \
+    (cd /usr/lib/python3.14/site-packages/rally && patch -p2 < /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch) && \
+    (cd /usr/lib/python3.14/site-packages/xrally_kubernetes/ && \
         patch -p2 < /tmp/Try-a-quick-fix-vs-asynchronuous-issues.patch) && \
     rm -rf /src/functest-kubernetes /tmp/Switch-to-threading.Thread-for-Rally-tasks.patch && \
     bash -c "mkdir -p /var/lib/xtesting /home/opnfv" && \
