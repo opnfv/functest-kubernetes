@@ -1,5 +1,6 @@
 FROM opnfv/functest-kubernetes-core:v1.35
 
+ARG K8S_TAG=1.35
 ARG CNF_TESTSUITE_TAG=v2.2.0
 ARG HELM_TAG=v3.19.0
 
