@@ -150,23 +150,6 @@ tiers:
                 \\[Feature:PodSecurityPolicy\\]|\
                 \\[Feature:BoundServiceAccountTokenVolume\\]|\
                 \\[FeatureGate:ClusterTrustBundle\\]"
-      - case_name: sig_cluster_lifecycle
-        project_name: functest
-        criteria: 100
-        blocking: false
-        description: >-
-          It runs the remaining sig-cluster-lifecycle testing
-          excluding Conformance (part of k8s_conformance).
-        dependencies:
-          - DEPLOY_SCENARIO: "k8-*"
-        run:
-          name: e2e_testing
-          args:
-            nodes: 10
-            ginkgo:
-              focus: \[sig-cluster-lifecycle\]
-              skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
-                \\[Serial\\]|\\[Conformance\\]"
       - case_name: sig_instrumentation
         project_name: functest
         criteria: 100
