@@ -1,5 +1,6 @@
-FROM opnfv/functest-kubernetes-core
+FROM opnfv/functest-kubernetes-core:v1.37
 
+ARG K8S_TAG=1.37
 ARG CNF_TESTSUITE_TAG=v2.2.0
 ARG HELM_TAG=v3.19.0
 
@@ -8,7 +9,7 @@ RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
     apk --no-cache add --virtual .build-deps --update crystal shards make yaml-dev \
         openssl-dev zlib-dev patch openssl-libs-static yaml-static zlib-static libxml2-static \
         xz-static gc-static pcre2-static && \
-    tag=$(curl -Ls https://dl.k8s.io/release/latest.txt) && \
+    tag=$(curl -Ls https://dl.k8s.io/release/stable-$K8S_TAG.txt) && \
     case $(uname -m) in armv7l) arch=arm;; aarch64) arch=arm64;; x86_64) arch=amd64;; esac && \
     curl -Ls https://dl.k8s.io/release/$tag/bin/linux/$arch/kubectl \
         --output /usr/local/bin/kubectl && \
@@ -20,7 +21,6 @@ RUN apk --no-cache add --update wget curl ncurses git yaml openssl zlib && \
     rm -r /src/helm-$HELM_TAG-linux-$arch.tar.gz /src/linux-$arch && \
     (cd /usr/lib/crystal/core/ && \
       wget https://patch-diff.githubusercontent.com/raw/crystal-lang/crystal/pull/13063.diff && \
-      sed -i 's/hostname: @host\.rchop/hostname: hostname.rchop/' 13063.diff && \
       patch -p2 < 13063.diff && rm 13063.diff) && \
     case $(uname -m) in x86_64) \
         mkdir /src/cnti-testsuite && \
