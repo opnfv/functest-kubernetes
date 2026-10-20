@@ -21,6 +21,9 @@ spec:
           command: ['sh', '-c', 'until nslookup sprout; do echo waiting for sprout to start ...; sleep 2; done']
       containers:
       - image: "{{ .Values.repo.dockerHub }}/{{ .Values.image.path }}-ellis:{{ .Values.image.tag }}"
+        command: ["/bin/sh", "-c"]
+        args:
+        - ulimit -S -n 1048576; ulimit -H -n 1048576; exec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
         name: ellis
         ports:
         - containerPort: 22
