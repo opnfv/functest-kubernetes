@@ -31,6 +31,58 @@ import prettytable
 from xtesting.core import testcase
 
 
+def find_json_documents(text):
+    """Return the JSON documents of a text with their size.
+
+    The text may contain noise (e.g. the stderr output of the job)
+    around the JSON report.
+    """
+    decoder = json.JSONDecoder()
+    documents = []
+    index = text.find("{")
+    while index != -1:
+        try:
+            document, end = decoder.raw_decode(text, index)
+        except ValueError:
+            document = None
+            end = index + 1
+        if document is not None:
+            documents.append((document, end - index))
+        index = text.find("{", end)
+    return documents
+
+
+def load_json_report(pod_log, expected_keys=()):
+    """Load a JSON report from a pod log.
+
+    Depending on the Kubernetes client version, the pod log is returned
+    as raw text, as a bytes representation or as the Python
+    representation of the parsed JSON document, hence the attempts. The
+    biggest document matching the expected keys is returned as the
+    report may be surrounded by smaller JSON fragments.
+    """
+    if isinstance(pod_log, bytes):
+        pod_log = pod_log.decode("utf-8")
+    documents = []
+    for _ in range(2):
+        documents.extend(find_json_documents(pod_log))
+        try:
+            report = ast.literal_eval(pod_log)
+        except (SyntaxError, ValueError):
+            break
+        if isinstance(report, bytes):
+            pod_log = report.decode("utf-8")
+            continue
+        if isinstance(report, dict):
+            documents.append((report, len(json.dumps(report))))
+        break
+    candidates = [item for item in documents
+                  if all(key in item[0] for key in expected_keys)]
+    if not candidates:
+        raise ValueError("Cannot parse the report")
+    return max(candidates, key=lambda item: item[1])[0]
+
+
 class SecurityTesting(testcase.TestCase):
     # pylint: disable=too-many-instance-attributes
     """Run Security job"""
@@ -143,7 +195,8 @@ class KubeHunter(SecurityTesting):
 
     def process_results(self, **kwargs):
         """Process kube-hunter details"""
-        self.details = json.loads(self.pod_log.splitlines()[-1])
+        self.details = load_json_report(
+            self.pod_log, ("vulnerabilities", "hunter_statistics"))
         if self.details["vulnerabilities"]:
             self.result = 100
             msg = prettytable.PrettyTable(
@@ -207,7 +260,13 @@ class KubeBench(SecurityTesting):
     def run(self, **kwargs):
         self.job_name = f'kube-bench-{kwargs.get("target", "node")}'
         super().run(**kwargs)
-        self.details["report"] = ast.literal_eval(self.pod_log)
+        try:
+            self.details["report"] = load_json_report(
+                self.pod_log, ("Controls",))
+        except ValueError:
+            self.__logger.exception("Cannot parse the kube-bench report")
+            self.result = 0
+            return
         msg = prettytable.PrettyTable(
             header_style='upper', padding_width=5,
             field_names=['node_type', 'version', 'test_desc', 'pass',
