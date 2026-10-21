@@ -187,6 +187,16 @@ tiers:
             nodes: 10
             ginkgo:
               focus: \[sig-network\]
+              # Skip the "Conntrack should clear conntrack entries when a UDP
+              # service is deleted" spec (added in Kubernetes master by
+              # PR #141371). It requires the kube-proxy fix that clears the
+              # conntrack entries of a deleted UDP Service, and that fix only
+              # exists in Kubernetes >= v1.38.0-alpha.1. This CI runs a
+              # v1.37 cluster (kindest/node:v1.37.0) against the v1.38.0-alpha.2
+              # e2e binaries: the stale conntrack entry keeps DNAT-ing the UDP
+              # traffic to the deleted service, so the client pod never stops
+              # receiving traffic and the spec fails after 60s.
+              # Remove this skip once the CI runs an image with the fix.
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:Example\\]|\
@@ -206,7 +216,8 @@ tiers:
                 \\[Feature:ServiceCIDRs\\]|\
                 DNS configMap nameserver|\
                 load.balancer|LoadBalancer|\
-                Network.should.set.TCP.CLOSE_WAIT.timeout"
+                Network.should.set.TCP.CLOSE_WAIT.timeout|\
+                Conntrack.*clear.conntrack.entries.when.a.UDP.service.is.deleted"
       - case_name: sig_node
         project_name: functest
         criteria: 100
