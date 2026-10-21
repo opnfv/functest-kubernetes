@@ -303,6 +303,17 @@ tiers:
             nodes: 10
             ginkgo:
               focus: \[sig-storage\]
+              # Skip the "should cleanup VolumeAttachment properly" spec
+              # (updated in Kubernetes master by PR #141522). It requires the
+              # kubelet fix that updates the actual state of world when the
+              # CSIDriver attachRequired flag changes, and that fix only exists
+              # in Kubernetes >= v1.38.0-alpha.2. This CI runs a v1.37 cluster
+              # (kindest/node:v1.37.0) against the v1.38.0-alpha.2 e2e binaries:
+              # the kubelet keeps reporting the volume as requiring controller
+              # attachment in Node.Status.VolumesInUse, so the attach/detach
+              # controller never deletes the VolumeAttachment and the spec
+              # fails after 7 minutes.
+              # Remove this skip once the CI runs an image with the fix.
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Conformance\\]|\\[Driver:.+\\]|\
                 \\[Feature:CSIVolumeHealth\\]|\
@@ -323,7 +334,8 @@ tiers:
                 \\[NodeFeature:EphemeralStorage\\]|\
                 PersistentVolumes.NFS|\
                 should provision storage with different parameters|\
-                should not cause race condition when used for git_repo"
+                should not cause race condition when used for git_repo|\
+                should.cleanup.VolumeAttachment.properly"
       - case_name: sig_storage_serial
         project_name: functest
         criteria: 100
@@ -358,4 +370,5 @@ tiers:
                 \\[NodeFeature:EphemeralStorage\\]|\
                 PersistentVolumes.NFS|\
                 should provision storage with different parameters|\
-                should not cause race condition when used for git_repo"
+                should not cause race condition when used for git_repo|\
+                should.cleanup.VolumeAttachment.properly"
