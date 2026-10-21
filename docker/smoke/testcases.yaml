@@ -233,6 +233,18 @@ tiers:
             nodes: 10
             ginkgo:
               focus: \[sig-node]
+              # Skip the "should not run liveness or readiness probes before
+              # startup probe succeeds after container restart" spec (added in
+              # Kubernetes master by PR #141342). It requires the kubelet fix
+              # that re-gates the liveness and readiness probes until a
+              # replacement container passes its own startup probe, and that
+              # fix only exists in Kubernetes >= v1.38.0-alpha.1. This CI runs
+              # a v1.37 cluster (kindest/node:v1.37.0) against the
+              # v1.38.0-alpha.2 e2e binaries: the replacement container
+              # inherits "started=true" from the previous one, so the liveness
+              # and readiness probes run on it before its startup probe
+              # succeeds, and the spec fails.
+              # Remove this skip once the CI runs an image with the fix.
               skip: "\\[Disruptive\\]|\\[Flaky\\]|\\[Alpha\\]|\
                 \\[Serial\\]|\\[Conformance\\]|\
                 \\[Feature:DynamicResourceAllocation\\]|\
@@ -255,7 +267,8 @@ tiers:
                 \\[FeatureGate:DRADeviceTaints\\]|\
                 \\[FeatureGate:InPlacePodVerticalScaling\\]|\
                 \\[NodeFeature:DownwardAPIHugePages\\]|\
-                \\[NodeFeature:RuntimeHandler\\]"
+                \\[NodeFeature:RuntimeHandler\\]|\
+                should.not.run.liveness.or.readiness.probes.before.startup.probe.succeeds.after.container.restart"
       - case_name: sig_scheduling_serial
         project_name: functest
         criteria: 100
