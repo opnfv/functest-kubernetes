@@ -130,6 +130,29 @@ class CNFConformance(testcase.TestCase):
         items = self.details.get('items') or []
         return item_criteria / len(items) * 100 if items else 0
 
+    def run_evidence(self):
+        """Write the CNTi evidence bundle to the artifact directory
+
+        The evidence bundle contains the badge, the in-toto Test Result
+        statement, the results file, its JUnit report and the installed CNF
+        configuration. It must run before clean() uninstalls the CNF.
+        """
+        cmd = ['cnti-testsuite', 'evidence',
+               '--results-file',
+               os.path.join(self.src_dir, self.results_file),
+               '--output-dir', self.res_dir]
+        output = subprocess.run(
+            cmd, stderr=subprocess.STDOUT, stdout=subprocess.PIPE,
+            check=False)
+        self.__logger.info(
+            "%s\n%s", " ".join(cmd), output.stdout.decode("utf-8"))
+        if output.returncode:
+            self.__logger.error(
+                "Cannot write the CNTi evidence bundle (exit code %s)",
+                output.returncode)
+            return False
+        return True
+
     def run_conformance(self, **kwargs):
         """Run CNF Conformance"""
         tag = kwargs.get("tag", self.default_tag)
@@ -155,6 +178,7 @@ class CNFConformance(testcase.TestCase):
         self.result = self.get_score(tag, item_criteria)
         if not os.path.exists(self.res_dir):
             os.makedirs(self.res_dir)
+        self.run_evidence()
         shutil.copy2(
             os.path.join(self.src_dir, self.results_file),
             os.path.join(self.res_dir, 'cnti-testsuite-results.yml'))
@@ -179,8 +203,3 @@ class CNFConformance(testcase.TestCase):
                 self.__logger.debug("delete_namespace: %s", namespace)
         except client.rest.ApiException:
             pass
-        # cnti-testsuite cleanup does not wait for removing reources
-        # use time.sleep(60) till
-        # https://github.com/lfn-cnti/testsuite/issues/2194
-        # is fixed
-        time.sleep(60)
