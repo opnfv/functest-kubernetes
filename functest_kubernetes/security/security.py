@@ -17,9 +17,8 @@ import ast
 import json
 import logging
 import os
-import time
 import textwrap
-import yaml
+import time
 
 from jinja2 import Template
 from kubernetes import client
@@ -27,8 +26,8 @@ from kubernetes import config
 from kubernetes import watch
 import pkg_resources
 import prettytable
-
 from xtesting.core import testcase
+import yaml
 
 
 def find_json_documents(text):
